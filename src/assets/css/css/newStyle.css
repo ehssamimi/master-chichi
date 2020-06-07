@@ -1,0 +1,23 @@
+.FS-c-1 {
+    font-size: Calc(0.5vw + 0.5rem) !important;
+}
+
+.FS-c-2 {
+    font-size: Calc(0.7vw + 0.5rem) !important;
+}
+
+.FS-c-3 {
+    font-size: Calc(1vw + 0.7rem);
+}
+
+.FS-c-4 {
+    font-size: Calc(1vw + 1rem) !important;
+}
+
+.FS-c-5 {
+    font-size: Calc(1.3vw + 1.2rem) !important;
+}
+
+.FS-c-6 {
+    font-size: Calc(1.9vw + 1.5rem);
+}
