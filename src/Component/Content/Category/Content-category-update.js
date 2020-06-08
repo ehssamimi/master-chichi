@@ -1,9 +1,8 @@
  import React, {Component} from 'react';
-import {FormGroup, Label, Modal, ModalBody, ModalHeader} from "reactstrap";
+import {  Modal, ModalBody, ModalHeader} from "reactstrap";
 import ax1 from './../../../assets/img/4th.jpg'
 import JustCropImg from "../../Common/CropImg/JustCropImg";
-import {Field} from "formik";
-import {sendImg} from "../../functions/ServerConnection";
+ import {sendImg} from "../../functions/ServerConnection";
 import {getCategoryDetailwithId,UpdateCategory} from './../../functions/ServerConnection'
 import Loader from "../../Common/Loader/Loader";
 import NotificationManager from "../../../components/common/react-notifications/NotificationManager";

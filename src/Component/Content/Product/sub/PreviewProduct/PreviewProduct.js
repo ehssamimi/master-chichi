@@ -58,6 +58,7 @@ class PreviewProduct extends Component {
 
 
         } else {
+            this.deleteToggle();
             NotificationManager.error(
                 "error",
                 Description,
@@ -98,12 +99,12 @@ class PreviewProduct extends Component {
 
                          <div className='col-3  positionAction d-flex flex-column align-items-center '>
                              <button
-                                 className='badge  badge-outline-primary w-100 d-flex justify-content-center   cursor-pointer'
+                                 className='badge  remove_category w-100 d-flex justify-content-center   cursor-pointer'
                                  onClick={this.deleteToggle}> delete
                              </button>
                              <NavLink to={`/content/product/add/${Main['id']}`} className="d-flex">
                                  <button
-                                     className='badge  badge-outline-secondary w-100 d-flex justify-content-center mt-2  cursor-pointer '> edit
+                                     className='badge  edit_category w-100 d-flex justify-content-center mt-2  cursor-pointer '> edit
                                  </button>
                              </NavLink>
                          </div>

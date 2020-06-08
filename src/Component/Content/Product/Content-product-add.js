@@ -182,6 +182,7 @@ class ContentProductAdd extends Component {
 
         // **************update product **********
         if (this.state.id.length>2){
+            console.log("update ")
             this.setState({
                 showLoader: true
             });
@@ -274,11 +275,13 @@ class ContentProductAdd extends Component {
                  this.setState({
                     showLoader:true
                 });
-                 console.log("upload img .....");
-                let idax = await sendImg(ax1File, 'Public');
-                console.log("  img  ");
-                console.log(idax);
-
+                 // *****upload Img**
+                console.log(ax1File)
+                console.log("befor upload image ")
+                 let idax = await sendImg(ax1File, 'Public');
+                // *****upload Data**
+                 console.log(idax);
+                console.log("after upload image ")
                 let off=payload.percent.toString().length>1?payload.percent>1?payload.percent/100:payload.percent:0.0;
                 console.log("off");
                 console.log(off);
@@ -294,6 +297,7 @@ class ContentProductAdd extends Component {
                     "Description":payload.Description,
                     "Category":catValue.value,
                     "Images": [
+                        // "5ede0e129f6972c502c0be92"
                         idax.toString()
                     ],
                     "Off": off || 0.0,

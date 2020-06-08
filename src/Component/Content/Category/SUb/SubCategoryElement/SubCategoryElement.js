@@ -122,10 +122,10 @@ import SubCategoryProductInfinityScroll from "../SubCategoryProductInfinityScrol
         let{productSeparate}=this.state;
         // console.log(productSeparate);
         return (
-            <div className='mt-3 w-100 cursor-pointer'   id={this.props.name} onClick={this.toggle}>
+            <div className='mt-3 w-100 cursor-pointer'   id={this.props.name} >
                 <Card className="br-rounded">
                     <CardBody>
-                        <div className='mt-2 w-100 d-flex' >
+                        <div className='mt-2 w-100 d-flex' onClick={this.toggle}>
                             <div className='d-flex justify-content-start align-items-center col-11  h-100'   >
                                 {
                                     this.state.collapse?

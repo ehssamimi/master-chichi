@@ -2,6 +2,7 @@ import * as Const from "../../constants/ServerConst";
 import axios from "axios";
 
 export async  function  sendImg(file,permission){
+    console.log("send image ..");
     let formData = new FormData();
     formData.append("PermissionLevel", permission);
     formData.append("file", file);
@@ -1083,8 +1084,7 @@ export async  function  GetAllProduct(id){
         resp=Description;
     }).catch(function (error) {
         console.log(error);
-        console.log(error.message);
-        resp='error'
+        Error(error)
     });
     return resp;
 }
@@ -1107,6 +1107,7 @@ export async  function  GetProductDetail(id){
     return resp;
 }
 export  async  function  AddProduct(data){
+    console.log("start upload product.....")
     let headers = {
         'Token': Const.Token,
         'Id': Const.ID,
@@ -1131,6 +1132,8 @@ export  async  function  AddProduct(data){
     return resp;
 }
 export  async  function  UpdateProduct(data){
+    console.log("update Product ..");
+
     let headers = {
         'Token': Const.Token,
         'Id': Const.ID,
@@ -1175,8 +1178,7 @@ export  async  function  DeleteProduct(UniqueValue ){
         }
         // resp = status;
     }).catch(function (error) {
-        console.log(error);
-        resp ={state:false,Description:error.message};
+    Error(error);
     });
     return resp;
 }
@@ -1207,7 +1209,8 @@ export  async  function  getProductinSubCategogy(name,page){
         'Token': Const.Token,
         'Id': Const.ID,
     };
-    // console.log(id);
+    console.log("name");
+    console.log(name);
     let resp ={state:false,Description:""};
     await axios.get(`${Const.product}admin/product/in/${name}?page=${page}` , {headers: headers}).then(function (response) {
         let {status} = response;

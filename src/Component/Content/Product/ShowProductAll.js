@@ -21,7 +21,7 @@ export default function ShowProductAll() {
             let productsSeparate = getProductList(Products);
             // *******update state*****
             setproductSeparate([...productSeparate,...productsSeparate]);
-            console.log(productSeparate);
+            // console.log(productSeparate);
             setpageStart(Page+1);
             // ***** check if product length is zero then stop loop****
             sethasMore(Products.length !== 0);
