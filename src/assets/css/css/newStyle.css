@@ -1,3 +1,6 @@
+.FS-c-0 {
+    font-size: Calc(0.3vw + 0.3rem) !important;
+}
 .FS-c-1 {
     font-size: Calc(0.5vw + 0.5rem) !important;
 }

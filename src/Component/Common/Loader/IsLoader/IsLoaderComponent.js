@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import Loader from "../Loader/Loader";
+import Loader from "../Loader";
 
 const IsLoaderComponent = (props) => {
     let{isLoader}=props;

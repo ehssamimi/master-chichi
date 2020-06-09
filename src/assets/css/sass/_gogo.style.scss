@@ -2962,7 +2962,7 @@ main {
 
 .list-thumbnail-letters {
   width: 85px;
-  height: 85px;
+  //height: 85px;
   background: $theme-color-1;
   align-items: center;
   display: flex;
@@ -2972,27 +2972,27 @@ main {
 
   @include respond-below(md) {
     width: 80px;
-    height: 80px;
+    //height: 80px;
   }
 
   @include respond-below(xs) {
     width: 70px;
-    height: 70px;
+    //height: 70px;
   }
 
   &.small {
     width: 60px;
-    height: 60px;
+    //height: 60px;
     font-size: 1rem;
 
     @include respond-below(md) {
       width: 55px;
-      height: 55px;
+      //height: 55px;
     }
 
     @include respond-below(xs) {
       width: 50px;
-      height: 50px;
+      //height: 50px;
     }
   }
 }
@@ -9670,6 +9670,7 @@ paddingZero{
   font-weight: 700;
 
 }
+
 
 .box-shadow-custom {
   -webkit-box-shadow: 0 0 0 0 rgba(234, 225, 234, 0.91)  !important;

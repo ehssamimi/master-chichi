@@ -1066,6 +1066,29 @@ export async  function  ChichiManIfoDetail(id,boolian=true){
     });
     return resp;
 }
+// ******Delete-Chichi-man***********
+
+export async  function  DeleteChichiMan(id){
+    let headers = {
+        'Token': Const.Token,
+        'Id': Const.ID,
+        "accept": "application/json"
+    };
+    let resp ={state:false,Description:""};
+    await axios.get(`${Const.ChichiMan}admin/chichiman/delete?_id=${id}`, {headers: headers}).then(function (response) {
+        console.log(response);
+        let{Code,Description}= response.data ;
+        // console.log(response);
+        if (Code===200 ){
+            resp ={Code:Code,Description:Description,};
+        }
+        // resp = status;
+    }).catch(function (error) {
+        console.log(error);
+        resp ={state:false,Description:error.message};
+    });
+    return resp;
+}
 // **************************Content**************
 
 // **************product********

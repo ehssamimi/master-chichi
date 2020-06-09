@@ -1,17 +1,17 @@
 const data = [
-  {
-    id: "gogo",
-    icon: "iconsminds-air-balloon-1",
-    label: "menu.gogo",
-    to: "/app/gogo",
-    subs: [
-      {
-        icon: "simple-icon-paper-plane",
-        label: "menu.start",
-        to: "/app/gogo/start"
-      }     
-    ]
-  },
+  // {
+  //   id: "gogo",
+  //   icon: "iconsminds-air-balloon-1",
+  //   label: "menu.gogo",
+  //   to: "/app/gogo",
+  //   subs: [
+  //     {
+  //       icon: "simple-icon-paper-plane",
+  //       label: "menu.start",
+  //       to: "/app/gogo/start"
+  //     }
+  //   ]
+  // },
     {
         id: "content",
         icon: "iconsminds-mail",
@@ -81,6 +81,126 @@ const data = [
             //     ]
             // },
 
+
+        ]
+    },
+
+    {
+        id: "ChchiMan",
+        icon: "iconsminds-digital-drawing",
+        label: "چی چی من",
+        to: "/chichi-man",
+        subs: [{
+            icon: "simple-icon-user-follow",
+            id: "chchiMan-sign",
+            label: "ثبت نام",
+            to: "/chichi-man/sign-in/:id?/:step?",
+        },
+            {
+                icon: "simple-icon-list",
+                id: "chchiMan-list",
+                label: "لیست",
+                to: "/chichi-man/list",
+            },
+            {
+                icon: "iconsminds-preview",
+                id: "chchiMan-situation",
+                label: "وضعیت چی چی من ها",
+                to: "/chichi-man/situation",
+            },
+            {
+                icon: "simple-icon-present",
+                id: "chchiMan-history-orders",
+                label: "تاریخچه سفارشات",
+                to: "/chichi-man/history-orders",
+            },
+            {
+                icon: "simple-icon-user-follow",
+                id: "chchiMan-vote",
+                label: "نظر سنجی",
+                to: "/chichi-man/vote",
+                subs: [{
+                    icon: "iconsminds-bar-chart-4",
+                    label: "کاربر به چی چی",
+                    to: "/chichi-man/vote/users-to-chichi"
+                },
+                    {
+                        icon: "iconsminds-statistic",
+                        label: "چی چی به کاربر",
+                        to: "/chichi-man/vote/chichi-to-users"
+                    }]
+            },
+            {
+                icon: "simple-icon-user-follow",
+                id: "chchiMan-statistic",
+                label: "آمارها",
+                to: "/chichi-man/statistic",
+                subs: [{
+                    icon: "iconsminds-bar-chart-4",
+                    label: "کیفی",
+                    to: "/chichi-man/statistic/quality"
+                },
+                    {
+                        icon: "iconsminds-statistic",
+                        label: "کمی",
+                        to: "/chichi-man/statistic/quantity"
+                    }]
+            },
+            {
+                icon: "simple-icon-wallet",
+                id: "chchiMan-check-out",
+                label: "تسویه حساب ها",
+                to: "/chichi-man/check-out",
+            },
+            {
+                icon: "iconsminds-check",
+                id: "chchiMan-status",
+                label: "وضعیت",
+                to: "/chichi-man/status",
+            },
+
+
+            // {
+            //     icon: "simple-icon-info",
+            //     id: "chchiMan-info",
+            //     label: "اطلاعات",
+            //     to: "/chichi-man/info",
+            //     subs: [{
+            //         icon: "iconsminds-smartphone-4",
+            //         label: "سفر فعلی",
+            //         to: "/chichi-man/info/current-trip"
+            //     },{
+            //         icon: "iconsminds-smartphone-4",
+            //         label: "اصلی",
+            //         to: "/chichi-man/info/main"
+            //     }, {
+            //         icon: "iconsminds-smartphone-4",
+            //         label: "تسویه حساب",
+            //         to: "/chichi-man/info/check-out"
+            //     }, {
+            //         icon: "iconsminds-smartphone-4",
+            //         label: "نتایج کلی نظرسنجی ها",
+            //         to: "/chichi-man/info/vote"
+            //     }, {
+            //         icon: "iconsminds-smartphone-4",
+            //         label: "آمارها",
+            //         to: "/chichi-man/info/static"
+            //     },{
+            //         icon: "iconsminds-smartphone-4",
+            //         label: "اطلاعات ثبت نام",
+            //         to: "/chichi-man/info/submit-info"
+            //     },{
+            //         icon: "iconsminds-smartphone-4",
+            //         label: "تاریخچه سفرها ",
+            //         to: "/chichi-man/info/trip-history"
+            //     }
+            //     ,{
+            //         icon: "iconsminds-smartphone-4",
+            //         label: "وضعیت ها",
+            //         to: "/chichi-man/info/situation"
+            //     },
+            //     ]
+            // },
 
         ]
     },

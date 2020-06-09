@@ -26,6 +26,9 @@ const ViewError = React.lazy(() =>
 const Content = React.lazy(() =>
     import(/* webpackChunkName: "views-error" */ './views/Content/ContentMain')
 );
+const ChichiMan = React.lazy(() =>
+    import(/* webpackChunkName: "views-app" */ './views/ChichiMan/ChichiManMain')
+);
 
 class App extends Component {
   constructor(props) {
@@ -64,6 +67,15 @@ class App extends Component {
                         path="/content"
                         render={props => <Content {...props} />}
                     />
+                    <Route
+                        path="/chichi-man"
+                        render={props => <ChichiMan {...props} />}
+                    />
+                    {/*<AuthRoute*/}
+                        {/*path="/chichi-man"*/}
+                        {/*authUser={this.state.loginUser}*/}
+                        {/*component={ChichiMan}*/}
+                    {/*/>*/}
                   <Route
                     path="/error"
                     exact
