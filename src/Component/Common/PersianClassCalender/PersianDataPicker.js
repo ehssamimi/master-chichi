@@ -1,30 +1,54 @@
+import moment from "moment";
+import jMoment from "moment-jalaali";
 import React, { useState } from "react";
-import { DateTimePicker, KeyboardDateTimePicker } from "@material-ui/pickers";
+import JalaliUtils from "@date-io/jalaali";
+import {
+    TimePicker,
+    DateTimePicker,
+    DatePicker,
+    MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 
-function PersianDataPicker(props) {
-    const [selectedDate, handleDateChange] = useState(new Date("2018-01-01T00:00:00.000Z"));
+jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
+
+function PersianDataPicker() {
+    const [selectedDate, handleDateChange] = useState(moment());
 
     return (
-        <>
-            <DateTimePicker
-                variant="inline"
-                label="Basic example"
+        <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
+            <DatePicker
+                clearable
+                okLabel="تأیید"
+                cancelLabel="لغو"
+                clearLabel="پاک کردن"
+                labelFunc={date => (date ? date.format("jYYYY/jMM/jDD") : "")}
                 value={selectedDate}
                 onChange={handleDateChange}
             />
 
-            <KeyboardDateTimePicker
-                variant="inline"
-                ampm={false}
-                label="With keyboard"
+            <TimePicker
+                clearable
+                okLabel="تأیید"
+                cancelLabel="لغو"
+                clearLabel="پاک کردن"
+                labelFunc={date => (date ? date.format("hh:mm A") : "")}
                 value={selectedDate}
                 onChange={handleDateChange}
-                onError={console.log}
-                disablePast
-                format="yyyy/MM/dd HH:mm"
             />
-        </>
+
+            <DateTimePicker
+                okLabel="تأیید"
+                cancelLabel="لغو"
+                labelFunc={date => (date ? date.format("jYYYY/jMM/jDD hh:mm A") : "")}
+                value={selectedDate}
+                onChange={handleDateChange}
+            />
+        </MuiPickersUtilsProvider>
     );
 }
 
 export default PersianDataPicker;
+
+
+
+

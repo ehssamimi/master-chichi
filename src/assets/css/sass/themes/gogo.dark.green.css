@@ -1073,7 +1073,7 @@ button {
   background: initial; }
 
 .nav-tabs .nav-link.active::before,
-.nav-tabs .nav-item.show .nav-link::before {
+.nav-tabs .nav-item.show .nav-link::before:not(.wizz) {
   content: " ";
   background: #576a3d;
   border-radius: 10px;
@@ -5158,7 +5158,8 @@ input:-webkit-autofill {
   background: initial;
   position: relative;
   border: initial;
-  margin-bottom: 1.5rem; }
+  margin-bottom: 1.5rem;
+  bottom: 0 !important; }
   .wizard ul.nav:before {
     content: " ";
     position: absolute;
@@ -5199,21 +5200,21 @@ input:-webkit-autofill {
     .wizard-default ul.nav li.step-doing a small {
       color: #576a3d; }
   .wizard-default ul.nav li a:before {
-    content: " ";
-    position: absolute;
-    margin-top: 10px;
-    display: block;
-    border-radius: 50%;
-    color: initial;
-    background: #c8bebe;
-    border: none;
-    width: 18px;
-    height: 18px;
-    text-decoration: none;
-    z-index: 1;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: -6px; }
+    content: " " !important;
+    position: absolute !important;
+    margin-top: 10px !important;
+    display: block !important;
+    border-radius: 50% !important;
+    color: initial !important;
+    background: #c8bebe !important;
+    border: none !important;
+    width: 18px !important;
+    height: 18px !important;
+    text-decoration: none !important;
+    z-index: 1 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    bottom: -14px !important; }
   .wizard-default ul.nav li.step-doing a:after, .wizard-default ul.nav li.step-done a:after {
     content: " ";
     position: absolute;
@@ -5229,7 +5230,7 @@ input:-webkit-autofill {
     z-index: 2;
     left: 50%;
     transform: translateX(-50%);
-    bottom: -2px; }
+    bottom: -10px; }
   .wizard-default ul.nav li.step-done a:after {
     background: initial;
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23576A3D' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E"); }

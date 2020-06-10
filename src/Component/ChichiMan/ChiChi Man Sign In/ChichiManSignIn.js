@@ -190,7 +190,7 @@ class ChichiManSignIn extends Component {
         let{phoneNumber,item}=this.state;
         // console.log(item);
         return (
-            <div className='wizard wizard-default col-12'>
+            <div className='wizard wizard-default col-12 '>
                 <Wizard>
                     <TopNavigation className="justify-content-center" disableNav={false} topNavClick={this.topNavClick} item={item}   />
                     <Steps>

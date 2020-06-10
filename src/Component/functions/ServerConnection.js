@@ -1451,6 +1451,7 @@ export async  function  Add_Remove_SubCategory(action,category,subcategory){
 
 function Error(error) {
     console.log(error.response);
+    console.log(error.response.data);
 
     console.log(error);
     var resp ="";

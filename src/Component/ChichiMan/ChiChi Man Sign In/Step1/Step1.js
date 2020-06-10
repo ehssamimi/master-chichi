@@ -201,6 +201,7 @@ class Step1 extends Component {
                                             <PersianDataPicker/>
 
 
+
                                             <WizardBottonNavigations {...this.props}/>
 
                                         </Form>
