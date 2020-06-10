@@ -9,17 +9,18 @@ class WizardBottonNavigations extends Component {
             <WithWizard render={({ next, previous, step, steps }) => (
                 <div className={"wizard-buttons  col-12 mt-2 " + this.props.className}>
 
+
+
+                    <Button color="primary"
+                            className={ "mr-1  " + (steps.indexOf(step) <= 0 ? "disabled" : "")}
+                            onClick={() => { this.props.onClickPrev(previous, steps, step) }}>
+                        {this.props.prevLabel}
+                    </Button>
                     <Button color="primary" type="submit"
-                            className={"mr-1 " +(steps.indexOf(step) >= steps.length - 1 ? "disabled" : "")}
+                            className={"ml-auto " +(steps.indexOf(step) >= steps.length - 1 ? "disabled" : "")}
                         // onClick={() => { this.props.onClickNext(next, steps, step) }}
                     >
                         {this.props.nextLabel}
-                    </Button>
-
-                    <Button color="primary"
-                            className={"mr-auto " + (steps.indexOf(step) <= 0 ? "disabled" : "")}
-                            onClick={() => { this.props.onClickPrev(previous, steps, step) }}>
-                        {this.props.prevLabel}
                     </Button>
 
 

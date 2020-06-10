@@ -21,6 +21,7 @@ import WizardBottonNavigations from "../Sub/WizardBottonNavigations";
 import {RegisterChichiMan} from "../../../functions/ServerConnection";
 import NotificationManager from "../../../../components/common/react-notifications/NotificationManager";
 import Loader from "../../../Common/Loader/Loader";
+import PersianDataPicker from "../../../Common/PersianClassCalender/PersianDataPicker";
 
 
 
@@ -158,74 +159,50 @@ class Step1 extends Component {
                                           isSubmitting
                                       }) => (
                                         <Form className="av-tooltip tooltip-label-bottom">
-                                            <div className="w-100 d-flex ">
-                                                <div className="col-sm-6 ">
-                                                    <FormGroup className="form-group has-float-label">
-                                                        <Label>
-                                                            <span>نوع وسیله نقلیه</span>
-                                                         </Label>
-                                                        <FormikReactSelect
-                                                            name="TagKind"
-                                                            id="TagKind"
-                                                            value={values.TagKind}
-                                                            options={options}
-                                                            onChange={setFieldValue}
-                                                            onBlur={setFieldTouched}
-                                                        />
-                                                        {errors.TagKind && touched.TagKind ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.TagKind}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
-                                                </div>
-                                                <div className="col-sm-6 ">
-
-                                                    <FormGroup className="form-group has-float-label position-relative">
-                                                        <Label>
-                                                            <span>شماره موبایل</span>
-                                                         </Label>
-                                                        <Field className="form-control" name="PhoneNumber" type='number'  onBlur={setFieldTouched}
-                                                               placeholder="09**-***-****" />
-                                                        {errors.PhoneNumber && touched.PhoneNumber ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.PhoneNumber}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
-
-                                                </div>
-
-                                            </div>
-
-                                            {/*<WithWizard render={({ next, previous, step, steps }) => (*/}
-                                                {/*<div className={"wizard-buttons  col-12 mt-2 " + this.props.className}>*/}
-
-                                                    {/*<Button color="primary" type="submit"*/}
-                                                            {/*className={"mr-1 " +(steps.indexOf(step) >= steps.length - 1 ? "disabled" : "")}*/}
-                                                        {/*// onClick={() => { this.props.onClickNext(next, steps, step) }}*/}
-                                                    {/*>*/}
-                                                        {/*{this.props.nextLabel}*/}
-                                                    {/*</Button>*/}
-
-                                                    {/*<Button color="primary"*/}
-                                                            {/*className={"mr-auto " + (steps.indexOf(step) <= 0 ? "disabled" : "")}*/}
-                                                            {/*onClick={() => { this.props.onClickPrev(previous, steps, step) }}>*/}
-                                                        {/*{this.props.prevLabel}*/}
-                                                    {/*</Button>*/}
-
-
-                                                    {/*<Button id='sendItems'  onClick={() => { this.props.onClickNext(next, steps, step) }} className='d-none'>send</Button>*/}
+                                            {/*<div className="w-100 d-flex ">*/}
+                                                {/*<div className="col-sm-6 ">*/}
+                                                    {/*<FormGroup className="form-group has-float-label">*/}
+                                                        {/*<Label>*/}
+                                                            {/*<span>نوع وسیله نقلیه</span>*/}
+                                                         {/*</Label>*/}
+                                                        {/*<FormikReactSelect*/}
+                                                            {/*name="TagKind"*/}
+                                                            {/*id="TagKind"*/}
+                                                            {/*value={values.TagKind}*/}
+                                                            {/*options={options}*/}
+                                                            {/*onChange={setFieldValue}*/}
+                                                            {/*onBlur={setFieldTouched}*/}
+                                                        {/*/>*/}
+                                                        {/*{errors.TagKind && touched.TagKind ? (*/}
+                                                            {/*<div className="invalid-feedback d-block">*/}
+                                                                {/*{errors.TagKind}*/}
+                                                            {/*</div>*/}
+                                                        {/*) : null}*/}
+                                                    {/*</FormGroup>*/}
                                                 {/*</div>*/}
-                                            {/*)} />*/}
+                                                {/*<div className="col-sm-6 ">*/}
+
+                                                    {/*<FormGroup className="form-group has-float-label position-relative">*/}
+                                                        {/*<Label>*/}
+                                                            {/*<span>شماره موبایل</span>*/}
+                                                         {/*</Label>*/}
+                                                        {/*<Field className="form-control" name="PhoneNumber" type='number'  onBlur={setFieldTouched}*/}
+                                                               {/*placeholder="09**-***-****" />*/}
+                                                        {/*{errors.PhoneNumber && touched.PhoneNumber ? (*/}
+                                                            {/*<div className="invalid-feedback d-block">*/}
+                                                                {/*{errors.PhoneNumber}*/}
+                                                            {/*</div>*/}
+                                                        {/*) : null}*/}
+                                                    {/*</FormGroup>*/}
+
+                                                {/*</div>*/}
+
+                                            {/*</div>*/}
+                                            <PersianDataPicker/>
+
+
                                             <WizardBottonNavigations {...this.props}/>
 
-
-
-
-                                            {/*<Button color="primary" type="submit" className="col-2 rowInput">*/}
-                                                {/*ارسال*/}
-                                            {/*</Button>*/}
                                         </Form>
                                     )}
                                 </Formik>
