@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { Collapse } from 'reactstrap';
-
 import { FaUserEdit } from "react-icons/fa";
 import {NavLink} from "react-router-dom";
 import {RowShowShowColEdit} from "../../../../Common/RowShowShowColEdit/ShowInRowComponents";
@@ -23,18 +22,7 @@ ChichiManInfoCollapseWithImage extends Component {
         });
     }
 
-    // static getDerivedStateFromProps(props, state) {
-    //     if (props.collapse){
-    //         if (props.collapse !== state.collapse) {
-    //             return {
-    //                 collapse: props.collapse,
-    //             };
-    //         }
-    //         // Return null if the state hasn't changed
-    //         return null
-    //     }
-    //
-    // }
+
 
     toggle() {
         this.setState(state => ({ collapse: !state.collapse }));
@@ -45,30 +33,27 @@ ChichiManInfoCollapseWithImage extends Component {
         let{image,className,label}=this.props;
 
 
-        // console.log(Keys);
-        return (
-            <div className='mt-5 col-12'>
-                {/*<Card>*/}
-                {/*<CardBody>*/}
+         return (
+            <div className='  col-12   mb-4 pb-5'>
+
                 <div className='d-flex justify-content-start align-items-center ' onClick={this.toggle} >
                     {
                         this.state.collapse?
-                            <h3 className='simple-icon-minus icon-glyph ml-2'/>
+                            <h3 className='simple-icon-minus icon-glyph mr-2'/>
                             :
-                            <h3 className='simple-icon-plus icon-glyph ml-2'/>
+                            <h3 className='simple-icon-plus icon-glyph mr-2'/>
 
                     }
                     <h3 className={this.props.color||"purpleColor"}>{store.header}:</h3>
-                    <NavLink to={`/chichi-man/sign-in/${this.props.id}/${this.props.step}`}>
-                    <div  className=' mr-auto h3-style'>
+                    <NavLink to={`/chichi-man/sign-in/${this.props.id}/${this.props.step}`} className="ml-auto">
+                    <div  className='  h3-style'>
                         <FaUserEdit/>
                     </div>
                     </NavLink>
-                    {/*<h3 className='simple-icon-plus icon-glyph ml-auto'/>*/}
 
                 </div>
 
-                <Collapse isOpen={this.state.collapse}>
+                <Collapse isOpen={this.state.collapse} className="h-100 pb-2">
                     <div>
                         <div className='d-flex  w-100 flex-wrap '  >
                             {Keys ?
@@ -80,10 +65,10 @@ ChichiManInfoCollapseWithImage extends Component {
                         <div className='d-flex mt-2  '>
                             {image.length>0 ?
                                 image.map((todo, index) =>
-                                    <div key={index} className={['h-30vh','d-flex','flex-column', 'mt-2' ,'align-items-center' , className || ''].join(' ')}>
+                                    <div key={index} className={[' h-min-15em  h-max-30em','d-flex','flex-column', ' ' ,'align-items-center' , className || ''].join(' ')}>
                                         <label htmlFor={index}><RowShowShowColEdit label={'عکس'} value={label[index] }  col={ 'col-12'} className='fS1vw'/>
                                             </label>
-                                        <img src={todo} alt={todo} className='img-self-fill'/>
+                                        <img src={todo} alt={todo} className='img-self-fill br10px'/>
                                     </div>
                                 ) : ''
                             }
@@ -91,9 +76,7 @@ ChichiManInfoCollapseWithImage extends Component {
                     </div>
 
                 </Collapse>
-                {/*</CardBody>*/}
 
-                {/*</Card>*/}
                 <hr/>
             </div>
         );

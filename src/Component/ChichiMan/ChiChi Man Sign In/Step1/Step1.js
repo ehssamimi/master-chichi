@@ -159,46 +159,46 @@ class Step1 extends Component {
                                           isSubmitting
                                       }) => (
                                         <Form className="av-tooltip tooltip-label-bottom">
-                                            {/*<div className="w-100 d-flex ">*/}
-                                                {/*<div className="col-sm-6 ">*/}
-                                                    {/*<FormGroup className="form-group has-float-label">*/}
-                                                        {/*<Label>*/}
-                                                            {/*<span>نوع وسیله نقلیه</span>*/}
-                                                         {/*</Label>*/}
-                                                        {/*<FormikReactSelect*/}
-                                                            {/*name="TagKind"*/}
-                                                            {/*id="TagKind"*/}
-                                                            {/*value={values.TagKind}*/}
-                                                            {/*options={options}*/}
-                                                            {/*onChange={setFieldValue}*/}
-                                                            {/*onBlur={setFieldTouched}*/}
-                                                        {/*/>*/}
-                                                        {/*{errors.TagKind && touched.TagKind ? (*/}
-                                                            {/*<div className="invalid-feedback d-block">*/}
-                                                                {/*{errors.TagKind}*/}
-                                                            {/*</div>*/}
-                                                        {/*) : null}*/}
-                                                    {/*</FormGroup>*/}
-                                                {/*</div>*/}
-                                                {/*<div className="col-sm-6 ">*/}
+                                            <div className="w-100 d-flex ">
+                                                <div className="col-sm-6 ">
+                                                    <FormGroup className="form-group has-float-label">
+                                                        <Label>
+                                                            <span>نوع وسیله نقلیه</span>
+                                                         </Label>
+                                                        <FormikReactSelect
+                                                            name="TagKind"
+                                                            id="TagKind"
+                                                            value={values.TagKind}
+                                                            options={options}
+                                                            onChange={setFieldValue}
+                                                            onBlur={setFieldTouched}
+                                                        />
+                                                        {errors.TagKind && touched.TagKind ? (
+                                                            <div className="invalid-feedback d-block">
+                                                                {errors.TagKind}
+                                                            </div>
+                                                        ) : null}
+                                                    </FormGroup>
+                                                </div>
+                                                <div className="col-sm-6 ">
 
-                                                    {/*<FormGroup className="form-group has-float-label position-relative">*/}
-                                                        {/*<Label>*/}
-                                                            {/*<span>شماره موبایل</span>*/}
-                                                         {/*</Label>*/}
-                                                        {/*<Field className="form-control" name="PhoneNumber" type='number'  onBlur={setFieldTouched}*/}
-                                                               {/*placeholder="09**-***-****" />*/}
-                                                        {/*{errors.PhoneNumber && touched.PhoneNumber ? (*/}
-                                                            {/*<div className="invalid-feedback d-block">*/}
-                                                                {/*{errors.PhoneNumber}*/}
-                                                            {/*</div>*/}
-                                                        {/*) : null}*/}
-                                                    {/*</FormGroup>*/}
+                                                    <FormGroup className="form-group has-float-label position-relative">
+                                                        <Label>
+                                                            <span>شماره موبایل</span>
+                                                         </Label>
+                                                        <Field className="form-control" name="PhoneNumber" type='number'  onBlur={setFieldTouched}
+                                                               placeholder="09**-***-****" />
+                                                        {errors.PhoneNumber && touched.PhoneNumber ? (
+                                                            <div className="invalid-feedback d-block">
+                                                                {errors.PhoneNumber}
+                                                            </div>
+                                                        ) : null}
+                                                    </FormGroup>
 
-                                                {/*</div>*/}
+                                                </div>
 
-                                            {/*</div>*/}
-                                            <PersianDataPicker/>
+                                            </div>
+
 
 
 

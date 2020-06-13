@@ -6797,6 +6797,12 @@ paddingZero {
 .h-15em {
   height: 15em; }
 
+.h-min-15em {
+  min-height: 15em; }
+
+.h-max-30em {
+  min-height: 30em; }
+
 .h-9em {
   height: 9em; }
 
@@ -6907,6 +6913,9 @@ paddingZero {
 
 .fs-06vw {
   font-size: 0.6vw !important; }
+
+.br10px {
+  border-radius: 10px; }
 
 .bg-black {
   background: #110d0a !important; }
@@ -7194,5 +7203,11 @@ paddingZero {
 
 .br-rounded {
   border-radius: 0.75rem !important; }
+
+.DatePicker__calendarContainer {
+  z-index: 5 !important; }
+
+.DatePicker {
+  width: 100%; }
 
 /*# sourceMappingURL=gogo.light.green.css.map */

@@ -9275,6 +9275,12 @@ paddingZero{
 .h-15em{
  height: 15em;
 }
+.h-min-15em{
+  min-height: 15em;
+}
+.h-max-30em{
+  min-height: 30em;
+}
 .h-9em{
  height: 9em;
 }
@@ -9391,7 +9397,9 @@ paddingZero{
 }
 
 
-
+.br10px{
+  border-radius: 10px;
+}
 
 
 
@@ -9717,3 +9725,10 @@ paddingZero{
   border-radius: $border-radius-rounded!important;
 }
 
+.DatePicker__calendarContainer {
+
+  z-index: 5!important
+}
+.DatePicker {
+  width:100%
+}

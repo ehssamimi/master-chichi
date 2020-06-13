@@ -26,12 +26,11 @@ class ChichiManOrderSituationInRow extends Component {
                             {sub.length>0 ?
                                 sub.map((todo, index) =>
                                     <div key={index} className='w-100 d-flex flex-column  mt-3 brb-td  '>
-                                         <div className='text-right d-flex align-items-center w-100 '><span className="log-indicator align-middle border-theme-1 "></span><span className="font-weight-medium  fs-12vw mr-3 pt-1">{todo['product_id']}</span></div>
+                                         <div className='text-right d-flex align-items-center w-100 '><span className="log-indicator align-middle border-theme-1 "></span><span className="font-weight-medium  fs-12vw ml-3 pt-1">{todo['product_id']}</span></div>
                                         <div className='text-right d-flex align-items-center w-100  '><span className=" font-weight-medium w-50  text-muted fs-08vw">{todo['name']}</span><span className="font-weight-medium w-50 pt-1 fs-08vw text-muted ">{todo['time']}</span></div>
                                         <div className='  mt-2'>
                                         </div>
-                                        <RowShowShowColEdit/>
-                                    </div>
+                                     </div>
 
                                 ) : ''
                             }
