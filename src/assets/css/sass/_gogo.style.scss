@@ -8770,9 +8770,13 @@ i.large-icon {
 .height25vh{
   height: 25vh;
 }
+.height12rem{
+  min-height: 12rem;
+}
 .height30vh{
   height: 30vh!important;
 }
+
 .height35vh{
   height: 35vh!important;
 }
@@ -8961,7 +8965,7 @@ paddingZero{
     //border: 2px solid #403e40;
     //border-radius: 2%;
     //transform: scale(1.3,1.3);
-    font-size: 1.6vw!important;
+    //font-size: 1.6vw!important;
     color: #{rgba($theme-color-4, 1)}!important;
     transition: 0.4s;
 
@@ -9087,6 +9091,7 @@ paddingZero{
 .vh25{
   height: 25vh;
 }
+
 .primary-color{
   color: $primary-color !important;
 }
@@ -9399,6 +9404,12 @@ paddingZero{
 
 .br10px{
   border-radius: 10px;
+}
+.br10px-inside{
+  border-radius: 10px 10px 0 0;
+}
+.br20px{
+  border-radius: 20px;
 }
 
 

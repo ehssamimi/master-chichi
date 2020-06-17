@@ -29,6 +29,9 @@ const Content = React.lazy(() =>
 const ChichiMan = React.lazy(() =>
     import(/* webpackChunkName: "views-app" */ './views/ChichiMan/ChichiManMain')
 );
+const HomePages = React.lazy(() =>
+    import(/* webpackChunkName: "views-error" */ './views/HomePage/HomePageMain')
+);
 
 class App extends Component {
   constructor(props) {
@@ -70,6 +73,10 @@ class App extends Component {
                     <Route
                         path="/chichi-man"
                         render={props => <ChichiMan {...props} />}
+                    />
+                    <Route
+                        path="/home-page"
+                        render={props => <HomePages {...props} />}
                     />
                     {/*<AuthRoute*/}
                         {/*path="/chichi-man"*/}

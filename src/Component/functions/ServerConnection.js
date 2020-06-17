@@ -1429,21 +1429,21 @@ export async  function  Add_Remove_SubCategory(action,category,subcategory){
         "accept": "application/json"
     };
     let resp ={state:false,Description:""};
-     await axios.post(`${Const.product}admin/category/sub-category/${action}?category=${category}&sub_category=${subcategory}`, null,{headers: headers}).then(function (response) {
+    await axios.post(`${Const.product}admin/category/sub-category/${action}?category=${category}&sub_category=${subcategory}`, null, {headers: headers}).then(function (response) {
         console.log(response);
         // let{State,data}=JSON.parse(response);
-        let{status,data}= response ;
+        let {status, data} = response;
         console.log(status);
-        console.log( data);
-        if (status===200 ){
-            resp ={state:status,Description:data};
-        }else {
-            resp ={state:status,Description:data};
+        console.log(data);
+        if (status === 200) {
+            resp = {state: status, Description: data};
+        } else {
+            resp = {state: status, Description: data};
         }
         // resp = status;
     }).catch(function (error) {
         console.log(error);
-        resp ={state:false,Description:error.message};
+        resp = {state: false, Description: error.message};
     });
     return resp;
 }
@@ -1451,11 +1451,14 @@ export async  function  Add_Remove_SubCategory(action,category,subcategory){
 
 function Error(error) {
     console.log(error.response);
-    console.log(error.response.data);
+    // console.log(error.response.data);
 
     console.log(error);
     var resp ="";
-    if (error.response.status===400) {
+    if (error.response===undefined){
+        resp={state: 400,Description: error.message}
+
+    } else if (error.response.status===400) {
         resp={state: 400,Description: error.response.data.detail}
         if (error.response.data.detail==="access denied") {
             console.log("we are out !!!!!!!!!!");
@@ -1464,10 +1467,7 @@ function Error(error) {
             // window.location.reload();
         }
 
-    }else if (error.response===undefined){
-        resp={state: 400,Description: error.message}
-
-    } else if (error.response.status===422){
+    }else if (error.response.status===422){
         resp={state:422,Description:error.response.statusText}
     }else{
         resp={state:error.response.status||400,Description:error.response.data.detail||error.message}

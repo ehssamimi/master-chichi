@@ -204,31 +204,100 @@ const data = [
 
         ]
     },
-  {
-    id: "secondmenu",
-    icon: "iconsminds-three-arrow-fork",
-    label: "menu.second-menu",
-    to: "/app/second-menu",
-    subs: [
-      {
-        icon: "simple-icon-paper-plane",
-        label: "menu.second",
-        to: "/app/second-menu/second"
-      }
-    ]
-  },
-  {
-    id: "blankpage",
-    icon: "iconsminds-bucket",
-    label: "menu.blank-page",
-    to: "/app/blank-page"
-  },
-  {
-    id: "docs",
-    icon: "iconsminds-library",
-    label: "menu.docs",
-    to: "https://gogo-react-docs.coloredstrategies.com/",
-    newWindow:true
-  }
+    {
+        id: "HomePages",
+        icon: "iconsminds-monitor---phone",
+        label: "home page",
+        to: "/home-page",
+        subs: [{
+            icon: "iconsminds-smartphone-4",
+            id: "mobilehomepage",
+            label: "صفحه اصلی موبایل",
+            to: "/home-page/main",
+            subs: [{
+                icon: "iconsminds-smartphone-4",
+                label: "create",
+                to: "/home-page/main/create"
+            }, {
+                icon: "iconsminds-smartphone-4",
+                label: "edit",
+                to: "/home-page/main/edit/:name?"
+            }, {
+                icon: "iconsminds-smartphone-4",
+                label: "active",
+                to: "/home-page/main/active"
+            },
+            ]
+        },
+            // {
+            //     icon: "iconsminds-smartphone-4",
+            //     id: "mobilehomepage",
+            //     label: "crop img",
+            //     to: "/home-page/crop-img",
+            // },
+            {
+                icon: "iconsminds-smartphone-4",
+                id: "header-slider",
+                label: "اسلایدر بالای صفحه",
+                to: "/home-page/header-slider",
+            },
+            {
+                icon: "iconsminds-smartphone-4",
+                id: "categories-home-page",
+                label: "دسته بندی",
+                to: "/home-page/categories",
+            },
+            {
+                icon: "iconsminds-smartphone-4",
+                id: "wonder-package-home-page",
+                label: "پکیج های شگفت انگیز",
+                to: "/home-page/wonder-package",
+            },
+            {
+                icon: "iconsminds-smartphone-4",
+                id: "wonder-package-home-page",
+                label: "اسلایدر",
+                to: "/home-page/slider",
+            },
+            {
+                icon: "iconsminds-smartphone-4",
+                id: "banner-home-page",
+                label: "بنر",
+                to: "/home-page/banner",
+            },
+            {
+                icon: "iconsminds-smartphone-4",
+                id: "item-list-home-page",
+                label: "آیتم",
+                to: "/home-page/item-list",
+            },
+        ]
+    }
+  // {
+  //   id: "secondmenu",
+  //   icon: "iconsminds-three-arrow-fork",
+  //   label: "menu.second-menu",
+  //   to: "/app/second-menu",
+  //   subs: [
+  //     {
+  //       icon: "simple-icon-paper-plane",
+  //       label: "menu.second",
+  //       to: "/app/second-menu/second"
+  //     }
+  //   ]
+  // },
+  // {
+  //   id: "blankpage",
+  //   icon: "iconsminds-bucket",
+  //   label: "menu.blank-page",
+  //   to: "/app/blank-page"
+  // },
+  // {
+  //   id: "docs",
+  //   icon: "iconsminds-library",
+  //   label: "menu.docs",
+  //   to: "https://gogo-react-docs.coloredstrategies.com/",
+  //   newWindow:true
+  // }
 ];
 export default data;

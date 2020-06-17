@@ -6337,6 +6337,9 @@ i.large-icon {
 .height25vh {
   height: 25vh; }
 
+.height12rem {
+  min-height: 12rem; }
+
 .height30vh {
   height: 30vh !important; }
 
@@ -6505,7 +6508,6 @@ paddingZero {
 .BtnHeaderComponent {
   cursor: pointer; }
   .BtnHeaderComponent:hover {
-    font-size: 1.6vw !important;
     color: #494d43!important;
     transition: 0.4s; }
 
@@ -6916,6 +6918,12 @@ paddingZero {
 
 .br10px {
   border-radius: 10px; }
+
+.br10px-inside {
+  border-radius: 10px 10px 0 0; }
+
+.br20px {
+  border-radius: 20px; }
 
 .bg-black {
   background: #110d0a !important; }
