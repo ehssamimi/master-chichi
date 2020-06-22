@@ -78,11 +78,7 @@ class App extends Component {
                         path="/home-page"
                         render={props => <HomePages {...props} />}
                     />
-                    {/*<AuthRoute*/}
-                        {/*path="/chichi-man"*/}
-                        {/*authUser={this.state.loginUser}*/}
-                        {/*component={ChichiMan}*/}
-                    {/*/>*/}
+
                   <Route
                     path="/error"
                     exact

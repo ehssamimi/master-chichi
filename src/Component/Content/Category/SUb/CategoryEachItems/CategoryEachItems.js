@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
   import {
      Button,
      Card,
-    CardBody, Modal, ModalBody, ModalFooter, ModalHeader
+     Modal, ModalBody, ModalFooter, ModalHeader
  } from "reactstrap";
 import {DeleteCategory} from '../../../../functions/ServerConnection'
 import {  TweenMax} from "gsap/TweenMax";

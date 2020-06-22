@@ -1,30 +1,27 @@
 import React, {Component} from 'react';
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
-import {
+ import {
     Row,
     Card,
     CardBody,
     FormGroup,
     Label,
-    Button,
-    CardTitle
+     CardTitle
 } from "reactstrap";
-import IntlMessages from "../../../../helpers/IntlMessages";
-import {Colxx} from "../../../../components/common/CustomBootstrap";
+ import {Colxx} from "../../../../components/common/CustomBootstrap";
 import {
     FormikReactSelect,
 } from "../../../../containers/form-validations/FormikFields";
 // import * as Const from "../../../Const";
 import ImgComponent from "../Sub/ImgComponent";
-import {WithWizard} from "react-albus/lib";
-import WizardBottonNavigations from "../Sub/WizardBottonNavigations";
+ import WizardBottonNavigations from "../Sub/WizardBottonNavigations";
 
 import NotificationManager from "../../../../components/common/react-notifications/NotificationManager";
-import {sendImg, UpdateChichiManPersonalInfo} from "../../../functions/ServerConnection";
+import {sendImg, sendingImageFunction, UpdateChichiManPersonalInfo} from "../../../functions/ServerConnection";
 import Loader from "../../../Common/Loader/Loader";
 import PersianClassCalender from "../../../Common/PersianClassCalender/PersianClassCalender";
+import {error_Notification, success_Notification} from "../../../functions/componentHelpFunction";
 
 
 const SignupSchema = Yup.object().shape({
@@ -34,10 +31,10 @@ const SignupSchema = Yup.object().shape({
         .required("شماره تلفن اجباری است!"),
     SSN: Yup.number()
         .required("شماره کد ملی  اجباری است!").min(1000000000,'شماره کد ملی باید ده کاراکتر باشد'),
-    CN: Yup.number()
-        .required("شماره شناسنامه اجباری است!"),
-    CNPlace: Yup.string()
-        .required("محل صدور شناسنامه اجباری است!"),
+    // CN: Yup.number()
+    //     .required("شماره شناسنامه اجباری است!"),
+    // CNPlace: Yup.string()
+    //     .required("محل صدور شناسنامه اجباری است!"),
     MartialStatus: Yup.string()
         .required("وضعیت تاهل خود را انتخاب کنید "),
     Name: Yup.string()
@@ -153,17 +150,20 @@ class Step3 extends Component {
             let ImgeFiles = [ax['SSN'], ax['CN'], ax['Personal']];
              console.log(ImgeFiles);
              console.log(idimgs);
-            let ImgeId = [];
-            let idax
-            for (let i = 0; i < ImgeFiles.length; i++) {
-                if (ImgeFiles[i]!==''){
-                      idax = await sendImg(ImgeFiles[i], 'Public');
-                      console.log(idax);
-                } else {
-                      idax=idimgs[i]
-                }
-                 ImgeId.push(idax);
-            }
+
+            let ImgeId =await sendingImageFunction(ImgeFiles,idimgs);
+
+            // let ImgeId = [];
+            // let idax
+            // for (let i = 0; i < ImgeFiles.length; i++) {
+            //     if (ImgeFiles[i]!==''){
+            //           idax = await sendImg(ImgeFiles[i], 'Public');
+            //           console.log(idax);
+            //     } else {
+            //           idax=idimgs[i]
+            //     }
+            //      ImgeId.push(idax);
+            // }
              let Data={
                 "PhoneNumber":this.props.PhoneNumber,
                 "FirstName": payload.Name,
@@ -188,25 +188,11 @@ class Step3 extends Component {
             });
             let {state, Description} = Register;
             if (state) {
-                NotificationManager.success(
-                    "congratulation",
-                    "اطلاعات شما با موفقیت ثبت شد",
-                    3000,
-                    null,
-                    null,
-                    "success"
-                );
+                success_Notification( "اطلاعات شما با موفقیت ثبت شد");
                 let send=document.getElementById("sendItems");
                 send.click();
             } else {
-                NotificationManager.error(
-                    "error",
-                    Description,
-                    3000,
-                    null,
-                    null,
-                    "error"
-                );
+               error_Notification(state, Description);
             }
 
             // **********if submit ***********
@@ -306,6 +292,7 @@ class Step3 extends Component {
                 });
                 let {state, Description} = Register;
                 if (state) {
+
                     NotificationManager.success(
                         "congratulation",
                         "اطلاعات شما با موفقیت ثبت شد",
@@ -436,7 +423,7 @@ class Step3 extends Component {
                                                             <span>تاریخ تولد</span>
                                                          </Label>
                                                         <div >
-                                                            <PersianClassCalender GetData={this.GetData.bind(this)} birthDay={this.state.initialValue['Birthday']}/>
+                                                            <PersianClassCalender GetData={this.GetData.bind(this)} birthDay={this.state.initialValue['Birthday']} label={"تاریخ تولد"}/>
                                                         </div>
                                                     </FormGroup>
                                                 </div>
@@ -474,10 +461,10 @@ class Step3 extends Component {
                                                 <div className="col-sm-4 ">
                                                     <FormGroup className="form-group has-float-label position-relative">
                                                         <Label>
-                                                            <span>شماره سریال شناسنامه</span>
+                                                            <span>شماره شناسنامه</span>
                                                          </Label>
                                                         <Field className="form-control" name="CN" type='number' onBlur={setFieldTouched}
-                                                               placeholder="شماره سریال شناسنامه را وارد کنید !" />
+                                                               placeholder="شماره شناسنامه را وارد کنید !" />
                                                         {errors.CN && touched.CN ? (
                                                             <div className="invalid-feedback d-block">
                                                                 {errors.CN}

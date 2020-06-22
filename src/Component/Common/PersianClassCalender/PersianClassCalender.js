@@ -45,7 +45,7 @@ class PersianClassCalender extends Component {
                 ref={ref} // necessary
                 onFocus={onFocus} // necessary
                 onBlur={onBlur} // necessary
-                placeholder="تاریخ"
+                placeholder={this.props.label||"تاریخ"}
                 value={this.state.selectedDay ? `${this.state.selectedDay.year}/${this.state.selectedDay.month}/${this.state.selectedDay.day}`: ''}
                 style={{
                     textAlign: 'center',

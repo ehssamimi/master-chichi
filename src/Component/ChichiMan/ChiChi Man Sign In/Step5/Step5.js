@@ -1,49 +1,37 @@
 import React, {Component} from 'react';
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
-
-
-import {
+ import {
     Row,
     Card,
     CardBody,
     FormGroup,
     Label,
-    Button,
-    CardTitle
+     CardTitle
 } from "reactstrap";
-import IntlMessages from "../../../../helpers/IntlMessages";
-import {Colxx} from "../../../../components/common/CustomBootstrap";
+ import {Colxx} from "../../../../components/common/CustomBootstrap";
 import {
     FormikReactSelect,
 } from "../../../../containers/form-validations/FormikFields";
 // import * as Const from "../../../Const";
 import ImgComponent from "../Sub/ImgComponent";
-import {WithWizard} from "react-albus/lib";
-import WizardBottonNavigations from "../Sub/WizardBottonNavigations";
- import {sendImg, UpdateChichiManContactInfo, UpdateChichiManVehicleInfo} from "../../../functions/ServerConnection";
+ import WizardBottonNavigations from "../Sub/WizardBottonNavigations";
+ import {sendImg, sendingImageFunction, UpdateChichiManContactInfo} from "../../../functions/ServerConnection";
 import NotificationManager from "../../../../components/common/react-notifications/NotificationManager";
  import PersianClassCalender from "../../../Common/PersianClassCalender/PersianClassCalender";
 import Loader from "../../../Common/Loader/Loader";
+import {error_Notification, success_Notification} from "../../../functions/componentHelpFunction";
 const SignupSchema = Yup.object().shape({
 
-    // Kind: Yup.object()
-    //     .shape({
-    //         label: Yup.string().required(),
-    //         value: Yup.string().required()
-    //     })
-    //     .nullable()
-    //     .required("نوع وسیله نقلیه اجباری است!"),
 
     form: Yup.number()
         .required("شماره فرم اجباری است!"),
-    attachNumber: Yup.number()
-        .required("شماره پیوست اجباری است!"),
+    // attachNumber: Yup.number()
+    //     .required("شماره پیوست اجباری است!"),
     sabet: Yup.number()
         .required("ثبت میزان حقوق ثابت اجباری است!"),
-    darsad: Yup.number()
-        .required("ثبت میزان حقوق درصدی اجباری است!"),
+    // darsad: Yup.number()
+    //     .required("ثبت میزان حقوق درصدی اجباری است!"),
 
 });
 
@@ -124,19 +112,21 @@ class Step5 extends Component {
             let {Date, ax} = this.state;
 
             let ImgeFiles = [ax['contract'], ax['safte'] , ax['soePishine'] ];
-            console.log(ImgeFiles);
-            console.log(idimgs);
-            let ImgeId = [];
-            let idax
-            for (let i = 0; i < ImgeFiles.length; i++) {
-                if (ImgeFiles[i]!==''){
-                    idax = await sendImg(ImgeFiles[i], 'Public');
-                    console.log(idax);
-                } else {
-                    idax=idimgs[i]
-                }
-                ImgeId.push(idax);
-            }
+            // console.log(ImgeFiles);
+            // console.log(idimgs);
+            // let ImgeId = [];
+            // let idax
+            // for (let i = 0; i < ImgeFiles.length; i++) {
+            //     if (ImgeFiles[i]!==''){
+            //         idax = await sendImg(ImgeFiles[i], 'Public');
+            //         console.log(idax);
+            //     } else {
+            //         idax=idimgs[i]
+            //     }
+            //     ImgeId.push(idax);
+            // }
+            // ImgeId = ["5ef06b402313e180fb581691","5ef06b402313e180fb581691","5ef06b402313e180fb581691"];
+            let ImgeId =await sendingImageFunction(ImgeFiles,idimgs);
             let Data={
 
                 "PhoneNumber": this.props.PhoneNumber,
@@ -160,25 +150,13 @@ class Step5 extends Component {
             });
             let {state, Description} = Register;
             if (state) {
-                NotificationManager.success(
-                    "congratulation",
-                    "اطلاعات شما با موفقیت ثبت شد",
-                    3000,
-                    null,
-                    null,
-                    "success"
-                );
+                success_Notification("اطلاعات شما با موفقیت ثبت شد")
+
                 let send=document.getElementById("sendItems");
                 send.click();
             } else {
-                NotificationManager.error(
-                    "error",
-                    Description,
-                    3000,
-                    null,
-                    null,
-                    "error"
-                );
+                error_Notification(state, Description);
+
             }
 
             // **********if submit ***********

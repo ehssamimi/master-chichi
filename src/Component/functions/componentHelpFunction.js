@@ -1,5 +1,5 @@
 import NotificationManager from "../../components/common/react-notifications/NotificationManager";
-
+import {TweenMax} from "gsap/TweenMax";
 export const error_Notification=(Response)=>{
     return NotificationManager.error(
         "مشکلی پیش آمده!",
@@ -12,7 +12,7 @@ export const error_Notification=(Response)=>{
 };
 export const success_Notification=(Response)=>{
     return NotificationManager.success(
-        "تبریک",
+        "موفق شدید",
         Response,
         3000,
         null,
@@ -91,3 +91,17 @@ export const LabelValueOption=(sub)=>{
         });
         return SubCat;
 }
+// **********removeElement*****
+export const RemoveElement=(id)=>{
+
+    const $el = document.getElementById(`${id}`);
+    $el.classList.add("opacity-0")
+    const duration = 2;
+    const from = { opacity: 0};
+    TweenMax.to($el, duration, from);
+    setTimeout(() => {
+        $el.remove();
+    }, 2000)
+}
+
+// **********sending Image*****

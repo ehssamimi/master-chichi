@@ -30,6 +30,21 @@ export async  function  sendImg(file,permission){
     //     return "error"
     // }
 }
+export const sendingImageFunction=async (ImgeFiles,idimgs)=>{
+    let ImgeId = [];
+    let idax
+    for (let i = 0; i < ImgeFiles.length; i++) {
+        if (ImgeFiles[i]!==''){
+            idax = await sendImg(ImgeFiles[i], 'Public');
+            console.log(idax);
+        } else {
+            idax=idimgs[i]
+        }
+        ImgeId.push(idax);
+    }
+    return ImgeId
+}
+
 export async  function  GetCatNameFunction(Name){
     let formData = new FormData();
     formData.append("Name", Name);
@@ -1077,15 +1092,12 @@ export async  function  DeleteChichiMan(id){
     let resp ={state:false,Description:""};
     await axios.get(`${Const.ChichiMan}admin/chichiman/delete?_id=${id}`, {headers: headers}).then(function (response) {
         console.log(response);
-        let{Code,Description}= response.data ;
+        let{data,status}= response ;
         // console.log(response);
-        if (Code===200 ){
-            resp ={Code:Code,Description:Description,};
-        }
+        resp ={state:status,Description:data}
         // resp = status;
     }).catch(function (error) {
-        console.log(error);
-        resp ={state:false,Description:error.message};
+        resp=Error(error)
     });
     return resp;
 }

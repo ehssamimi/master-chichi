@@ -1,20 +1,15 @@
 import React, {Component} from 'react';
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
-
-
-import {
+ import {
     Row,
     Card,
     CardBody,
     FormGroup,
     Label,
-    Button,
-    CardTitle
+     CardTitle
 } from "reactstrap";
-import IntlMessages from "../../../../helpers/IntlMessages";
-import {Colxx} from "../../../../components/common/CustomBootstrap";
+ import {Colxx} from "../../../../components/common/CustomBootstrap";
 import {
     FormikReactSelect,
 } from "../../../../containers/form-validations/FormikFields";
@@ -22,7 +17,12 @@ import {
 import ImgComponent from "../Sub/ImgComponent";
 import {WithWizard} from "react-albus/lib";
 import WizardBottonNavigations from "../Sub/WizardBottonNavigations";
-import {sendImg, UpdateChichiManPersonalInfo, UpdateChichiManVehicleInfo} from "../../../functions/ServerConnection";
+import {
+    sendImg,
+    sendingImageFunction,
+    UpdateChichiManPersonalInfo,
+    UpdateChichiManVehicleInfo
+} from "../../../functions/ServerConnection";
 import NotificationManager from "../../../../components/common/react-notifications/NotificationManager";
 import Loader from "../../../Common/Loader/Loader";
  const SignupSchema = Yup.object().shape({
@@ -126,17 +126,21 @@ class Step4 extends Component {
             let ImgeFiles = [ax['VCImg'], ax['DLImg']];
             console.log(ImgeFiles);
             console.log(idimgs);
-            let ImgeId = [];
-            let idax
-            for (let i = 0; i < ImgeFiles.length; i++) {
-                if (ImgeFiles[i]!==''){
-                    idax = await sendImg(ImgeFiles[i], 'Public');
-                    console.log(idax);
-                } else {
-                    idax=idimgs[i]
-                }
-                ImgeId.push(idax);
-            }
+            // let ImgeId = [];
+            // let idax
+            // for (let i = 0; i < ImgeFiles.length; i++) {
+            //     if (ImgeFiles[i]!==''){
+            //         idax = await sendImg(ImgeFiles[i], 'Public');
+            //         console.log(idax);
+            //     } else {
+            //         idax=idimgs[i]
+            //     }
+            //     ImgeId.push(idax);
+            // }
+
+            // ImgeId = ["5ef06b402313e180fb581691","5ef06b402313e180fb581691"];
+            let ImgeId =await sendingImageFunction(ImgeFiles,idimgs);
+
             let Data={
 
                 "PhoneNumber": this.props.PhoneNumber,
