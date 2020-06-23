@@ -249,8 +249,8 @@ class ChichiManSignIn extends Component {
                         </Step>
                         <Step id="step7" hideTopNav={true}>
                             <div className="wizard-basic-step text-center">
-                                <h2 className="mb-2"><IntlMessages id="wizard.content-thanks" /></h2>
-                                <p><IntlMessages id="wizard.registered" /></p>
+                                <h2 className="mb-2">ثبت نام چی چی من با موفقیت انجام شد </h2>
+                                <a href={"/chichi-man/list"}>مشاهده لیست چی چی من ها</a>
                             </div>
                         </Step>
                     </Steps>

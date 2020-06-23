@@ -1,22 +1,12 @@
 import React, {Component} from 'react';
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
- import {
-    Row,
-    Card,
-    CardBody,
-    FormGroup,
-    Label,
-     CardTitle
-} from "reactstrap";
- import {Colxx} from "../../../../components/common/CustomBootstrap";
-
-// import * as Const from "../../../Const";
-
 import WizardBottonNavigations from "../Sub/WizardBottonNavigations";
  import {  UpdateChichiManBankInfo} from "../../../functions/ServerConnection";
- import Loader from "../../../Common/Loader/Loader";
-import {error_Notification, success_Notification} from "../../../functions/componentHelpFunction";
+ import {error_Notification, success_Notification} from "../../../functions/componentHelpFunction";
+import IsLoaderComponent from "../../../Common/Loader/IsLoader/IsLoaderComponent";
+import CardComponentChichi from "../../../Common/CardComponent/CardComponentChichi";
+import {FormInput} from "../../../Common/ComponentFunctional/FormFeilds";
 const SignupSchema = Yup.object().shape({
     //
     // Kind: Yup.object()
@@ -42,10 +32,6 @@ const SignupSchema = Yup.object().shape({
 
 });
 
-
-
-
-
 class Step6 extends Component {
     constructor(props) {
         super(props);
@@ -53,14 +39,7 @@ class Step6 extends Component {
         this.state={
             loaderActive:true,
             showLoader:false,
-            initialValue:{
-                Card:'',
-                Hesab:'',
-                Shobe: "",
-                Shaba:'',
-                Bank:'',
-                Name:'',
-                },
+            initialValue:{Card:'', Hesab:'', Shobe: "", Shaba:'', Bank:'', Name:''},
         }
     }
 
@@ -84,10 +63,7 @@ class Step6 extends Component {
     handleSubmit = async (values, { setSubmitting }) => {
         const payload = {
             ...values,
-            // ChanceType: values.ChanceType.value,
-            // Name: values.Name.value,
-
-        };
+         };
         console.log(payload);
 
         this.setState({
@@ -115,7 +91,6 @@ class Step6 extends Component {
         let {state, Description} = Register;
         if (state) {
             success_Notification("اطلاعات شما با موفقیت ثبت شد")
-
             let send=document.getElementById("sendItems");
             send.click();
         } else {
@@ -129,143 +104,47 @@ class Step6 extends Component {
     render() {
         return (
 
-            this.state.showLoader?
-                <div className='d-flex justify-content-center align-items-center'>
-                    <div className='col-6'>
-                        <Loader/>
-                    </div>
-                </div>
-                :
-            <div dir='rtl'>
-                <Row className="mb-4">
-                    <Colxx xxs="12">
-                        <Card>
-                            <CardBody>
-                                <CardTitle>
-                                    <div className='d-flex justify-content-start'>
-                                        <span>اطلاعات مالی</span>
-                                     </div>
-                                </CardTitle>
+            <IsLoaderComponent isLoader={this.state.showLoader}>
+                <CardComponentChichi header="اطلاعات مالی">
+                    <Formik
+                        initialValues={this.state.initialValue}
+                        validationSchema={SignupSchema}
+                        onSubmit={this.handleSubmit}
+                    >
+                        {({
+                              handleSubmit,
+                              setFieldValue,
+                              setFieldTouched,
+                              handleChange,
+                              handleBlur,
+                              values,
+                              errors,
+                              touched,
+                              isSubmitting
+                          }) => (
+                            <Form className="av-tooltip tooltip-label-bottom">
+                                <div className="w-100 row m-0 ">
+                                    <FormInput  label='نام صاحب حساب' type='text' name='Name' placeHolder="نام و نام خانوادگی صاحب حساب را وارد کنید !" DivClass="col-sm-12 col-md-4" setFieldTouched={setFieldTouched} errors={errors} touched={touched}/>
+                                    <FormInput  label='شماره کارت' type='number' name='Card' placeHolder="شماره کارت را وارد کنید !" DivClass="col-sm-12 col-md-4" setFieldTouched={setFieldTouched} errors={errors} touched={touched}/>
+                                    <FormInput  label='شماره حساب' type='number' name='Hesab' placeHolder="شماره حساب را وارد کنید !" DivClass="col-sm-12 col-md-4" setFieldTouched={setFieldTouched} errors={errors} touched={touched}/>
 
-                                <Formik
-                                    initialValues={this.state.initialValue}
-                                    validationSchema={SignupSchema}
-                                    onSubmit={this.handleSubmit}
-                                >
-                                    {({
-                                          handleSubmit,
-                                          setFieldValue,
-                                          setFieldTouched,
-                                          handleChange,
-                                          handleBlur,
-                                          values,
-                                          errors,
-                                          touched,
-                                          isSubmitting
-                                      }) => (
-                                        <Form className="av-tooltip tooltip-label-bottom">
-                                            <div className="w-100 d-flex ">
-                                                <div className="col-sm-4 ">
-                                                    <FormGroup className="form-group has-float-label position-relative">
-                                                        <Label>
-                                                            <span>نام صاحب حساب</span>
-                                                         </Label>
-                                                        <Field className="form-control" name="Name"  onBlur={setFieldTouched}
-                                                               placeholder="نام و نام خانوادگی صاحب حساب را وارد کنید !" />
-                                                        {errors.Name && touched.Name ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.Name}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
-                                                </div>
-                                                <div className="col-sm-4 ">
-                                                    <FormGroup className="form-group has-float-label position-relative">
-                                                        <Label>
-                                                            <span>شماره کارت</span>
-                                                         </Label>
-                                                        <Field className="form-control" name="Card" type='number' onBlur={setFieldTouched}
-                                                               placeholder="شماره کارت را وارد کنید !" />
-                                                        {errors.Card && touched.Card ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.Card}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
-                                                </div>
-                                                <div className="col-sm-4 ">
-                                                    <FormGroup className="form-group has-float-label position-relative">
-                                                        <Label>
-                                                            <span>شماره حساب</span>
-                                                         </Label>
-                                                        <Field className="form-control" name="Hesab" type='number' onBlur={setFieldTouched}
-                                                               placeholder="شماره حساب را وارد کنید !" />
-                                                        {errors.Hesab && touched.Hesab ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.Hesab}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
-                                                </div>
-                                            </div>
-                                            <div className="w-100 d-flex mt-2 ">
-                                                <div className="w-100 d-flex ">
-                                                    <div className="col-sm-4 ">
-                                                        <FormGroup className="form-group has-float-label position-relative">
-                                                            <Label>
-                                                                <span>نام بانک</span>
-                                                             </Label>
-                                                            <Field className="form-control" name="Bank"  onBlur={setFieldTouched}
-                                                                   placeholder="نام بانک را وارد کنید !" />
-                                                            {errors.Bank && touched.Bank ? (
-                                                                <div className="invalid-feedback d-block">
-                                                                    {errors.Bank}
-                                                                </div>
-                                                            ) : null}
-                                                        </FormGroup>
-                                                    </div>
-                                                    <div className="col-sm-4 ">
-                                                        <FormGroup className="form-group has-float-label position-relative">
-                                                            <Label>
-                                                                <span>شعبه</span>
-                                                             </Label>
-                                                            <Field className="form-control" name="Shobe"  onBlur={setFieldTouched}
-                                                                   placeholder="شعبه را وارد کنید !" />
-                                                            {errors.Shobe && touched.Shobe ? (
-                                                                <div className="invalid-feedback d-block">
-                                                                    {errors.Shobe}
-                                                                </div>
-                                                            ) : null}
-                                                        </FormGroup>
-                                                    </div>
-                                                    <div className="col-sm-4 ">
-                                                        <FormGroup className="form-group has-float-label position-relative">
-                                                            <Label>
-                                                                <span>شماره شبا</span>
-                                                             </Label>
-                                                            <Field className="form-control" name="Shaba"  onBlur={setFieldTouched}
-                                                                   placeholder="شماره حساب را وارد کنید !" />
-                                                            {errors.Shaba && touched.Shaba ? (
-                                                                <div className="invalid-feedback d-block">
-                                                                    {errors.Shaba}
-                                                                </div>
-                                                            ) : null}
-                                                        </FormGroup>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                </div>
+                                <div className="w-100 d-flex mt-2 ">
+                                    <div className="w-100 d-flex ">
+                                        <FormInput  label='نام بانک' type='text' name='Bank' placeHolder="نام بانک را وارد کنید !" DivClass="col-sm-12 col-md-4" setFieldTouched={setFieldTouched} errors={errors} touched={touched}/>
+                                        <FormInput  label='شعبه' type='text' name='Shobe' placeHolder="نام شعبه را وارد کنید !" DivClass="col-sm-12 col-md-4" setFieldTouched={setFieldTouched} errors={errors} touched={touched}/>
+                                        <FormInput  label='شماره شبا' type='text' name='Shaba' placeHolder="شماره شبا را وارد کنید !" DivClass="col-sm-12 col-md-4" setFieldTouched={setFieldTouched} errors={errors} touched={touched}/>
+                                    </div>
+                                </div>
+                                <WizardBottonNavigations {...this.props}/>
+                            </Form>
+                        )}
+                    </Formik>
+
+                </CardComponentChichi>
+            </IsLoaderComponent>
 
 
-                                            <WizardBottonNavigations {...this.props}/>
-                                        </Form>
-                                    )}
-                                </Formik>
-                            </CardBody>
-                        </Card>
-                    </Colxx>
-                </Row>
-
-            </div>
         );
     }
 }

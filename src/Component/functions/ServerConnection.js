@@ -44,6 +44,18 @@ export const sendingImageFunction=async (ImgeFiles,idimgs)=>{
     }
     return ImgeId
 }
+export const sendingAllImageFunction=async (ImgeFiles)=>{
+     let ImgeId = [];
+    console.log(ImgeFiles);
+
+    for (let i = 0; i < ImgeFiles.length; i++) {
+
+        let idax = await sendImg(ImgeFiles[i], 'Public');
+        console.log(idax);
+        ImgeId.push(idax);
+    }
+    return ImgeId
+}
 
 export async  function  GetCatNameFunction(Name){
     let formData = new FormData();

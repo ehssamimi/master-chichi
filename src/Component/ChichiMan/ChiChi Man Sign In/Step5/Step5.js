@@ -1,26 +1,16 @@
 import React, {Component} from 'react';
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
- import {
-    Row,
-    Card,
-    CardBody,
-    FormGroup,
-    Label,
-     CardTitle
-} from "reactstrap";
- import {Colxx} from "../../../../components/common/CustomBootstrap";
+import WizardBottonNavigations from "../Sub/WizardBottonNavigations";
 import {
-    FormikReactSelect,
-} from "../../../../containers/form-validations/FormikFields";
-// import * as Const from "../../../Const";
-import ImgComponent from "../Sub/ImgComponent";
- import WizardBottonNavigations from "../Sub/WizardBottonNavigations";
- import {sendImg, sendingImageFunction, UpdateChichiManContactInfo} from "../../../functions/ServerConnection";
-import NotificationManager from "../../../../components/common/react-notifications/NotificationManager";
- import PersianClassCalender from "../../../Common/PersianClassCalender/PersianClassCalender";
-import Loader from "../../../Common/Loader/Loader";
-import {error_Notification, success_Notification} from "../../../functions/componentHelpFunction";
+    sendingAllImageFunction,
+    sendingImageFunction,
+    UpdateChichiManContactInfo
+} from "../../../functions/ServerConnection";
+ import {error_Notification, success_Notification} from "../../../functions/componentHelpFunction";
+import IsLoaderComponent from "../../../Common/Loader/IsLoader/IsLoaderComponent";
+import CardComponentChichi from "../../../Common/CardComponent/CardComponentChichi";
+import {AddImageForm, FormInput, FormSelect, SetDataPersian} from "../../../Common/ComponentFunctional/FormFeilds";
 const SignupSchema = Yup.object().shape({
 
 
@@ -112,20 +102,6 @@ class Step5 extends Component {
             let {Date, ax} = this.state;
 
             let ImgeFiles = [ax['contract'], ax['safte'] , ax['soePishine'] ];
-            // console.log(ImgeFiles);
-            // console.log(idimgs);
-            // let ImgeId = [];
-            // let idax
-            // for (let i = 0; i < ImgeFiles.length; i++) {
-            //     if (ImgeFiles[i]!==''){
-            //         idax = await sendImg(ImgeFiles[i], 'Public');
-            //         console.log(idax);
-            //     } else {
-            //         idax=idimgs[i]
-            //     }
-            //     ImgeId.push(idax);
-            // }
-            // ImgeId = ["5ef06b402313e180fb581691","5ef06b402313e180fb581691","5ef06b402313e180fb581691"];
             let ImgeId =await sendingImageFunction(ImgeFiles,idimgs);
             let Data={
 
@@ -186,8 +162,6 @@ class Step5 extends Component {
 
             this.setState({
                 axError
-            }, () => {
-                console.log(this.state.axError)
             })
 
             if (axValid) {
@@ -195,13 +169,9 @@ class Step5 extends Component {
                     showLoader:true
                 });
                 let ImgeFiles = [ax['contract'], ax['safte'] , ax['soePishine'] ];
-                let ImgeId = [];
-
-                for (let i = 0; i < ImgeFiles.length; i++) {
-                    let idax = await sendImg(ImgeFiles[i], 'Public');
-                    console.log(idax);
-                    ImgeId.push(idax);
-                }
+                // let ImgeId = await sendingAllImageFunction(ImgeFiles);
+                console.log(ImgeFiles);
+                let ImgeId = ["5ef06b402313e180fb581691","5ef06b402313e180fb581691","5ef06b402313e180fb581691"];
                 console.log(ImgeId);
                 let Data={
                     "PhoneNumber": this.props.PhoneNumber,
@@ -219,42 +189,20 @@ class Step5 extends Component {
                 console.log(Data);
                 console.log(axError);
 
-                let Register = await UpdateChichiManContactInfo(JSON.stringify(Data));
-                console.log(Register);
+                let {state, Description} = await UpdateChichiManContactInfo(JSON.stringify(Data));
                 this.setState({
                     showLoader: false
                 });
-                let {state, Description} = Register;
                 if (state) {
-                    NotificationManager.success(
-                        "congratulation",
-                        "اطلاعات شما با موفقیت ثبت شد",
-                        3000,
-                        null,
-                        null,
-                        "success"
-                    );
+                    success_Notification("اطلاعات شما با موفقیت ثبت شد")
                     let send=document.getElementById("sendItems");
                     send.click();
                 } else {
-                    NotificationManager.error(
-                        "error",
-                        Description,
-                        3000,
-                        null,
-                        null,
-                        "error"
-                    );
+                   error_Notification(state, Description)
                 }
-
-
 
             }
         }
-
-
-
-
 
     };
     GetData(Data,type){
@@ -277,208 +225,59 @@ class Step5 extends Component {
 
     render() {
         let{axError}=this.state;
-        console.log('info');
-        console.log(this.props.info);
-        console.log('begin');
-        console.log(this.state.initialValue['Date'] );
         return (
+            <IsLoaderComponent isLoader={this.state.showLoader}>
+                <CardComponentChichi header="اطلاعات اولیه ">
+                    <Formik
+                        initialValues={this.state.initialValue}
+                        validationSchema={SignupSchema}
+                        onSubmit={this.handleSubmit}
+                    >
+                        {({
+                              handleSubmit,
+                              setFieldValue,
+                              setFieldTouched,
+                              handleChange,
+                              handleBlur,
+                              values,
+                              errors,
+                              touched,
+                              isSubmitting
+                          }) => (
+                            <Form className="av-tooltip tooltip-label-bottom">
 
-            this.state.showLoader?
-                <div className='d-flex justify-content-center align-items-center'>
-                    <div className='col-6'>
-                        <Loader/>
-                    </div>
-                </div>
-                :
-            <div dir='rtl'>
-                <Row className="mb-4">
-                    <Colxx xxs="12">
-                        <Card>
-                            <CardBody>
-                                <CardTitle>
-                                    <div className='d-flex justify-content-start'>
-                                        <span>مستندات قرارداد</span>
-                                     </div>
-                                </CardTitle>
+                                <div className="w-100 d-flex ">
 
-                                <Formik
-                                    initialValues={this.state.initialValue}
-                                    validationSchema={SignupSchema}
-                                    onSubmit={this.handleSubmit}
-                                >
-                                    {({
-                                          handleSubmit,
-                                          setFieldValue,
-                                          setFieldTouched,
-                                          handleChange,
-                                          handleBlur,
-                                          values,
-                                          errors,
-                                          touched,
-                                          isSubmitting
-                                      }) => (
-                                        <Form className="av-tooltip tooltip-label-bottom">
-                                            <div className="w-100 d-flex ">
-                                                <div className="col-sm-3 ">
-                                                    <FormGroup className="form-group has-float-label position-relative">
-                                                        <Label>
-                                                            <span>شماره نامه/فرم</span>
-                                                        </Label>
-                                                        <Field className="form-control" name="form" type='number' onBlur={setFieldTouched}
-                                                               placeholder="شماره نامه/فرم را وارد کنید!" />
-                                                        {errors.form && touched.form ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.form}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
-                                                </div>
-                                                <div className="col-sm-3 rowInput">
-                                                    <FormGroup className=" has-float-label position-relative">
-                                                        <Label>
-                                                            <span>تا تاریخ</span>
-                                                         </Label>
-                                                        <div >
-                                                            <PersianClassCalender GetData={this.GetData.bind(this,'end')} birthDay={this.state.initialValue['Date'] !==undefined?this.state.initialValue['Date']['end']:undefined}/>
-                                                        </div>
-                                                    </FormGroup>
-                                                </div>
-                                                <div className="col-sm-3 rowInput">
-                                                    <FormGroup className=" has-float-label position-relative">
-                                                        <Label>
-                                                            <span>از تاریخ</span>
-                                                         </Label>
-                                                        <div >
-                                                            <PersianClassCalender GetData={this.GetData.bind(this,'begin')} birthDay={this.state.initialValue['Date'] !==undefined?this.state.initialValue['Date']['begin']:undefined}/>
-                                                        </div>
-                                                    </FormGroup>
-                                                </div>
-                                                <div className="col-sm-3 ">
-                                                    <FormGroup className="form-group has-float-label">
-                                                        <Label>
-                                                            <span>وضعیت</span>
-                                                         </Label>
-                                                        <FormikReactSelect
-                                                            name="Kind"
-                                                            id="Kind"
-                                                            value={values.Kind}
-                                                            options={options}
-                                                            onChange={setFieldValue}
-                                                            onBlur={setFieldTouched}
-                                                        />
-                                                        {errors.Kind && touched.Kind ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.Kind}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
-                                                </div>
+                                    <FormInput  label='شماره نامه/فرم' type='number' name='form' placeHolder="شماره نامه/فرم را وارد کنید!" DivClass="col-sm-12 col-md-3" setFieldTouched={setFieldTouched} errors={errors} touched={touched}/>
 
+                                    <SetDataPersian DivClass="col-sm-12 col-md-3 rowInput" label='از تاریخ' Data={this.state.initialValue['Date'] !==undefined?this.state.initialValue['Date']['begin']:undefined} GetData={this.GetData.bind(this,'begin')}/>
 
-                                            </div>
-                                            <div className="w-100 d-flex ">
-                                                <div className="col-sm-4 ">
-                                                    <FormGroup className="form-group has-float-label position-relative">
-                                                        <Label>
-                                                            <span>شماره پیوست</span>
-                                                         </Label>
-                                                        <Field className="form-control" name="attachNumber" type='number' onBlur={setFieldTouched}
-                                                               placeholder="شماره پیوست را وارد کنید !" />
-                                                        {errors.attachNumber && touched.attachNumber ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.attachNumber}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
-                                                </div>
-                                                <div className="col-sm-4 ">
-                                                    <FormGroup className="form-group has-float-label position-relative">
-                                                        <Label>
-                                                            <span>حقوق ثابت</span>
-                                                         </Label>
-                                                        <Field className="form-control" name="darsad" type='number' onBlur={setFieldTouched}
-                                                               placeholder="قرارداد درصدی را وارد کنید !" />
-                                                        {errors.darsad && touched.darsad ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.darsad}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
+                                    <SetDataPersian DivClass="col-sm-12 col-md-3 rowInput" label='تا تاریخ' Data={this.state.initialValue['Date'] !==undefined?this.state.initialValue['Date']['end']:undefined} GetData={this.GetData.bind(this,'end')}/>
 
-                                                </div>
-                                                <div className="col-sm-4 ">
-                                                    <FormGroup className="form-group has-float-label position-relative">
-                                                        <Label>
-                                                            <span>قرارداد درصدی</span>
-                                                         </Label>
-                                                        <Field className="form-control" name="sabet" type='number' onBlur={setFieldTouched}
-                                                               placeholder="درصد قرار داد را وارد کنید" />
-                                                        {errors.sabet && touched.sabet ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.sabet}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
+                                    <FormSelect label={'وضعیت'} name={'Kind'}  option={options} DivClass="col-sm-12 col-md-4" values={values} setFieldValue={setFieldValue} setFieldTouched={setFieldTouched} errors={errors} touched={touched} />
 
-                                                </div>
-                                            </div>
+                                </div>
+                                <div className="w-100 d-flex ">
+                                    <FormInput  label='شماره پیوست' type='number' name='attachNumber' placeHolder="شماره نامه/فرم را وارد کنید!" DivClass="col-sm-12 col-md-4" setFieldTouched={setFieldTouched} errors={errors} touched={touched}/>
+                                    <FormInput  label='حقوق ثابت' type='number' name='darsad' placeHolder="قرارداد درصدی را وارد کنید!" DivClass="col-sm-12 col-md-4" setFieldTouched={setFieldTouched} errors={errors} touched={touched}/>
+                                    <FormInput  label='قرارداد درصدی' type='number' name='sabet' placeHolder="درصد قرار داد را وارد کنید!" DivClass="col-sm-12 col-md-4" setFieldTouched={setFieldTouched} errors={errors} touched={touched}/>
+                                </div>
 
-                                            <div className="w-100 d-flex ">
-                                                <div className="col-sm-4 ">
+                                <div className="w-100 d-flex ">
+                                    <AddImageForm label='عکس قرارداد' type='contract' img={this.state.initialValue['contract']} errors={axError} GetImag={this.GetImag.bind(this)} DivClass="col-sm-12 col-md-4"/>
+                                    <AddImageForm label='عکس سفته' type='safte' img={this.state.initialValue['safte']} errors={axError} GetImag={this.GetImag.bind(this)} DivClass="col-sm-12 col-md-4"/>
+                                    <AddImageForm label='عکس سوپیشینه' type='soePishine' img={this.state.initialValue['soePishine']} errors={axError} GetImag={this.GetImag.bind(this)} DivClass="col-sm-12 col-md-4"/>
+                                </div>
 
-                                                    <FormGroup className="form-group  position-relative ">
-                                                        <div className='d-flex justify-content-start'>
-                                                            <Label>
-                                                                <span>عکس قرارداد</span>
-                                                             </Label>
-                                                        </div>
-                                                        <ImgComponent Type='contract' GetData={this.GetImag.bind(this)} img={this.state.initialValue['contract']}/>
-                                                         {
-                                                            axError["contract"].length>1?<span className=" invalid-feedback d-block">{axError["contract"]} </span>:""
-                                                        }
-                                                    </FormGroup>
+                                <WizardBottonNavigations {...this.props}/>
 
-                                                </div>
-                                                <div className="col-sm-4">
-                                                    <FormGroup className="form-group  position-relative ">
-                                                        <div className='d-flex justify-content-start'>
-                                                            <Label>
-                                                                <span>عکس سفته</span>
-                                                             </Label>
-                                                        </div>
+                            </Form>
+                        )}
+                    </Formik>
 
-                                                        <ImgComponent  Type='safte' GetData={this.GetImag.bind(this)} img={this.state.initialValue['soePishine']} />
-                                                        {
-                                                            axError["safte"].length>1?<span className=" invalid-feedback d-block">{axError["safte"]} </span>:""
-                                                        }
-                                                    </FormGroup>
-                                                </div>
-                                                <div className="col-sm-4">
-                                                    <FormGroup className="form-group  position-relative ">
-                                                        <div className='d-flex justify-content-start'>
-                                                            <Label>
-                                                                <span>عکس سوپیشینه</span>
-                                                             </Label>
-                                                        </div>
-                                                        <ImgComponent  Type='soePishine' GetData={this.GetImag.bind(this)} img={this.state.initialValue['soePishine']}/>
-                                                        {
-                                                            axError["soePishine"].length>1?<span className=" invalid-feedback d-block">{axError["soePishine"]} </span>:""
-                                                        }
-                                                    </FormGroup>
-                                                </div>
-                                            </div>
+                </CardComponentChichi>
+            </IsLoaderComponent>
 
-                                            <WizardBottonNavigations {...this.props}/>
-
-                                        </Form>
-                                    )}
-                                </Formik>
-                            </CardBody>
-                        </Card>
-                    </Colxx>
-                </Row>
-
-            </div>
         );
     }
 }

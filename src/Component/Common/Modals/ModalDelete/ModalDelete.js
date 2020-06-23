@@ -5,8 +5,7 @@ import {Modal, ModalBody, ModalHeader,ModalFooter,Button} from "reactstrap";
 
 export function ModalDelete (props){
     let {isOpen,toggle,item,deleteComponent,type }=props;
-    console.log(type)
-    console.log(                    "ایا از"+type||"حذف"+" "+"این"+item+"مطمئن هستید ؟")
+
     return<div dir='rtl'>
         <Modal
             isOpen={isOpen}

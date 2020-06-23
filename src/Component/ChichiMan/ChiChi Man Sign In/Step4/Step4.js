@@ -1,30 +1,17 @@
 import React, {Component} from 'react';
-import { Formik, Form, Field } from "formik";
+import { Formik, Form } from "formik";
 import * as Yup from "yup";
- import {
-    Row,
-    Card,
-    CardBody,
-    FormGroup,
-    Label,
-     CardTitle
-} from "reactstrap";
- import {Colxx} from "../../../../components/common/CustomBootstrap";
-import {
-    FormikReactSelect,
-} from "../../../../containers/form-validations/FormikFields";
-// import * as Const from "../../../Const";
-import ImgComponent from "../Sub/ImgComponent";
-import {WithWizard} from "react-albus/lib";
+
 import WizardBottonNavigations from "../Sub/WizardBottonNavigations";
 import {
-    sendImg,
+    sendImg, sendingAllImageFunction,
     sendingImageFunction,
-    UpdateChichiManPersonalInfo,
     UpdateChichiManVehicleInfo
 } from "../../../functions/ServerConnection";
-import NotificationManager from "../../../../components/common/react-notifications/NotificationManager";
-import Loader from "../../../Common/Loader/Loader";
+ import IsLoaderComponent from "../../../Common/Loader/IsLoader/IsLoaderComponent";
+import CardComponentChichi from "../../../Common/CardComponent/CardComponentChichi";
+import {AddImageForm, FormInput, FormSelect} from "../../../Common/ComponentFunctional/FormFeilds";
+import {error_Notification, success_Notification} from "../../../functions/componentHelpFunction";
  const SignupSchema = Yup.object().shape({
 
     Kind: Yup.object()
@@ -50,8 +37,7 @@ const options = [
     { value: "موتور", label: "موتور" },
     { value: "ماشین", label: "ماشین" },
     { value: "دوچرخه", label: "دوچرخه" },
-    // { value: "Gun", label: "Gun" }
-];
+ ];
 
 
 
@@ -124,21 +110,8 @@ class Step4 extends Component {
             let {Date, ax} = this.state;
 
             let ImgeFiles = [ax['VCImg'], ax['DLImg']];
-            console.log(ImgeFiles);
-            console.log(idimgs);
-            // let ImgeId = [];
-            // let idax
-            // for (let i = 0; i < ImgeFiles.length; i++) {
-            //     if (ImgeFiles[i]!==''){
-            //         idax = await sendImg(ImgeFiles[i], 'Public');
-            //         console.log(idax);
-            //     } else {
-            //         idax=idimgs[i]
-            //     }
-            //     ImgeId.push(idax);
-            // }
 
-            // ImgeId = ["5ef06b402313e180fb581691","5ef06b402313e180fb581691"];
+
             let ImgeId =await sendingImageFunction(ImgeFiles,idimgs);
 
             let Data={
@@ -147,40 +120,23 @@ class Step4 extends Component {
                 "DeliveryType": payload.Kind,
                 "PlateNumber": payload.Plaque.toString(),
                 "CardNumber": payload.VCN.toString(),
-                // "VehicleModel": "string",
-                // "VehicleColor": "string",
                 "VehicleCardImage": ImgeId[0],
                 "LicenseNumber": payload.DLN.toString(),
                 "LicenseImage": ImgeId[1]
 
             };
             console.log(Data);
-            let Register = await UpdateChichiManVehicleInfo(JSON.stringify(Data));
-            console.log(Register);
+            let {state, Description} = await UpdateChichiManVehicleInfo(JSON.stringify(Data));
             this.setState({
                 showLoader: false
             });
-            let {state, Description} = Register;
             if (state) {
-                NotificationManager.success(
-                    "congratulation",
-                    "اطلاعات شما با موفقیت ثبت شد",
-                    3000,
-                    null,
-                    null,
-                    "success"
-                );
+                success_Notification("اطلاعات شما با موفقیت ثبت شد");
                 let send=document.getElementById("sendItems");
                 send.click();
             } else {
-                NotificationManager.error(
-                    "error",
-                    Description,
-                    3000,
-                    null,
-                    null,
-                    "error"
-                );
+                error_Notification(state, Description)
+
             }
 
             // **********if submit ***********
@@ -204,8 +160,6 @@ class Step4 extends Component {
             }
             this.setState({
                 axError
-            }, () => {
-
             });
 
             if (axValid) {
@@ -213,69 +167,36 @@ class Step4 extends Component {
                     showLoader:true
                 });
                 let ImgeFiles = [ax['VCImg'], ax['DLImg'] ];
-                let ImgeId = []
+                // let ImgeId =await sendingAllImageFunction(ImgeFiles)
+                console.log(ImgeFiles)
 
-                for (let i = 0; i < ImgeFiles.length; i++) {
-                    let idax = await sendImg(ImgeFiles[i], 'Public');
-                    console.log(idax);
-                    ImgeId.push(idax);
-                }
-                console.log(ImgeId);
-
+                let ImgeId = ["5ef06b402313e180fb581691","5ef06b402313e180fb581691"];
                 let Data={
                     "PhoneNumber": this.props.PhoneNumber,
                     "DeliveryType": payload.Kind,
                     "PlateNumber": payload.Plaque.toString(),
                     "CardNumber": payload.VCN.toString(),
-                    // "VehicleModel": "string",
-                    // "VehicleColor": "string",
                     "VehicleCardImage": ImgeId[0],
                     "LicenseNumber": payload.DLN.toString(),
                     "LicenseImage": ImgeId[1]
                 };
                 console.log(Data);
-                console.log(axError);
-                // let send=document.getElementById("sendItems");
-                // send.click();
-                // VehicleCardImage  LicenseImage
-                let Register = await UpdateChichiManVehicleInfo(JSON.stringify(Data));
-                console.log(Register);
+                let {state, Description} = await UpdateChichiManVehicleInfo(JSON.stringify(Data));
                 this.setState({
                     showLoader: false
                 });
-                let {state, Description} = Register;
                 if (state) {
-                    NotificationManager.success(
-                        "congratulation",
-                        "اطلاعات شما با موفقیت ثبت شد",
-                        3000,
-                        null,
-                        null,
-                        "success"
-                    );
+                    success_Notification("اطلاعات شما با موفقیت ثبت شد");
                     let send=document.getElementById("sendItems");
                     send.click();
                 } else {
-                    NotificationManager.error(
-                        "error",
-                        Description,
-                        3000,
-                        null,
-                        null,
-                        "error"
-                    );
+                    error_Notification(state, Description)
+
                 }
-
-
 
             }
 
         }
-
-
-
-
-
 
     };
 
@@ -283,154 +204,58 @@ class Step4 extends Component {
     render() {
         let{axError}=this.state;
          return (
-            this.state.showLoader?
-                <div className='d-flex justify-content-center align-items-center'>
-                    <div className='col-6'>
-                        <Loader/>
-                    </div>
-                </div>
-                :
-            <div dir='rtl'>
-                <Row className="mb-4">
-                    <Colxx xxs="12">
-                        <Card>
-                            <CardBody>
-                                <CardTitle>
-                                    <div className='d-flex justify-content-start'>
-                                       <span>اطلاعات نقلیه</span>
-                                    </div>
-                                </CardTitle>
+             <IsLoaderComponent isLoader={this.state.showLoader}>
+                 <CardComponentChichi header="اطلاعات نقلیه ">
+                     <Formik
+                         initialValues={this.state.initialValue}
+                         validationSchema={SignupSchema}
+                         onSubmit={this.handleSubmit}
+                     >
+                         {({
+                               handleSubmit,
+                               setFieldValue,
+                               setFieldTouched,
+                               handleChange,
+                               handleBlur,
+                               values,
+                               errors,
+                               touched,
+                               isSubmitting
+                           }) => (
+                             <Form className="av-tooltip tooltip-label-bottom">
+                                 <div className="w-100 row m-0 ">
 
-                                <Formik
-                                    initialValues={this.state.initialValue}
-                                    validationSchema={SignupSchema}
-                                    onSubmit={this.handleSubmit}
-                                >
-                                    {({
-                                          handleSubmit,
-                                          setFieldValue,
-                                          setFieldTouched,
-                                          handleChange,
-                                          handleBlur,
-                                          values,
-                                          errors,
-                                          touched,
-                                          isSubmitting
-                                      }) => (
-                                        <Form className="av-tooltip tooltip-label-bottom">
-                                            <div className="w-100 d-flex ">
-                                                <div className="col-sm-6 ">
-                                                    <FormGroup className="form-group has-float-label position-relative">
-                                                        <Label>
-                                                            <span>شماره گواهینامه</span>
+                                     <FormInput  label='شماره گواهینامه' type='number' name='DLN' placeHolder="کد ده رقمی شماره گواهینامه" DivClass="col-sm-12 col-md-6" setFieldTouched={setFieldTouched} errors={errors} touched={touched}/>
 
-                                                         </Label>
-                                                        <Field className="form-control" name="DLN" type='number'   onBlur={setFieldTouched}
-                                                               placeholder="کد ده رقمی شماره گواهینامه" />
-                                                        {errors.DLN && touched.DLN ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.DLN}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
-                                                </div>
-                                                <div className="col-sm-6 ">
-                                                    <FormGroup className="form-group has-float-label">
-                                                        <Label>
-                                                            <span>نوع وسیله نقلیه</span>
-                                                        </Label>
-                                                        <FormikReactSelect
-                                                            name="Kind"
-                                                            id="Kind"
-                                                            value={values.Kind}
-                                                            options={options}
-                                                            onChange={setFieldValue}
-                                                            onBlur={setFieldTouched}
-                                                        />
-                                                        {errors.Kind && touched.Kind ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.Kind}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
-                                                </div>
-                                            </div>
-                                            <div className="w-100 d-flex ">
-                                                <div className="col-sm-6 ">
-                                                    <FormGroup className="form-group has-float-label position-relative">
-                                                        <Label>
-                                                            <span>کارت ماشین</span>
-                                                        </Label>
-                                                        <Field className="form-control" name="VCN" type='text'   onBlur={setFieldTouched}
-                                                               placeholder="شماره کارت وسیله نقلیه را وارد کنید !" />
-                                                        {errors.VCN && touched.VCN ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.VCN}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
-                                                </div>
-                                                <div className="col-sm-6 ">
-                                                    <FormGroup className="form-group has-float-label position-relative">
-                                                        <Label>
-                                                            <span>پلاک</span>
-                                                         </Label>
-                                                        <Field className="form-control" name="Plaque" type='text'  onBlur={setFieldTouched}
-                                                               placeholder="پلاک وسیله نقلیه را وارد کنید !" />
-                                                        {errors.Plaque && touched.Plaque ? (
-                                                            <div className="invalid-feedback d-block">
-                                                                {errors.Plaque}
-                                                            </div>
-                                                        ) : null}
-                                                    </FormGroup>
-                                                </div>
-                                            </div>
+                                     <FormSelect label={'نوع وسیله نقلیه'} name={'Kind'}  option={options} DivClass="col-sm-12 col-md-6" values={values} setFieldValue={setFieldValue} setFieldTouched={setFieldTouched} errors={errors} touched={touched} />
 
-                                            <div className="w-100 d-flex ">
-                                                <div className="col-sm-6 ">
-                                                    <FormGroup className="form-group  position-relative ">
-                                                        <div className='d-flex justify-content-start'>
-                                                            <Label>
-                                                                <span>عکس کارت ماشین</span>
+                                     <FormInput  label='کارت ماشین' type='text' name='VCN' placeHolder="شماره کارت وسیله نقلیه را وارد کنید !" DivClass="col-sm-12 col-md-6" setFieldTouched={setFieldTouched} errors={errors} touched={touched}/>
 
-                                                                {/*<IntlMessages id="عکس کارت ماشین" />*/}
-                                                            </Label>
-                                                        </div>
+                                     <FormInput  label='پلاک' type='text' name='Plaque' placeHolder="پلاک وسیله نقلیه را وارد کنید !" DivClass="col-sm-12 col-md-6" setFieldTouched={setFieldTouched} errors={errors} touched={touched}/>
 
-                                                    <ImgComponent Type='VCImg' GetData={this.GetImag.bind(this)} img={this.state.initialValue['VCImg']}/>
-                                                        {
-                                                            axError["VCImg"].length>1?<span className=" invalid-feedback d-block">{axError["VCImg"]} </span>:""
-                                                        }
-                                                    </FormGroup>
-                                                </div>
-                                                <div className="col-sm-6">
-                                                    <FormGroup className="form-group  position-relative ">
-                                                        <div className='d-flex justify-content-start'>
-                                                            <Label>
-                                                                <span>عکس گواهینامه</span>
-                                                                {/*<IntlMessages id="عکس گواهینامه" />*/}
-                                                            </Label>
-                                                        </div>
-                                                    <ImgComponent  Type='DLImg' GetData={this.GetImag.bind(this)} img={this.state.initialValue['DLImg']}/>
-                                                        {
-                                                            axError["DLImg"].length>1?<span className=" invalid-feedback d-block">{axError["DLImg"]} </span>:""
-                                                        }
-                                                     </FormGroup>
-                                                </div>
 
-                                            </div>
+                                 </div>
 
-                                            <WizardBottonNavigations {...this.props}/>
+                                 <div className="w-100 d-flex ">
 
-                                        </Form>
-                                    )}
-                                </Formik>
-                            </CardBody>
-                        </Card>
-                    </Colxx>
-                </Row>
+                                     <AddImageForm label='عکس کارت ماشین' type='VCImg' img={this.state.initialValue['VCImg']} errors={axError} GetImag={this.GetImag.bind(this)} DivClass="col-sm-12 col-md-6"/>
 
-            </div>
+                                     <AddImageForm label='عکس گواهینامه' type='DLImg' img={this.state.initialValue['DLImg']} errors={axError} GetImag={this.GetImag.bind(this)} DivClass="col-sm-12 col-md-6"/>
+
+                                 </div>
+
+                                 <WizardBottonNavigations {...this.props}/>
+
+                             </Form>
+                         )}
+                     </Formik>
+
+                 </CardComponentChichi>
+             </IsLoaderComponent>
+
+
+
+
         );
     }
 }
