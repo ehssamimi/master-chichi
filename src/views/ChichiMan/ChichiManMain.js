@@ -3,21 +3,11 @@ import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import AppLayout from './../../layout/AppLayout';
-import ChichiManInfoCard
-    from "../../Component/ChichiMan/ChichiMan-Info/Main-Chichi-Info/sub/ChichiManInfoCard/ChichiManInfoCard";
 
 const ChichiManSignIn = React.lazy(() =>
     import(/* webpackChunkName: "viwes-gogo" */ './../../Component/ChichiMan/ChiChi Man Sign In/ChichiManSignIn')
 );
-const ChichiManInfo = React.lazy(() =>
-    import(/* webpackChunkName: "viwes-gogo" */ './ChichiMan-Info/ChichiMan-info')
-);
-const Vote = React.lazy(() =>
-    import(/* webpackChunkName: "viwes-gogo" */ './ChichiMan-vote/ChichiMan-vote')
-);
-const Statistic = React.lazy(() =>
-    import(/* webpackChunkName: "viwes-gogo" */ './ChichiMan-statistic/ChichiMan-statistic')
-);
+
 const ChichiList = React.lazy(() =>
     import(/* webpackChunkName: "viwes-gogo" */ './../../Component/ChichiMan/chichiMan-List/ChichiManList')
 );

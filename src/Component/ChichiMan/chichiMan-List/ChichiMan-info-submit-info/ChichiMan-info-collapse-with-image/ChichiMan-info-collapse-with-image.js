@@ -3,13 +3,13 @@ import { Collapse } from 'reactstrap';
 import { FaUserEdit } from "react-icons/fa";
 import {NavLink} from "react-router-dom";
 import {RowShowShowColEdit} from "../../../../Common/RowShowShowColEdit/ShowInRowComponents";
+import CollapseHeaderComponent from "../../../../Common/CollapseRow/CollapseHeaderComponent/CollapseHeaderComponent";
 
 class
 ChichiManInfoCollapseWithImage extends Component {
     constructor(props) {
         super(props);
-        this.toggle = this.toggle.bind(this);
-        this.state = { collapse: true ,store:'',sub:[],Keys:''};
+         this.state = { collapse: true ,store:'',sub:[],Keys:''};
     }
 
     componentDidMount() {
@@ -22,12 +22,6 @@ ChichiManInfoCollapseWithImage extends Component {
         });
     }
 
-
-
-    toggle() {
-        this.setState(state => ({ collapse: !state.collapse }));
-    }
-
     render() {
         let{store,sub,Keys}=this.state;
         let{image,className,label}=this.props;
@@ -36,22 +30,18 @@ ChichiManInfoCollapseWithImage extends Component {
          return (
             <div className='  col-12   mb-4 pb-5'>
 
-                <div className='d-flex justify-content-start align-items-center ' onClick={this.toggle} >
-                    {
-                        this.state.collapse?
-                            <h3 className='simple-icon-minus icon-glyph mr-2'/>
-                            :
-                            <h3 className='simple-icon-plus icon-glyph mr-2'/>
+                <div className="w-100 d-flex">
 
-                    }
-                    <h3 className={this.props.color||"purpleColor"}>{store.header}:</h3>
+                     <CollapseHeaderComponent onClick={()=> this.setState(prevState => ({collapse:!prevState.collapse}))} collapse={this.state.collapse} header={store.header} divClass={this.props.color||"purpleColor"}/>
                     <NavLink to={`/chichi-man/sign-in/${this.props.id}/${this.props.step}`} className="ml-auto">
-                    <div  className='  h3-style'>
-                        <FaUserEdit/>
-                    </div>
+                        <div  className='  h3-style'>
+                            <FaUserEdit/>
+                        </div>
                     </NavLink>
 
                 </div>
+
+
 
                 <Collapse isOpen={this.state.collapse} className="h-100 pb-2">
                     <div>
@@ -65,7 +55,7 @@ ChichiManInfoCollapseWithImage extends Component {
                         <div className='d-flex mt-2  '>
                             {image.length>0 ?
                                 image.map((todo, index) =>
-                                    <div key={index} className={[' h-min-15em  h-max-30em','d-flex','flex-column', ' ' ,'align-items-center' , className || ''].join(' ')}>
+                                    <div key={index} className={['h-20em','d-flex','flex-column', ' ' ,'align-items-center' , className || ''].join(' ')}>
                                         <label htmlFor={index}><RowShowShowColEdit label={'عکس'} value={label[index] }  col={ 'col-12'} className='fS1vw'/>
                                             </label>
                                         <img src={todo} alt={todo} className='img-self-fill br10px'/>

@@ -3,6 +3,7 @@ import { Collapse  } from 'reactstrap';
  import {NavLink} from "react-router-dom";
 import { FaUserEdit } from "react-icons/fa";
 import {RowShowShowColEdit} from "../../../../Common/RowShowShowColEdit/ShowInRowComponents";
+import CollapseHeaderComponent from "../../../../Common/CollapseRow/CollapseHeaderComponent/CollapseHeaderComponent";
 class ChichimanInfoCollapseWithoutImg extends Component {
     constructor(props) {
         super(props);
@@ -27,24 +28,22 @@ class ChichimanInfoCollapseWithoutImg extends Component {
         let{store,sub,Keys}=this.state;
         // console.log(Keys);
         return (
-            <div className='mt-5 col-12'>
-                {/*<Card>*/}
-                {/*<CardBody>*/}
-                <div className='d-flex justify-content-start align-items-center ' onClick={this.toggle} >
-                    {
-                        this.state.collapse?
-                            <h3 className='simple-icon-minus icon-glyph ml-2'/>
-                            :
-                            <h3 className='simple-icon-plus icon-glyph ml-2'/>
+            <div className='  col-12'>
 
-                    }
-                    <h3 className={this.props.color||"purpleColor"}>{store.header}:</h3>
-                    <NavLink to={`/chichi-man/sign-in/${this.props.id}/${this.props.step}`}>
-                        <div  className=' mr-auto h3-style'>
+
+                <div className="w-100 d-flex">
+                    <CollapseHeaderComponent onClick={()=> this.setState(prevState => ({collapse:!prevState.collapse}))} collapse={this.state.collapse} header={store.header} divClass={this.props.color||"purpleColor"}/>
+                    <NavLink to={`/chichi-man/sign-in/${this.props.id}/${this.props.step}`} className="ml-auto">
+                        <div  className='   h3-style'>
                             <FaUserEdit/>
                         </div>
                     </NavLink>
+
                 </div>
+
+
+
+
 
                 <Collapse isOpen={this.state.collapse}>
                     <div className='d-flex  w-100 flex-wrap '  >
@@ -55,9 +54,7 @@ class ChichimanInfoCollapseWithoutImg extends Component {
                         }
                     </div>
                 </Collapse>
-                {/*</CardBody>*/}
 
-                {/*</Card>*/}
                 <hr/>
             </div>
         );

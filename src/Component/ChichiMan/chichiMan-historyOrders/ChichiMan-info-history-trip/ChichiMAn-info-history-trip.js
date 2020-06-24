@@ -98,6 +98,7 @@ class ChichiMAnInfoHistoryTrip extends Component {
                          <div className='d-flex flex-wrap justify-content-start' dir='rtl'>
 
 
+
                             <CollapseRow store={subRow.trips}/>
                             <div className='mt-5 col-12'>
                                 <div className='d-flex justify-content-start align-items-center ' onClick={this.toggle} >

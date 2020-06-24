@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import {Card, CardBody} from "reactstrap";
 import ChichiManInfoCollapseWithImage from "./ChichiMan-info-collapse-with-image/ChichiMan-info-collapse-with-image";
-import ax from './../../../../assets/img/4th-1.jpg'
-import HeaderComponentChichiInfo from "../../ChichiMan-Info/Header-component-chichi-info/Header-component-chichi-info";
+ import HeaderComponentChichiInfo from "../../ChichiMan-Info/Header-component-chichi-info/Header-component-chichi-info";
 import {ChichiManIfoDetail} from './../../../functions/ServerConnection'
  import ChichimanInfoCollapseWithoutImg from "./ChichiMan-info-collapse-without-img/ChichimanInfoCollapseWithoutImg";
 import CollapseRow from "../../../Common/CollapseRow/CollapseRow";
@@ -18,21 +17,11 @@ class ChichiManInfoSubmitInfo extends Component {
     }
     async componentDidMount(){
         const {match: {params}} = this.props;
-        console.log(params.userId);
-        let subRow=await ChichiManIfoDetail(params.userId);
-        console.log(subRow);
-        console.log(subRow);
-        this.setState({
+         let subRow=await ChichiManIfoDetail(params.userId);
+            this.setState({
             subRow,id:params.userId
         });
-        // contract:
-        //     header: "مستندات قرارداد"
-        // sub: {تاریخ شروع: "1398/10/30", تاریخ پایان: "1398/10/1", شماره نامه/فرم: "985648", شماره پیوست: 123, حقوق ثابت: "2000000", …}
-        // images:
-        //     contract: "https://api.chichiapp.ir/v1/mediaservice/download/5e15d52f2723b1905883899d"
-        // soePishine: "https://api.chichiapp.ir/v1/mediaservice/download/5e15d532d80d6b152f248366"
-        // safteh: "https://api.chichiapp.ir/v1/mediaservice/download/5e15d530d80d6b152f248365"
-    }
+     }
 
     render() {
         let{subRow,id}=this.state;
@@ -60,7 +49,6 @@ class ChichiManInfoSubmitInfo extends Component {
                                                                     className='col-4'/>
 
                                     <ChichimanInfoCollapseWithoutImg  store={subRow.BankInfo} col={'col-6'} id={id} step={'step6'} />
-                                    {/*<CollapseRow store={subRow.BankInfo} col={'col-6'}/>*/}
 
                                 </div>
                             </CardBody>

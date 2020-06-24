@@ -1,6 +1,6 @@
  import React, {useState} from 'react';
 
-import {Card, CardBody, CardSubtitle, CardText} from "reactstrap";
+import {Card,  CardSubtitle, CardText} from "reactstrap";
 import {NavLink} from "react-router-dom";
 import ThumbnailLetters from "../../../../../../components/cards/ThumbnailLetters";
 import {DeleteChichiMan} from "../../../../../functions/ServerConnection";

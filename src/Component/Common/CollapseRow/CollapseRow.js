@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import { Collapse  } from 'reactstrap';
  import {RowShowShowColEdit} from "../RowShowShowColEdit/ShowInRowComponents";
+import CollapseHeaderComponent from "./CollapseHeaderComponent/CollapseHeaderComponent";
 
 class CollapseRow extends Component {
     constructor(props) {
         super(props);
-        this.toggle = this.toggle.bind(this);
-        this.state = { collapse: true ,store:'',sub:[],Keys:''};
+         this.state = { collapse: true ,store:'',sub:[],Keys:''};
     }
 
     componentDidMount() {
@@ -18,27 +18,16 @@ class CollapseRow extends Component {
             store, sub,Keys
         });
     }
-    toggle() {
-        this.setState(state => ({ collapse: !state.collapse }));
-    }
+
 
     render() {
         let{store,sub,Keys}=this.state;
-        // console.log(Keys);
-        return (
+         return (
             <div className='mt-5 col-12'>
-                {/*<Card>*/}
-                {/*<CardBody>*/}
-                <div className='d-flex justify-content-start align-items-center ' onClick={this.toggle} >
-                    {
-                        this.state.collapse?
-                            <h3 className='simple-icon-minus icon-glyph ml-2'/>
-                            :
-                            <h3 className='simple-icon-plus icon-glyph ml-2'/>
 
-                    }
-                    <h3 className={this.props.color||"purpleColor"}>{store.header}:</h3>
-                </div>
+
+                <CollapseHeaderComponent onClick={()=> this.setState(prevState => ({collapse:!prevState.collapse}))} collapse={this.state.collapse} header={store.header} divClass={this.props.color||"purpleColor"}/>
+
 
                 <Collapse isOpen={this.state.collapse}>
                     <div className='d-flex  w-100 flex-wrap '  >
@@ -49,9 +38,7 @@ class CollapseRow extends Component {
                         }
                     </div>
                 </Collapse>
-                {/*</CardBody>*/}
 
-                {/*</Card>*/}
                 <hr/>
             </div>
         );
