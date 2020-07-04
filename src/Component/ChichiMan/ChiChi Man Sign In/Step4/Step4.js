@@ -4,7 +4,7 @@ import * as Yup from "yup";
 
 import WizardBottonNavigations from "../Sub/WizardBottonNavigations";
 import {
-    sendImg, sendingAllImageFunction,
+    // sendImg, sendingAllImageFunction,
     sendingImageFunction,
     UpdateChichiManVehicleInfo
 } from "../../../functions/ServerConnection";

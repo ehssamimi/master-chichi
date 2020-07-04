@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
 import {Card, CardBody} from "reactstrap";
 import ChichiManInfoCollapseWithImage from "./ChichiMan-info-collapse-with-image/ChichiMan-info-collapse-with-image";
- import HeaderComponentChichiInfo from "../../ChichiMan-Info/Header-component-chichi-info/Header-component-chichi-info";
-import {ChichiManIfoDetail} from './../../../functions/ServerConnection'
- import ChichimanInfoCollapseWithoutImg from "./ChichiMan-info-collapse-without-img/ChichimanInfoCollapseWithoutImg";
+import HeaderComponentChichiInfo from "../../ChichiMan-Info/Header-component-chichi-info/Header-component-chichi-info";
+import {ChichiManIfoDetail} from '../../../functions/ServerConnection'
+import ChichimanInfoCollapseWithoutImg from "./ChichiMan-info-collapse-without-img/ChichimanInfoCollapseWithoutImg";
 import CollapseRow from "../../../Common/CollapseRow/CollapseRow";
 import Loader from "../../../Common/Loader/Loader";
+import {error_Notification} from "../../../functions/componentHelpFunction";
 
 class ChichiManInfoSubmitInfo extends Component {
     constructor(props) {
@@ -17,14 +18,22 @@ class ChichiManInfoSubmitInfo extends Component {
     }
     async componentDidMount(){
         const {match: {params}} = this.props;
-         let subRow=await ChichiManIfoDetail(params.userId);
-            this.setState({
-            subRow,id:params.userId
-        });
+         let {state ,Description}=await ChichiManIfoDetail(params.userId);
+
+         if (state===200){
+             this.setState({
+                 subRow:Description,id:params.userId
+             });
+         }else {
+             error_Notification(state, Description);
+         }
+
      }
 
     render() {
         let{subRow,id}=this.state;
+        console.log(Object.entries(subRow))
+        console.log(subRow)
         return (
             <div>
 

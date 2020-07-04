@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import ax from './../../../assets/img/4th-1.jpg'
+import ax from '../../../assets/img/4th-1.jpg'
  import ChichiManOrderSituationInRow from "./ChichiMan-Order-Situation-In-Row/ChichiManOrderSituationInRow";
 
 class ChichiManOrdersChichiMan extends Component {

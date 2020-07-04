@@ -10,6 +10,7 @@ import PreviewHeaderSlider from "../../../Sub/HeaderSlider/Preview/PreviewHeader
 import PreViewBanner from "../../../Sub/Banner/PreViewBanner/PreViewBanner";
 import PreviewMainSlider from "../../../Sub/SliderAddHomePage/PreviewSliderMAin/PreviewMainSlider";
 import Loader from "../../../Sub/Loader/Loader";
+import {error_Notification} from "../../../../functions/componentHelpFunction";
 var classNames = require('classnames');
 
 class AddNewHomePageComponent extends Component {
@@ -27,11 +28,22 @@ class AddNewHomePageComponent extends Component {
         var ItemsList='';
         switch (name) {
             case 'ItemList':
-                 ItemsList = await GetAllItemList();
-                // console.log(ItemsList);
-                this.setState({
-                    ItemsList
-                });
+                //  ItemsList = await GetAllItemList();
+                // // console.log(ItemsList);
+                // this.setState({
+                //     ItemsList
+                // });
+
+                let {state:state2,Description:itemsList } = await GetAllItemList( );
+                console.log(itemsList);
+                if (state2===200){
+                    this.setState({
+                        itemsList
+                    })
+                }else {
+                    error_Notification(state2,itemsList)
+                }
+
                 break;
             case 'Category':
                   ItemsList = await GetCategoriesAll();

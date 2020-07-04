@@ -9,7 +9,7 @@ import {
     addPackage,
     GetPackageDetail,
     sendImg,
-    UpdatePackage, GetCatNameFunction, UpdateCategories, GetCategoriesAll
+    UpdatePackage, GetCatNameFunction, UpdateCategories, GetCategoriesAll, GetImageId
 } from "../../../functions/ServerConnection";
 import PreviewCategories from "../CategoriesHomePage/PreviewCategories/PreviewCategories";
 import PreviewPackages from "./subPackage/PreviewPackages";
@@ -190,7 +190,8 @@ class WonderPackageAddHomePage extends Component {
             if (acceptCategoryName===true){
                 var axandCategoryok=true;
                 for (let i=0;i<ctaImg.length;i++) {
-                    let idax = await sendImg(ctaImg[i], 'Public');
+                    // let idax = await sendImg(ctaImg[i], 'Public');
+                    let idax = await GetImageId(ctaImg[i], 'Public');
                     console.log(idax);
                     if (idax==='error'){
                         NotificationManager.error(
@@ -283,7 +284,8 @@ class WonderPackageAddHomePage extends Component {
         console.log(catNameServer);
         var submit=false;
         if (ax1File!==''){
-            let idax1 = await sendImg(ax1File, 'Public');
+            // let idax1 = await sendImg(ax1File, 'Public');
+            let idax1 =await GetImageId(ax1File, 'Public');
             let updateCategories1 = await UpdatePackage(catNameServer, "0", idax1 , catNameServer);
             if (idax1 === 'error' || updateCategories1 === 'error'){
                 NotificationManager.error(
@@ -316,7 +318,8 @@ class WonderPackageAddHomePage extends Component {
         // }
 
         if (ax2File!==''){
-            let idax2 = await sendImg(ax2File, 'Public');
+            // let idax2 = await sendImg(ax2File, 'Public');
+            let idax2 = await GetImageId(ax2File, 'Public');
             let updateCategories2 = await UpdatePackage(catNameServer, "1", idax2 , catNameServer);
             // console.log(updateCategories2);
             if (idax2 === 'error' || updateCategories2 === 'error'){
@@ -340,7 +343,8 @@ class WonderPackageAddHomePage extends Component {
             }
         }
         if (ax3File!==''){
-            let idax3 = await sendImg(ax3File, 'Public');
+            // let idax3 = await sendImg(ax3File, 'Public');
+            let idax3 = await GetImageId(ax3File, 'Public');
             let updateCategories3 = await UpdatePackage(catNameServer, "2", idax3 , catNameServer);
             // console.log(updateCategories3);
             if (idax3 === 'error' || updateCategories3 === 'error'){
@@ -364,7 +368,8 @@ class WonderPackageAddHomePage extends Component {
             }
         }
         if (ax4File!=='') {
-            let idax4 = await sendImg(ax4File, 'Public');
+            // let idax4 = await sendImg(ax4File, 'Public');
+            let idax4 = await GetImageId(ax4File, 'Public');
             let updateCategories4 = await UpdatePackage(catNameServer, "3", idax4, catNameServer);
             if (idax4 === 'error' || updateCategories4 === 'error'){
                 NotificationManager.error(
@@ -387,7 +392,8 @@ class WonderPackageAddHomePage extends Component {
             }
         }
         if (ax5File!=='') {
-            let idax5 = await sendImg(ax5File, 'Public');
+            // let idax5 = await sendImg(ax5File, 'Public');
+            let idax5 = await GetImageId(ax5File, 'Public');
             let updateCategories5 = await UpdatePackage(catNameServer, "4", idax5, catNameServer);
             if (idax5 === 'error' || updateCategories5 === 'error'){
                 NotificationManager.error(

@@ -1,34 +1,41 @@
 import React, {Component} from 'react';
 import PreViewBanner from "./PreViewBanner/PreViewBanner";
 import AddBanerHomePage from "./AddBaner/AddBanerHomePage";
-import {GetBanners, GetBanerDetail, GetDestination} from "../../../functions/ServerConnection";
+import {GetBanners, GetBanerDetail} from "../../../functions/ServerConnection";
 import axis from './../../../../assets/img/4th.jpg'
-import PreviewCategories from "../CategoriesHomePage/PreviewCategories/PreviewCategories";
-import Loader from "../Loader/Loader";
+import {error_Notification} from "../../../functions/componentHelpFunction";
+import IsLoaderComponent from "../../../Common/Loader/IsLoader/IsLoaderComponent";
 
 
 class MainBaner extends Component {
     constructor(props) {
         super(props);
         this.state={
-            AllBanners:[],Edit:false,ax:axis,name:'',Destination:"",showLoader:false
+            AllBanners:[],ax:axis,name:'',Destination:"",IsLoader:true
         }
     }
 
     async componentDidMount(){
-        let AllBanners = await GetBanners();
-        console.log(AllBanners);
-        this.setState({
-            AllBanners
-        })
+        await  this.GetAllBaners()
     }
-    async updateListComponents(){
-         let AllBanners = await GetBanners();
-        console.log(AllBanners);
+
+// *******handel get all baners*******
+    GetAllBaners = async () => {
         this.setState({
-            AllBanners
+            IsLoader:true
         })
+        let {state ,Description:AllBanners} = await GetBanners();
+        if (state!==200){
+            error_Notification(state,AllBanners)
+        }else {
+            this.setState({
+                AllBanners:AllBanners.Items,IsLoader:false
+            })
+        }
     }
+
+    // ********i dont know this is neccecery or not "*****************"
+
     async ClickEdit(value ,id) {
         console.log(value);
         let data= await GetBanerDetail(value);
@@ -47,24 +54,25 @@ class MainBaner extends Component {
     }
 
     render() {
-        let{AllBanners,Edit,ax}=this.state;
+        let{AllBanners,IsLoader,ax}=this.state;
         return (
             <div className='w-100 d-flex'  >
                 <div className='col-6'>
-                            <AddBanerHomePage  id={1} header={'title'} ax={ax} name={this.state.name} Destination={this.state.Destination} updateListComponents={this.updateListComponents.bind(this)} />
+                            <AddBanerHomePage  id={1} header={'title'} ax={ax} name={this.state.name} Destination={this.state.Destination}
+                                                updateListComponents={()=>{this.GetAllBaners()}}
+                            />
                 </div>
-                <div className='col-6'>{
-                    AllBanners.length>0?
-                        // AllBanners.map((cat ,index)=><PreViewBanner id={CategoriesList[index]._id} key={index} header={cat.Name} ax1={CategoriesList[index].Items[0].Image}   clickPreview={this.ClickEdit.bind(this)}/>  ):""
-                        AllBanners.map((cat, index) => <PreViewBanner id={cat._id} key={index} header={cat.Name}
-                                                                      ax={cat.Image} index={index}
-                                                                      clickPreview={this.ClickEdit.bind(this)}/>) :
-                        <Loader/>
-                        // AllBanners.map((cat ,index)=><PreViewBanner id={index} key={index}  ax1={ax}   clickPreview={this.ClickEdit.bind(this)} />  ):""
-                }
+                <div className='col-6'>
+                    <IsLoaderComponent isLoader={IsLoader}>
+                        {
+                            AllBanners.map((item, index) => <PreViewBanner id={item._id} key={index} header={item.Name}
+                                                                           ax={item.Image} index={index}
+                                                                           clickPreview={this.ClickEdit.bind(this)}/>)
 
-                    {/*<PreViewBanner header={'heading'}/>*/}
-                </div>
+                        }
+                    </IsLoaderComponent>
+
+                 </div>
 
             </div>
         );

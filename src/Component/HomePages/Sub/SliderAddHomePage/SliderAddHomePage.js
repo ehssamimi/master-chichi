@@ -14,7 +14,7 @@ import {
     UpdateSliders,
     allMainSlider,
     GetSliderDetail,
-    AddHeaderSlider, UpdateHeaderSliders
+    AddHeaderSlider, UpdateHeaderSliders, GetImageId
 } from "../../../functions/ServerConnection";
 import PreViewBanner from "../Banner/PreViewBanner/PreViewBanner";
 // import {animateScroll as scroll, Events, Link} from "react-scroll/modules";
@@ -191,7 +191,8 @@ import AddSliderWithSuggest from "./Add-slider-with-suggest/AddSliderWithSuggest
              console.log(SliderId);
              for (i = 0 ; i < Sliders.length; i++) {
                  if (Sliders[i].Destination.length>1) {
-                     let idax1 = await sendImg(Sliders[i].Image, 'Public');
+                     // let idax1 = await sendImg(Sliders[i].Image, 'Public');
+                     let idax1 = await GetImageId(Sliders[i].Image, 'Public');
                      let updateCategories1 = await UpdateSliders(header, Sliders[i].Position, idax1, Sliders[i].Destination, Sliders[i].DestinationId);
                      console.log(updateCategories1);
                      if (idax1==='error' || updateCategories1!==200) {
@@ -238,7 +239,8 @@ import AddSliderWithSuggest from "./Add-slider-with-suggest/AddSliderWithSuggest
          let i;
          for (i = 0 ; i < Sliders.length; i++) {
              if (Sliders[i].Image!==''){
-                 let idax1 = await sendImg(Sliders[i].Image, 'Public');
+                 // let idax1 = await sendImg(Sliders[i].Image, 'Public');
+                 let idax1 = await GetImageId(Sliders[i].Image, 'Public');
                  let updateCategories1 = await UpdateSliders(headerPlaceHolder, i, idax1 ,Sliders[i].Destination, idax1);
 
                  if (idax1==='error' || updateCategories1!==200) {

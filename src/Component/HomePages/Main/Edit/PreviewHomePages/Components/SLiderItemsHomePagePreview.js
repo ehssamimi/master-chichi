@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import {Row, Card, CardBody, CardTitle, Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
 import { Colxx, Separator } from "../../../../../../components/common/CustomBootstrap";
 import GlideComponent from "../../../../../../components/carousel/GlideComponent";
-import {GetAllItemList, DeleteCitemList} from "../../../../../functions/ServerConnection";
+import {GetAllItemList } from "../../../../../functions/ServerConnection";
 import NotificationManager from "../../../../../../components/common/react-notifications/NotificationManager";
 import {TweenMax} from "gsap/TweenMax";
 import PreviewPackages from "../../../../Sub/WonderPackageAddHomePage/subPackage/PreviewPackages";
 import PreviewItems from "../../../../Sub/ItemList/PreviewItems/PreviewItems";
+import {error_Notification} from "../../../../../functions/componentHelpFunction";
 const NoControlCarouselItem = ({ Name, Image, CurrentPrice, PrevPrice }) => {
     return (
         <div className="glide-item">
@@ -116,11 +117,24 @@ class SLiderItemsHomePagePreview extends Component {
             Edit: true
         });
 
-        let itemsList = await GetAllItemList();
-        // console.log(itemsList);
-        this.setState({
-            itemsList
-        });
+        // let itemsList = await GetAllItemList();
+        // // console.log(itemsList);
+        // this.setState({
+        //     itemsList
+        // });
+
+        let {state:state2,Description:itemsList } = await GetAllItemList( );
+        console.log(itemsList);
+        if (state2===200){
+            this.setState({
+                itemsList
+            })
+        }else {
+            error_Notification(state2,itemsList)
+        }
+
+
+
     }
 
     ClickEdit(Name) {

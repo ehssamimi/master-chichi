@@ -6,23 +6,21 @@ import HomePagePreview from "../../Main/Edit/HomePagePreview";
 import PreviewPackages from "../WonderPackageAddHomePage/subPackage/PreviewPackages";
 import Loader from "../Loader/Loader";
 import NotificationManager from "../../../../components/common/react-notifications/NotificationManager";
+import IsLoaderComponent from "../../../Common/Loader/IsLoader/IsLoaderComponent";
+import {error_Notification, HandelResponse} from "../../../functions/componentHelpFunction";
 
 
 class MainItems extends Component {
     constructor(props) {
         super(props);
         this.state={
-            itemLists:[],showLoader:false
+            itemLists:[],showLoader:false,loader:true
         };
 
 
     }
     async componentDidMount(){
-        let itemLists = await GetAllItemList( );
-        console.log(itemLists);
-        this.setState({
-            itemLists
-        })
+        await this.getAllItems()
     }
 
     async GetItemsValue(payload) {
@@ -32,37 +30,16 @@ class MainItems extends Component {
 
         console.log(payload.Title);
         console.log(payload.QueryKey);
-        let value = await addItemList(payload.Title, payload.QueryKey);
-        console.log(value);
-        if (value==='error'){
-            this.setState(prevState => ({
-                showLoader:false,
-            }));
-            NotificationManager.error(
-                "error",
-                "your Items can't add",
-                3000,
-                null,
-                null,
-                "error"
-            );
-        } else {
-            this.setState(prevState => ({
-                showLoader:false,
-            }));
-            NotificationManager.success(
-                "congratulation",
-                "your Items is add",
-                3000,
-                null,
-                null,
-                "success"
-            );
-            let itemLists = await GetAllItemList( );
-            console.log(itemLists);
+        let {state,Description } = await addItemList(payload.Title, payload.QueryKey);
+        HandelResponse(state,Description,"آیتم شما با موفقیت اضافه شد " );
+        this.setState({
+            showLoader:false,
+        });
+        if (state===200){
             this.setState({
-                itemLists
+                loader:true
             })
+            await this.getAllItems()
         }
 
     }
@@ -71,22 +48,35 @@ class MainItems extends Component {
         console.log(Value);
     }
 
+    async  getAllItems( ){
+        let {state:state2,Description:itemLists } = await GetAllItemList( );
+        console.log(itemLists);
+        if (state2===200){
+            this.setState({
+                itemLists,loader:false
+            })
+        }else {
+            error_Notification(state2,itemLists)
+        }
+    }
+
 
     render() {
         let {itemLists}=this.state;
         return (
             <div className='w-100'>
 
-                        <div className='d-flex'>
-                            <div className='col-6'>
-                                {
-                                    this.state.showLoader ?
-                                        <Loader/>
-                                        :
-                                        <AddItemList GetItemsValue={this.GetItemsValue.bind(this)}/>
-                                }
+                        <div className='row m-0'>
+                            <div className='col-sm-12 col-md-6'>
+                                <IsLoaderComponent isLoader={this.state.showLoader}>
+                                    <AddItemList GetItemsValue={this.GetItemsValue.bind(this)}/>
+                                </IsLoaderComponent>
+
                                 </div>
-                            <div className='col-6'>
+                            <div className='col-sm-12 col-md-6'>
+                                <IsLoaderComponent isLoader={this.state.loader}>
+
+                                </IsLoaderComponent>
                                 {
                                     itemLists.length>0?
                                         itemLists.map((cat ,index)=><PreviewItems Title={cat.Title} key={index} {...this.props } clickPreview={this.ClickEdit.bind(this)} />):""

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-import ax from './../../../../../../assets/img/4th.jpg'
+import ax from './../../../../../../assets/img/simpleProduct.jpg'
 import {Modal, ModalBody, ModalHeader, ModalFooter, Button, CardTitle} from "reactstrap";
 import {TweenMax} from "gsap/TweenMax";
 import {DeleteCategoriey, GetCategoriesAll} from "../../../../../functions/ServerConnection";

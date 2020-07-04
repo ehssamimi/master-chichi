@@ -9277,9 +9277,7 @@ paddingZero{
     }
 
 
-.h-15em{
- height: 15em;
-}
+
 .h-min-15em{
   min-height: 15em;
 }
@@ -9291,6 +9289,9 @@ paddingZero{
 }
 .h-10em{
  height: 10em;
+}
+.h-15em{
+  height: 15em;
 }
 .h-20em{
   height: 20em;
@@ -9742,4 +9743,7 @@ paddingZero{
 }
 .DatePicker {
   width:100%
+}
+.redColor{
+  color: $theme-color-red;;
 }

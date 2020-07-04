@@ -4,7 +4,7 @@ import {
     Card, CardImg, CardText, CardBody,
     CardTitle, CardSubtitle, Button, Modal, ModalHeader, ModalBody
 } from 'reactstrap';
-import ax from '../../../../assets/img/4th.jpg';
+import ax from '../../../../assets/img/2574.jpg';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import {
     GetCategorieyDetail,

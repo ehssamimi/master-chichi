@@ -10,7 +10,7 @@ import {Col, FormFeedback, FormGroup, Input, Label} from "reactstrap";
                 <span>{ (is_required||false?'(اجباری)':"") }</span>
                 <span className="red-color">{ (changeEdit||false?'(اجباری)':"") }</span>
              </Label>
-            <Input invalid={error.length > 0}  value={value} type={type} name={id} id={id} placeholder={placeholder} onChange={(e) =>onChange(`${e.target.value}`,id)}/>
+            <Input invalid={error.length > 0}  value={value} type={type||"text"} name={id} id={id} placeholder={placeholder} onChange={(e) =>onChange(`${e.target.value}`,id)}/>
             <FormFeedback>{error}</FormFeedback>
         </FormGroup>
     </div>

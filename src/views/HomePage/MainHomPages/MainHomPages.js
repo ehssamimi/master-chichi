@@ -1,16 +1,11 @@
 import React, { Component, Suspense } from 'react';
 import { Route, withRouter, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import AppLayout from './../../../layout/AppLayout';
-const Active = React.lazy(() =>
+ const Active = React.lazy(() =>
     import(/* webpackChunkName: "viwes-gogo" */ '../../../Component/HomePages/Main/PreviewAllPages/PreviewAllMainMobile')
 );
-const PreviewAllMainMobile = React.lazy(() =>
-    import(/* webpackChunkName: "viwes-gogo" */ '../../../Component/HomePages/Main/Edit/HomePagePreview')
-);
-const Test = React.lazy(() =>
-    import(/* webpackChunkName: "viwes-gogo" */ '../../../Component/HomePages/Main/Edit/Test')
-);
+
+
 const Create = React.lazy(() =>
     import(/* webpackChunkName: "viwes-gogo" */ './../../../Component/HomePages/Main/Active/ActiveMainHomePages')
 );

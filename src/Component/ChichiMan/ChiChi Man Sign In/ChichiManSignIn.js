@@ -10,6 +10,7 @@ import Step4 from "./Step4/Step4";
 import Step5 from "./Step5/Step5";
 import Step6 from "./Step6/Step6";
  import {ChichiManIfoDetail} from "../../functions/ServerConnection";
+ import {error_Notification} from "../../functions/componentHelpFunction";
 
 
 class ChichiManSignIn extends Component {
@@ -59,90 +60,85 @@ class ChichiManSignIn extends Component {
                   item = {id: step, name: "اطلاعات اولیه"};
           }
 
-          let Info= await ChichiManIfoDetail(id,false);
-          console.log(Info);
-          // console.log(Info['PersonalInfo']);
-          let{PersonalInfo,DeliveryInfo,ContractInfo,Financial}=Info;
-            let initial_personalInfo= {
-               Name:PersonalInfo['First_Name'],
-               LastName:PersonalInfo['Last_Name'],
-               PhoneNumber: PersonalInfo['HomePhone'],
-               Address:PersonalInfo['Address'],
-               SSN:PersonalInfo['SSN'],
-               CN:PersonalInfo['Serial'],
-               CNPlace:PersonalInfo['PlaceOfIssue'],
-               Sex:{value: PersonalInfo['Sex'],label: PersonalInfo['Sex']},
-               MartialStatus:{value: PersonalInfo['MartialStatus'],label: PersonalInfo['MartialStatus']},
-               Birthday:PersonalInfo['Birthday'],
-               SSnImg:PersonalInfo['SSN_IMAGE'],
-               CNImg:PersonalInfo['SERIAL_IMAGE'],
-               personalImg:PersonalInfo['ProfilePic'],
-               PersonalPhoneNumber:PersonalInfo['PhoneNumber'],
-           };
-           let initial_deliveryInfo= {
-               Kind: {value: DeliveryInfo['DeliveryType'],label: DeliveryInfo['DeliveryType']},
-               DLN:DeliveryInfo['DriverLicense'],
-               VCN: DeliveryInfo['CardNumber'],
-               Plaque:DeliveryInfo['PlateNumber'],
-               VCImg:DeliveryInfo['VehicleCardImage'],
-               DLImg:DeliveryInfo['LicenseImage'],
-           };
+          let {state, Description }= await ChichiManIfoDetail(id,false);
+          if (state===200){
+              let Info=Description;
+              console.log(Info);
+              // console.log(Info['PersonalInfo']);
+              let{PersonalInfo,DeliveryInfo,ContractInfo,Financial}=Info;
+              let initial_personalInfo= {
+                  Name:PersonalInfo['First_Name'],
+                  LastName:PersonalInfo['Last_Name'],
+                  PhoneNumber: PersonalInfo['HomePhone'],
+                  Address:PersonalInfo['Address'],
+                  SSN:PersonalInfo['SSN'],
+                  CN:PersonalInfo['Serial'],
+                  CNPlace:PersonalInfo['PlaceOfIssue'],
+                  Sex:{value: PersonalInfo['Sex'],label: PersonalInfo['Sex']},
+                  MartialStatus:{value: PersonalInfo['MartialStatus'],label: PersonalInfo['MartialStatus']},
+                  Birthday:PersonalInfo['Birthday'],
+                  SSnImg:PersonalInfo['SSN_IMAGE'],
+                  CNImg:PersonalInfo['SERIAL_IMAGE'],
+                  personalImg:PersonalInfo['ProfilePic'],
+                  PersonalPhoneNumber:PersonalInfo['PhoneNumber'],
+              };
+              let initial_deliveryInfo= {
+                  Kind: {value: DeliveryInfo['DeliveryType'],label: DeliveryInfo['DeliveryType']},
+                  DLN:DeliveryInfo['DriverLicense'],
+                  VCN: DeliveryInfo['CardNumber'],
+                  Plaque:DeliveryInfo['PlateNumber'],
+                  VCImg:DeliveryInfo['VehicleCardImage'],
+                  DLImg:DeliveryInfo['LicenseImage'],
+              };
 
-           let initial_ContractInfo= {
-               form: ContractInfo['FormNumber'],
-               attachNumber:ContractInfo['AttachNumber'],
-               sabet: ContractInfo['BasePayment'],
-               darsad:ContractInfo['Percentage'],
-               Kind: {value: ContractInfo['Status'], label: ContractInfo['Status']},
-               contract:ContractInfo['Image'],
-               safte:ContractInfo['Safteh'],
-               soePishine:ContractInfo['SoePishine'],
-                Date:{end: ContractInfo['EndOfContract'], begin: ContractInfo['BeginOfContract']}
-           };
-
-
-           let initial_Financial= {
-                Card: Financial['CardNumber'],
-               Hesab:  Financial['AccountNumber'],
-               Shobe: Financial['BankBranch'],
-               Shaba: Financial['IBAN'],
-               Bank: Financial['BankName'],
-               Name: Financial['Name'],
-           };
+              let initial_ContractInfo= {
+                  form: ContractInfo['FormNumber'],
+                  attachNumber:ContractInfo['AttachNumber'],
+                  sabet: ContractInfo['BasePayment'],
+                  darsad:ContractInfo['Percentage'],
+                  Kind: {value: ContractInfo['Status'], label: ContractInfo['Status']},
+                  contract:ContractInfo['Image'],
+                  safte:ContractInfo['Safteh'],
+                  soePishine:ContractInfo['SoePishine'],
+                  Date:{end: ContractInfo['EndOfContract'], begin: ContractInfo['BeginOfContract']}
+              };
 
 
+              let initial_Financial= {
+                  Card: Financial['CardNumber'],
+                  Hesab:  Financial['AccountNumber'],
+                  Shobe: Financial['BankBranch'],
+                  Shaba: Financial['IBAN'],
+                  Bank: Financial['BankName'],
+                  Name: Financial['Name'],
+              };
+
+
+              let{Infos}=this.state;
+              Infos['initial_personalInfo']=initial_personalInfo;
+              Infos['initial_deliveryInfo']=initial_deliveryInfo;
+              Infos['initial_ContractInfo']=initial_ContractInfo;
+              Infos['initial_Financial']=initial_Financial;
+
+              this.setState({
+                  item ,
+                  Infos,
+                  // phoneNumber:Info['Identify']['sub']['شماره موبال']
+                  phoneNumber:PersonalInfo['PhoneNumber']
+              },()=>{
+                  console.log(this.state.Infos)
+              });
 
 
 
 
 
 
-
-           // console.log(initial_personalInfo);
-           let{Infos}=this.state;
-           Infos['initial_personalInfo']=initial_personalInfo;
-           Infos['initial_deliveryInfo']=initial_deliveryInfo;
-           Infos['initial_ContractInfo']=initial_ContractInfo;
-           Infos['initial_Financial']=initial_Financial;
+          }else {
+              error_Notification(state,Description);
+          }
 
 
-           // ContractInfo: {Image: "https://api.chichiapp.ir/v1/mediaservice/download/5e2bef7ac34a14efd2c6826c", Create_at: "2020-01-25T07:34:21.584000", Status: "فعال", SSN_Card_Image: null, BasePayment: "20000000", …}
-           // Status: {Text: null, Description: null}
-           // Code: {Code: 1130, Is_Used: true}
-           // PersonalInfo: {PhoneNumber: "09367265647", First_Name: "احسان", Last_Name: "تقوی", SSN: "20922025484", Serial: "4485", …}
-           // DeliveryInfo: {DeliveryType: "موتور", PlateNumber: "564ب546546ایران", CardNumber: "6454874454968", VehicleModel: "None", VehicleColor: "blue", …}
-           // Financial: {Name: "احسان تقوی", CardNumber: "121654652513", AccountNumber: "54654600216546", BankName: "سپه", IBAN: "54654564654", …}
-           // Financial_Info: {Total: null, PaymentRecords: Array(1)}
-           // States: {TotalRate: 0, TotalWeight: 0, Total_Distance: 0}
-
-          this.setState({
-              item ,
-              Infos,
-              // phoneNumber:Info['Identify']['sub']['شماره موبال']
-              phoneNumber:PersonalInfo['PhoneNumber']
-          },()=>{
-              console.log(this.state.Infos)
-          });
       }
 
 

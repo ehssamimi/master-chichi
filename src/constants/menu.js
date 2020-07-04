@@ -207,7 +207,7 @@ const data = [
     {
         id: "HomePages",
         icon: "iconsminds-monitor---phone",
-        label: "home page",
+        label: "صفحه اصلی",
         to: "/home-page",
         subs: [{
             icon: "iconsminds-smartphone-4",
@@ -266,7 +266,7 @@ const data = [
                 to: "/home-page/banner",
             },
             {
-                icon: "iconsminds-smartphone-4",
+                icon: "iconsminds-project",
                 id: "item-list-home-page",
                 label: "آیتم",
                 to: "/home-page/item-list",

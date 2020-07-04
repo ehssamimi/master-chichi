@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import {FormGroup, Label, Modal, ModalBody, ModalHeader} from "reactstrap";
 import ax1 from './../../../assets/img/4th.jpg'
 import JustCropImg from "../../Common/CropImg/JustCropImg";
- import {sendImg} from "../../functions/ServerConnection";
+ import {GetImageId, sendImg} from "../../functions/ServerConnection";
 import {AddCategory} from './../../functions/ServerConnection'
 import Loader from "../../Common/Loader/Loader";
 import NotificationManager from "../../../components/common/react-notifications/NotificationManager";
+import {error_Notification} from "../../functions/componentHelpFunction";
 
 class ContentCategoryAdd extends Component {
     constructor(props) {
@@ -68,7 +69,9 @@ class ContentCategoryAdd extends Component {
                 loader:true
             });
              let{name,ax1File}=this.state;
-            let idax = await sendImg(ax1File, 'Public');
+            // let idax = await sendImg(ax1File, 'Public');
+            let idax = await GetImageId(ax1File, 'Public');
+
             let Data={
                 "name": name,
                 "image": idax

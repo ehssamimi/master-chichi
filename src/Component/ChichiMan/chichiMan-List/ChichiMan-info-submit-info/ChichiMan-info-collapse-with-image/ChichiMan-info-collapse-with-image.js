@@ -55,10 +55,11 @@ ChichiManInfoCollapseWithImage extends Component {
                         <div className='d-flex mt-2  '>
                             {image.length>0 ?
                                 image.map((todo, index) =>
-                                    <div key={index} className={['h-20em','d-flex','flex-column', ' ' ,'align-items-center' , className || ''].join(' ')}>
+                                    <div key={index} className={['h-15em','d-flex','flex-column', ' ' ,'align-items-center' , className || ''].join(' ')}>
                                         <label htmlFor={index}><RowShowShowColEdit label={'عکس'} value={label[index] }  col={ 'col-12'} className='fS1vw'/>
                                             </label>
-                                        <img src={todo} alt={todo} className='img-self-fill br10px'/>
+                                        <img src={todo} alt={todo} className=' br10px h-100'/>
+                                        {/*img-self-fill*/}
                                     </div>
                                 ) : ''
                             }

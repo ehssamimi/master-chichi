@@ -84,8 +84,8 @@ export default class GlideComponent extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="glide" ref={node => this.carousel = node}>
+      <div >
+        <div className="glide" ref={node => this.carousel = node} >
           <div data-glide-el="track" className="glide__track">
             <div className="glide__slides">
               {this.props.children}
@@ -93,7 +93,7 @@ export default class GlideComponent extends React.Component {
           </div>
           {
             !this.props.settings.hideNav &&  (
-              <div className="glide__arrows slider-nav" data-glide-el="controls">
+              <div className="glide__arrows slider-nav" data-glide-el="controls" dir="ltr">
               <button className="glide__arrow glide__arrow--left left-arrow btn btn-link" data-glide-dir="<">
                 <i className="simple-icon-arrow-left"></i>
               </button>

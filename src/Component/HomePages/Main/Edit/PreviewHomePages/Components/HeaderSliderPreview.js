@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import {Row, Card, CardBody, CardTitle, Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
 import { Colxx, Separator } from "../../../../../../components/common/CustomBootstrap";
 import GlideComponent from "../../../../../../components/carousel/GlideComponent";
-import {DeleteCitemList, allHeaderSlider} from "../../../../../functions/ServerConnection";
+import { allHeaderSlider} from "../../../../../functions/ServerConnection";
 import NotificationManager from "../../../../../../components/common/react-notifications/NotificationManager";
 import {TweenMax} from "gsap/TweenMax";
-import ax from './../../../../../../assets/img/4th.jpg'
+import ax from './../../../../../../assets/img/simpleProduct.jpg'
 import PreviewItems from "../../../../Sub/ItemList/PreviewItems/PreviewItems";
 import PreviewMainSlider from "../../../../Sub/SliderAddHomePage/PreviewSliderMAin/PreviewMainSlider";
 import PreviewHeaderSlider from "../../../../Sub/HeaderSlider/Preview/PreviewHeaderSlider";

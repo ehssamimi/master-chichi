@@ -1,5 +1,6 @@
 import * as Const from "../../constants/ServerConst";
 import axios from "axios";
+import {error_Notification} from "./componentHelpFunction";
 
 export async  function  sendImg(file,permission){
     console.log("send image ..");
@@ -11,32 +12,50 @@ export async  function  sendImg(file,permission){
         'Token': Const.Token,
         'Id': Const.ID,
      };
-    var resp='';
+    let resp ={state:false,Description:""};
 
     await axios.post(`${Const.Download_Server_URL}upload/data-form`, formData, {headers: headers}).then(function (response) {
         // console.log(response);
         let {UploadId} = response.data;
         resp=UploadId;
+        resp ={state:response.status,Description:response.data.UploadId};
+
      }).catch(function (error) {
         console.log(error);
-        resp='error'
+        resp=Error(error)
     });
     return resp
-    // let { UploadId } = res.data ;
-    // let { status } = res ;
-    //  if (status===200) {
-    //     return UploadId
-    // }else {
-    //     return "error"
-    // }
+
 }
+
+export async  function  GetImageId(file,permission){
+    let idax = "";
+    let{state:status ,Description:id}=await sendImg(file, permission)
+    if (status===200){
+        idax = id
+        console.log(idax);
+    }else {
+        error_Notification(status ,id)
+    }
+    return  idax
+}
+
+
+
+
 export const sendingImageFunction=async (ImgeFiles,idimgs)=>{
     let ImgeId = [];
     let idax
     for (let i = 0; i < ImgeFiles.length; i++) {
         if (ImgeFiles[i]!==''){
-            idax = await sendImg(ImgeFiles[i], 'Public');
-            console.log(idax);
+            let{state ,Description}=await sendImg(ImgeFiles[i], 'Public')
+            if (state===200){
+                idax = Description
+                console.log(idax);
+            }else {
+                error_Notification(state ,Description)
+            }
+
         } else {
             idax=idimgs[i]
         }
@@ -45,12 +64,18 @@ export const sendingImageFunction=async (ImgeFiles,idimgs)=>{
     return ImgeId
 }
 export const sendingAllImageFunction=async (ImgeFiles)=>{
-     let ImgeId = [];
+     let ImgeId = [];let idax
     console.log(ImgeFiles);
 
     for (let i = 0; i < ImgeFiles.length; i++) {
-
-        let idax = await sendImg(ImgeFiles[i], 'Public');
+        let{state ,Description}=await sendImg(ImgeFiles[i], 'Public')
+        if (state===200){
+            idax = Description
+            console.log(idax);
+        }else {
+            error_Notification(state ,Description)
+        }
+        // let idax = await sendImg(ImgeFiles[i], 'Public');
         console.log(idax);
         ImgeId.push(idax);
     }
@@ -170,19 +195,6 @@ export async  function  DeleteCategoriey(Name){
     return resp;
 
 
-
-
-// let resp='';
-//  await axios.delete(`${Const.HomePage}admin/category/${Name}/delete`, {headers: headers}).then(function (response) {
-//         // console.log(response);
-//         let { status } = response ;
-//         resp=status;
-//     }).catch(function (error) {
-//         console.log(error);
-//         resp='error'
-//     });
-//     return resp;
-
 }
 export async  function  GetCategoriesNameID(){
 
@@ -191,15 +203,16 @@ export async  function  GetCategoriesNameID(){
         'Id': Const.ID,
     };
 
-    let res = await axios.get(`${Const.product}admin/category/get/list-image-id`, {headers: headers});
-       let { status,data} = res ;
+    let resp ="";
 
-    if (status===200) {
-        return data
-    }else {
-        return ""
-    }
+    await axios.get(`${Const.product}admin/category/get/list-image-id`, {headers: headers}).then(function (response) {
 
+         resp=response.data
+    }).catch(function (error) {
+        let {state,Description }=Error(error);
+        error_Notification(state,Description);
+    });
+    return resp
 
 }
 export async  function  GetProductNameID(name){
@@ -208,17 +221,28 @@ export async  function  GetProductNameID(name){
         'Token': Const.Token,
         'Id': Const.ID,
     };
+    let resp ="";
 
-    let res = await axios.get(`${Const.product}admin/homepage/product-list?name=${name}`, {headers: headers});
-    console.log(res);
+    await axios.get(`${Const.product}admin/homepage/product-list?name=${name}`, {headers: headers}).then(function (response) {
 
-       let { status,data} = res ;
+        resp=response.data
+    }).catch(function (error) {
+        let {state,Description }=Error(error);
+        error_Notification(state,Description);
+    });
+    return resp
 
-    if (status===200) {
-        return data
-    }else {
-        return ""
-    }
+
+    // let res = await axios.get(`${Const.product}admin/homepage/product-list?name=${name}`, {headers: headers});
+    // console.log(res);
+    //
+    //    let { status,data} = res ;
+    //
+    // if (status===200) {
+    //     return data
+    // }else {
+    //     return ""
+    // }
 
 
 }
@@ -334,9 +358,23 @@ export async  function  GetDestination( ) {
         'Token': Const.Token,
         'Id': Const.ID
     };
-    let res = await axios.get(`${Const.HomePage}banners/destinations`, {headers: headers});
-    let {data} = res;
-    return data
+
+    let resp ="";
+
+    await axios.get(`${Const.HomePage}banners/destinations`, {headers: headers}).then(function (response) {
+        // console.log(response);
+        resp=response.data
+    }).catch(function (error) {
+       let {state,Description }=Error(error);
+       error_Notification(state,Description);
+    });
+    return resp
+
+
+    //
+    //  let res = await axios.get(`${Const.HomePage}banners/destinations`, {headers: headers});
+    // let {data} = res;
+    // return data
 }
 export async  function  AddSlider(Name,Number){
     let formData = new FormData();
@@ -468,15 +506,16 @@ export async function addBaner(Name,Image,Destination,DestinationId) {
         'Token': Const.Token,
         'Id': Const.ID,
     };
-    var resp='';
+    let resp ={state:false,Description:""};
     await axios.post(`${Const.HomePage}banners/add`, formData, {headers: headers}).then(function (response) {
 
         // console.log(response);
-        let {ItemId} = response.data;
-         resp=ItemId;
-    }).catch(function (error) {
+        // let {ItemId} = response.data;
+
+        resp ={state:response.status,Description:response.data.ItemId};
+     }).catch(function (error) {
         console.log(error);
-        resp='error'
+        resp=Error(error);
     });
     return resp;
     //  let {ItemId} = res.data;
@@ -492,9 +531,21 @@ export async  function  GetBanners( ) {
         'Token': Const.Token,
         'Id': Const.ID
     };
-    let res = await axios.get(`${Const.HomePage}banners`, {headers: headers});
-    let {data} = res;
-    return data.Items
+    let resp ={state:false,Description:""};
+    await axios.get(`${Const.HomePage}banners` , {headers: headers}).then(function (response) {
+        console.log(response);
+        resp ={state:response.status,Description:response.data};
+
+    }).catch(function (error) {
+        resp=Error(error);
+    });
+    return resp;
+
+
+
+    // let res = await axios.get(`${Const.HomePage}banners`, {headers: headers});
+    // let {data} = res;
+    // return data.Items
 }
 export async  function  GetBannersDetail(Name){
     let headers = {
@@ -516,14 +567,7 @@ export async  function  DeleteBanner(id){
     let resp ={state:false,Description:""};
     await axios.delete(`${Const.HomePage}banners/${id}`, {headers: headers}).then(function (response) {
         console.log(response);
-        let{status,data}= response ;
-        console.log(status);
-        console.log( data);
-        if (status===200 ){
-            resp ={state:status,Description:data};
-        }else {
-            resp ={state:status,Description:data};
-        }
+        resp ={state:response.status,Description:response.data};
     }).catch(function (error) {
         console.log(error);
         console.log(error.response.data.detail[0]['Name']);
@@ -565,10 +609,19 @@ export async  function  GetAllItemList( ) {
         'Token': Const.Token,
         'Id': Const.ID
     };
-    let res = await axios.get(`${Const.HomePage}admin/item-lists`, {headers: headers});
-    let {data} = res;
-    // console.log(data);
-    return data
+    let resp ={state:false,Description:""};
+    await axios.get(`${Const.HomePage}admin/item-lists` , {headers: headers}).then(function (response) {
+        console.log(response);
+        resp ={state:response.status,Description:response.data};
+
+    }).catch(function (error) {
+        resp=Error(error);
+    });
+    return resp;
+    // await axios.get(`${Const.HomePage}admin/item-lists`, {headers: headers});
+    // let {data} = res;
+    // // console.log(data);
+    // return data
 }
 export async function addItemList(Title,QueryKey) {
     let formData = new FormData();
@@ -578,25 +631,16 @@ export async function addItemList(Title,QueryKey) {
         'Token': Const.Token,
         'Id': Const.ID,
     };
-    let resp="";
+    let resp ={state:false,Description:""};
    await axios.post(`${Const.HomePage}admin/item-list/add`, formData, {headers: headers}).then(function (response) {
-        // console.log(response);
-        let {ItemId} = response.data;
-        let { status } = response ;
-        resp=status;
+        console.log(response);
+    resp ={state:response.status,Description:response.data};
+
     }).catch(function (error) {
-        console.log(error);
-        resp='error'
+        resp=Error(error);
     });
     return resp;
-    // let {ItemId} = res.data;
-    // console.log(res);
-    // let {status} = res;
-    // if (status === 200) {
-    //     return ItemId
-    // } else {
-    //     return ""
-    // }
+
 }
 export async  function  GetItemList(Name){
     let headers = {
@@ -620,7 +664,7 @@ export async  function  GetItemDetail(Name){
 
     return data;
 }
-export async  function  DeleteCitemList(Name){
+export async  function  DeleteItemList(Name){
     let headers = {
         'Token': Const.Token,
         'Id': Const.ID
@@ -628,30 +672,13 @@ export async  function  DeleteCitemList(Name){
     let resp ={state:false,Description:""};
     await axios.delete(`${Const.HomePage}admin/item-list/${Name}/delete`, {headers: headers}).then(function (response) {
         console.log(response);
-        let{status,data}= response ;
-        console.log(status);
-        console.log( data);
-        if (status===200 ){
-            resp ={state:status,Description:data};
-        }else {
-            resp ={state:status,Description:data};
-        }
+            resp ={state:response.status,Description:response.data};
     }).catch(function (error) {
         console.log(error);
         console.log(error.response.data.detail[0]['Name']);
         resp ={state:false,Description:error.response.data.detail[0]['Name']};
     });
     return resp;
-
-    // let headers = {
-    //     'Token': Const.Token,
-    //     'Id': Const.ID
-    //     // 'category_name':Name,
-    // };
-    // let res = await axios.delete(`${Const.HomePage}admin/item-list/${Name}/delete`, {headers: headers});
-    // let { status } = res ;
-    // console.log(res);
-    // return status;
 }
 
 // *************headerSlider**********
@@ -1083,13 +1110,13 @@ export async  function  ChichiManIfoDetail(id,boolian=true){
         console.log(response);
         let{status,data}= response ;
         console.log(data);
-        if (status===200 ){
-            resp=data;
-        }
+
+            resp={state:status,Description:data};
+
         // resp = status;
     }).catch(function (error) {
         console.log(error);
-        resp ={state:false,Description:error.message};
+        resp =Error(error);
     });
     return resp;
 }

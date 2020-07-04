@@ -7,7 +7,14 @@ import {FormInput,FormSelect} from './../../Common/ComponentFunctional/FormFeild
 import {error_Notification, success_Notification,categoryDetails,} from "../../functions/componentHelpFunction";
 import {FormikReactSelect} from "../../../containers/form-validations/FormikFields";
 import * as Yup from "yup";
-import {sendImg, ProductDetail, getAllCategories, AddProduct, UpdateProduct} from "../../functions/ServerConnection";
+import {
+    sendImg,
+    ProductDetail,
+    getAllCategories,
+    AddProduct,
+    UpdateProduct,
+    GetImageId
+} from "../../functions/ServerConnection";
 import ax from './../../../assets/img/4th.jpg'
 import {ModalCropImage} from "../../Common/ComponentFunctional/ModalsCollection";
 
@@ -197,7 +204,9 @@ class ContentProductAdd extends Component {
             console.log(productImg);
             if (ax1File !== ''){
                 console.log("waiting to upload .....");
-                productImg=await sendImg(ax1File, 'Public')
+
+                // productImg=await sendImg(ax1File, 'Public')
+                productImg= await GetImageId(ax1File, 'Public');
 
             }
             console.log('productImg');
@@ -278,7 +287,10 @@ class ContentProductAdd extends Component {
                  // *****upload Img**
                 console.log(ax1File)
                 console.log("befor upload image ")
-                 let idax = await sendImg(ax1File, 'Public');
+
+                let idax = await GetImageId(ax1File, 'Public');
+
+                 // let idax = await sendImg(ax1File, 'Public');
                 // *****upload Data**
                  console.log(idax);
                 console.log("after upload image ")

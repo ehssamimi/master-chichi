@@ -1,8 +1,8 @@
 import NotificationManager from "../../components/common/react-notifications/NotificationManager";
 import {TweenMax} from "gsap/TweenMax";
-export const error_Notification=(Response)=>{
+export const error_Notification=(status="مشکلی پیش آمده",Response)=>{
     return NotificationManager.error(
-        "مشکلی پیش آمده!",
+        status,
         Response,
         3000,
         null,
@@ -91,6 +91,8 @@ export const LabelValueOption=(sub)=>{
         });
         return SubCat;
 }
+
+
 // **********removeElement*****
 export const RemoveElement=(id)=>{
 
@@ -103,5 +105,31 @@ export const RemoveElement=(id)=>{
         $el.remove();
     }, 2000)
 }
+export const RemoveElement2=(id)=>{
+     const $el = document.getElementById(`${id}`);
+     const duration = 2;
+    const from = { opacity: 0};
+    TweenMax.to($el, duration, from);
+    setTimeout(() => {
+        $el.remove();
+    }, 2000)
+}
+
+export const HandelResponse=(state,Description,text)=>{
+
+    if (state !== 200) {
+        error_Notification(state, Description)
+    } else {
+        success_Notification(text)
+    }
+}
 
 // **********sending Image*****
+
+// const $el = document.getElementById(`${id}`);
+// const duration = 2;
+// const from = { opacity: 0};
+// TweenMax.to($el, duration, from);
+// setTimeout(() => {
+//     $el.remove();
+// }, 2000);

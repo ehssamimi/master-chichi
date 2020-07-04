@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Card, CardBody} from "reactstrap";
 
 import CollapseCheckoutRow from "./Collapse-Checkout-row/CollapseCheckoutRow";
-import ax from'./../../../../assets/img/4th-1.jpg'
+import ax from '../../../../assets/img/4th-1.jpg'
 import HeaderComponentChichiInfo from "../Header-component-chichi-info/Header-component-chichi-info";
 
 class ChichiManInfoCheckOut extends Component {

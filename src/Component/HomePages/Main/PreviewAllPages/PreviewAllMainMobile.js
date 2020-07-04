@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {GetAllHomePages} from './../../../../Component/functions/ServerConnection'
+import {GetAllHomePages} from '../../../functions/ServerConnection'
 import MoveRowIndex from "../Edit/NewEdit";
 import Loader from "../../Sub/Loader/Loader";
 

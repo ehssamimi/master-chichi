@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Card, CardBody} from "reactstrap";
  import ChichiManInfoCollapseWithImage from "./ChichiMan-info-collapse-with-image/ChichiMan-info-collapse-with-image";
-import ax from './../../../../assets/img/4th-1.jpg'
+import ax from '../../../../assets/img/4th-1.jpg'
 import HeaderComponentChichiInfo from "../Header-component-chichi-info/Header-component-chichi-info";
 import CollapseRow from "../../../Common/CollapseRow/CollapseRow";
 

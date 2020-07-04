@@ -1,54 +1,34 @@
 import React, {Component} from 'react';
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import {GetDestination, GetQueryKeys} from "../../../../functions/ServerConnection";
+import {  GetQueryKeys} from "../../../../functions/ServerConnection";
 
-// import axios from "axios";
-import {
+ import {
     Row,
     Card,
     CardBody,
     FormGroup,
     Label,
-    Button,
-    CardTitle
+     CardTitle
 } from "reactstrap";
 import IntlMessages from "../../../../../helpers/IntlMessages";
 import {Colxx} from "../../../../../components/common/CustomBootstrap";
 import {
     FormikReactSelect,
 } from "../../../../../containers/form-validations/FormikFields";
-// import * as Const from "../../../Const";
-const SignupSchema = Yup.object().shape({
-
-    QueryKey: Yup.object()
-        .shape({
-            label: Yup.string().required(),
-            value: Yup.string().required()
-        })
-        .nullable()
-        .required("نوع query اجباری است!"),
+ const SignupSchema = Yup.object().shape({
 
     Title: Yup.string()
         .required("عنوان اجباری است!")
 
 });
 
-const options = [
-    { value: "Top", label: "Top" },
-    { value: "Best", label: "Best" },
-    { value: "Most", label: "Most" },
-];
-
-
-
-
 class AddItemList extends Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state={
-            loaderActive:true,ChanceTypeOption:[],selectData:[]
+            loaderActive:true,ChanceTypeOption:[],selectData:[],QueryError:undefined
         }
     }
     async componentDidMount(){
@@ -71,9 +51,17 @@ class AddItemList extends Component {
             ...values,
             QueryKey: values.QueryKey.value,
         };
-        // console.log(payload);
-        this.props.GetItemsValue(payload)
-
+        this.setState({
+            QueryError:undefined
+        })
+        if (payload.QueryKey.length>1 ){
+            this.props.GetItemsValue(payload)
+        }else {
+            this.setState({
+                QueryError:"کوئری نمی تواند خالی باشد"
+            })
+        }
+        console.log(payload);
     };
 
 
@@ -97,21 +85,21 @@ class AddItemList extends Component {
                                 <Formik
                                     initialValues={{
                                         Title: "",
-                                        QueryKey: { value: " ", label: " " },
+                                        QueryKey: { value: "", label: "" },
                                     }}
                                     validationSchema={SignupSchema}
                                     onSubmit={this.handleSubmit}
                                 >
                                     {({
-                                          handleSubmit,
+                                          // handleSubmit,
                                           setFieldValue,
                                           setFieldTouched,
-                                          handleChange,
-                                          handleBlur,
+                                          // handleChange,
+                                          // handleBlur,
                                           values,
                                           errors,
                                           touched,
-                                          isSubmitting
+                                          // isSubmitting
                                       }) => (
                                         <Form className="av-tooltip tooltip-label-bottom col-12">
                                             <div className="w-100 d-flex ">
@@ -128,9 +116,9 @@ class AddItemList extends Component {
                                                             onChange={setFieldValue}
                                                             onBlur={setFieldTouched}
                                                         />
-                                                        {errors.QueryKey && touched.QueryKey ? (
+                                                        {this.state.QueryError!==undefined ? (
                                                             <div className="invalid-feedback d-block">
-                                                                {errors.QueryKey}
+                                                                {this.state.QueryError}
                                                             </div>
                                                         ) : null}
                                                     </FormGroup>

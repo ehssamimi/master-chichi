@@ -5,7 +5,7 @@ import {
     AddSlider,
     allHeaderSlider,
     GetHeaderSliderDetail,
-    sendImg, UpdateSliders,AddHeaderSlider,UpdateHeaderSliders
+    sendImg, UpdateSliders, AddHeaderSlider, UpdateHeaderSliders, GetImageId
 } from "../../../functions/ServerConnection";
 import PreviewHeaderSlider from "./Preview/PreviewHeaderSlider";
 import SliderOnePage from "../ShowPreviewHomePage/SliderOnePage/SliderOnePage";
@@ -183,7 +183,8 @@ class HeaderSliderMain extends Component {
             console.log(Sliders);
             for (i = 0 ; i < Sliders.length; i++) {
                 if (Sliders[i].Destination.length>1) {
-                     let idax1 = await sendImg(Sliders[i].Image, 'Public');
+                     // let idax1 = await sendImg(Sliders[i].Image, 'Public');
+                     let idax1 = await GetImageId(Sliders[i].Image, 'Public');
                     let updateCategories1 = await UpdateHeaderSliders(header, Sliders[i].Position, idax1, Sliders[i].Destination, Sliders[i].DestinationId);
                     if (idax1==='error' || updateCategories1!==200) {
                         NotificationManager.error(
@@ -234,7 +235,8 @@ class HeaderSliderMain extends Component {
         for (i = 0 ; i < Sliders.length; i++) {
             // console.log(Items[i])
             if (Sliders[i].Image!==''){
-                let idax1 = await sendImg(Sliders[i].Image, 'Public');
+                // let idax1 = await sendImg(Sliders[i].Image, 'Public');
+                let idax1 = await GetImageId(Sliders[i].Image, 'Public');
                 let updateCategories1 = await UpdateHeaderSliders(headerPlaceHolder, i, idax1 ,Sliders[i].Destination, idax1);
                 if (idax1==='error' || updateCategories1!==200) {
                     NotificationManager.error(

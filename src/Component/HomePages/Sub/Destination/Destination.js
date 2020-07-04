@@ -5,12 +5,13 @@ import IntlMessages from "../../../../helpers/IntlMessages";
 import CustomSelectInput from "../../../../components/common/CustomSelectInput";
 import { Colxx } from "../../../../components/common/CustomBootstrap";
 import * as Const from "../../../../constants/ServerConst";
-import {GetCategoriesAll, GetCategoriesNameID, GetDestination} from './../../../../Component/functions/ServerConnection'
+import {GetCategoriesAll, GetCategoriesNameID, GetDestination} from '../../../functions/ServerConnection'
 import {GetProductNameID} from "../../../functions/ServerConnection";
  import ReactAutoSuggest from "../../../../components/common/ReactAutoSuggest";
 import cakes from "../../../../data/cakes";
 import AutoSuggestEdit from "../AutoSuggestEdit/AutoSuggestEdit";
 import AutoSuggestProductCatNAmeId from "../SliderAddHomePage/AutoSuggestProductCatNameId/AutoSuggestProductCatNAmeId";
+import {LabelValueOption} from "../../../functions/componentHelpFunction";
 
 
 
@@ -27,60 +28,39 @@ class Destination extends Component {
         };
     }
     async componentDidMount(){
+        // **** get all could be destinations ***
         let Destination = await GetDestination();
-        // this.changeProductFeild('ل');
-        this.changeCategoryFeild(  );
-
-        let selectData = [];
-        for (let i = 0; i < Destination.ValidDestination.length; i++) {
-            // console.log(Destination.ValidDestination[i]);
-            let row = {label: Destination.ValidDestination[i], value: Destination.ValidDestination[i] };
-            selectData.push(row);
+        if (Destination.ValidDestination!==undefined){
+            let selectData=LabelValueOption(Destination.ValidDestination)
+            this.setState({
+                selectData
+            })
         }
-        this.setState({
-            selectData
-        })
+        // ****for default destination firs get categories***
 
+        await this.changeCategoryFeild();
 
     }
 
 
     async changeCategoryFeild(){
         let product=await GetCategoriesNameID();
-
-        console.log(product);
-        // console.log("aaaaaaaaaaaaaaa");
-        // let selectData=[];
-        // for (let i = 0; i < product.length; i++) {
-        //     let row={value: product[i]['name'],label: product[i]['name'],destination:product[i]['_id'],image:product[i]['image']};
-        //     selectData.push(row);
-        // }
-        const dataNAme = product.map(item => {
-            return { name: item['name'] ,destination:item['_id']}
-        });
-        this.setState({
-             dataNAme
-        })
+        if (product.length!==0){
+            const dataNAme = product.map(item => {
+                return { name: item['name'] ,destination:item['_id']}
+            });
+            this.setState({
+                dataNAme
+            })
+        }
     }
 
     async changeProductFeild(name){
         let product=await GetProductNameID(name);
 
-        // console.log(product);
-        //  let selectData=[];
-        //
-        // for (let i = 0; i < product.length; i++) {
-        //     let row={value: product[i]['Name'],label: product[i]['Name'],destination:product[i]['_id'] };
-        //     selectData.push(row);
-        // }
-
         const dataNAme = product.map(item => {
             return { name: item['Name'] ,destination:item['_id']}
         });
-        // console.log('dataNAme');
-        // console.log(dataNAme);
-
-
          this.setState({
             dataNAme
         })
@@ -106,8 +86,7 @@ class Destination extends Component {
                 .filter( key => predicate(obj[key]) )
                 .reduce( (res, key) => (res[key] = obj[key], res), {} );
 
-// Example use:
-        console.log(Object.keys(dataNAme).length);
+         console.log(Object.keys(dataNAme).length);
         if (Object.keys(dataNAme).length > 0) {
             var filtered = Object.filter(dataNAme, score => score['name'] === value);
             let row=Object.values(filtered)[0];
@@ -118,29 +97,16 @@ class Destination extends Component {
                      this.props.GetDestinationString(this.state.selectedOption.value,this.state.itemID)
                 })
             }
-            // console.log(row['destination']);
-            // console.log(JSON.parse(row));
-            // console.log(Object.values(filtered)[0]['destination'] );
+
         }
 
-
-
-
-
-        // console.log('cat');
-        // console.log(selectedOption['value']);
-        // console.log('data name');
-        // console.log(dataNAme);
-        // console.log(value)
 
 
     }
 
 
     handleChange = selectedOption => {
-        this.setState({ selectedOption },()=>{
-            // this.props.GetDestinationString(selectedOption.value)
-        });
+        this.setState({ selectedOption });
     };
 
 

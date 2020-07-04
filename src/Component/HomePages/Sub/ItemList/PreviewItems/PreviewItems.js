@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
-import {GetItemList,GetItemDetail} from "../../../../functions/ServerConnection";
+import { GetItemDetail} from "../../../../functions/ServerConnection";
 import SliderItems from "./SliderItems/SliderItems";
 
 class PreviewItems extends Component {
     constructor(props) {
         super(props);
-this.state={
-    items:null,Title:''
-}
+        this.state = {
+            items: null, Title: ''
+        }
     }
     static getDerivedStateFromProps(props, state) {
         if (props.Title !== state.Title) {
@@ -15,12 +15,10 @@ this.state={
                 Title: props.Title,
             };
         }
-        // Return null if the state hasn't changed
-        return null;
+         return null;
     }
 
     async componentDidMount(){
-        // let Name='arsenal';
 
         let Destination = await GetItemDetail(this.props.Title);
         console.log(Destination);
@@ -36,8 +34,7 @@ this.state={
             <div>{
                 items?<SliderItems items={items} {...this.props}/>:''
             }
-                {/*<SliderItems/>*/}
-            </div>
+             </div>
         );
     }
 }

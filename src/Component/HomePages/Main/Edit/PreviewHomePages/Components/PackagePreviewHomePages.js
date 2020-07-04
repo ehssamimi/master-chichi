@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {DeletePackage, allPackage} from "../../../../../functions/ServerConnection";
 import NotificationManager from "../../../../../../components/common/react-notifications/NotificationManager";
 import {TweenMax} from "gsap/TweenMax";
-import ax from '../../../../../../assets/img/4th.jpg'
+import ax from '../../../../../../assets/img/2574.jpg'
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 import {Button, CardTitle, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
