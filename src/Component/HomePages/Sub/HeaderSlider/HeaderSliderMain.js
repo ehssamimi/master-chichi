@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import { FaPlusCircle } from "react-icons/fa";
 import {
 
-    AddSlider,
-    allHeaderSlider,
+     allHeaderSlider,
     GetHeaderSliderDetail,
     sendImg, UpdateSliders, AddHeaderSlider, UpdateHeaderSliders, GetImageId
 } from "../../../functions/ServerConnection";

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import {Card, CardTitle, Row} from "reactstrap";
+import {Card, CardTitle, FormGroup, Row} from "reactstrap";
 import GlideComponent from "../../../../../components/carousel/GlideComponent";
 import {Colxx} from "../../../../../components/common/CustomBootstrap";
 
@@ -75,11 +75,7 @@ class NewHeaderSlider extends Component {
 
     handelChangeName(e){
         let val =e.target.value;
-        // console.log(e );
-        // console.log(e.trim());
-        // console.log(e.target.value
-        // );
-        // console.log(e.target.value);
+
         this.setState({
             name:e.target.value
         },()=>{
@@ -89,24 +85,33 @@ class NewHeaderSlider extends Component {
     }
 
     render() {
-        let{header}=this.props;
+        let{header,error}=this.props;
+
         return (
-            <Row id='addSlider'>
+            <Row id='addSlider' dir="ltr">
                 <Colxx xxs="12" className='d-flex justify-content-end' >
 
 
                     <CardTitle className='d-flex'>
                         {
                             this.props.Edit ?
-                                <span dir='rtl' className='ml-2 d-flex align-items-end '>
+
+                                       <span dir='rtl' className='ml-2 d-flex align-items-end '>
                                      نام : {header}
                                      </span>
+
+
                                 :
                                 <span dir='rtl' className='d-flex  align-items-center'>
                                          <span className='ml-2'>نام:</span>
                                          <input type='text' name="id" id="id"
                                                 onChange={this.handelChangeName.bind(this)}
                                                 className='border-0 fS1vw backgroundDefault' placeholder={header}/>
+                                    { error!==undefined && error['header']? (
+                                        <div className="invalid-feedback d-block">
+                                            { error['header']}
+                                        </div>
+                                    ) : null}
                                     </span>
                         }
                     </CardTitle>
@@ -170,6 +175,11 @@ class NewHeaderSlider extends Component {
                             })}
 
                         </Carousel>
+                        {error!==undefined && error['atLeast']? (
+                            <div className="invalid-feedback d-block">
+                                { error['atLeast']}
+                            </div>
+                        ) : null}
                     </div>
                 </Colxx>
             </Row>

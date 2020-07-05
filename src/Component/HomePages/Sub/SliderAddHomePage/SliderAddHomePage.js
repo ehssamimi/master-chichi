@@ -25,23 +25,14 @@ import Loader from "../Loader/Loader";
 import NotificationManager from "../../../../components/common/react-notifications/NotificationManager";
 import {TweenMax} from "gsap/TweenMax";
 import AddSliderWithSuggest from "./Add-slider-with-suggest/AddSliderWithSuggest";
+import ModalWithChild from "../../../Common/Modals/ModalWithChild/ModalWithChild";
+import IsLoaderComponent from "../../../Common/Loader/IsLoader/IsLoaderComponent";
+import {success_Notification} from "../../../functions/componentHelpFunction";
  class SliderAddHomePage extends Component {
     constructor(props) {
         super(props);
         this.state={
-            files:[
-                {
-                    id: 0,
-                    img:ax
-                },
-                {
-                    id: 1,
-                    img:ax
-                },{
-                    id: 2,
-                    img:ax
-                },
-            ],id:'', modalLarge:false,header:'',Edit:false,Sliders:[{Position:0,Image:'',Destination:'',DestinationId:''},{Position:1,Image:'',Destination:'',DestinationId:''},{Position:2,Image:'',Destination:'',DestinationId:''}
+            files:[{id: 0, img:ax}, {id: 1, img:ax},{id: 2, img:ax}],id:'', modalLarge:false,header:'',Edit:false,Sliders:[{Position:0,Image:'',Destination:'',DestinationId:''},{Position:1,Image:'',Destination:'',DestinationId:''},{Position:2,Image:'',Destination:'',DestinationId:''}
             // ,{Position:2,Image:'',Destination:''}
 
             ],SlidersPrev:[],headerPlaceHolder:'',error:{header:"",atLeast:""},showLoader:false,EditName:""
@@ -55,13 +46,7 @@ import AddSliderWithSuggest from "./Add-slider-with-suggest/AddSliderWithSuggest
       })
 
     }
-    handelMultiFiles(files){
-        console.log(typeof (files));
-        this.setState({
-            files
-        })
 
-    }
     GetSliderType(id){
         console.log(id);
         this.setState({
@@ -124,111 +109,102 @@ import AddSliderWithSuggest from "./Add-slider-with-suggest/AddSliderWithSuggest
              modalLarge: !prevState.modalLarge
          }));
      }
+     validateForm=(callback)=> {
 
-     async HandelSubmit(){
-
+         let  Errors={header:"",atLeast:""};
          let {Sliders,header}=this.state;
-         let i;
-         // let Number=Sliders.length;
-         let Number=0;
+         let Number=0,i;
          for (i = 0 ; i < Sliders.length; i++) {
              if (Sliders[i].Destination.length>1) {
                  Number+=1
              }
          }
-         var validateSlider=true;
-         if (header.length<1){
-             validateSlider = false;
-             let {error} = this.state;
-             error['header'] = "header is not here";
-             this.setState({
-                 error
-             })
-         }else {
-             let {error} = this.state;
-             error['header'] = "";
-             this.setState({
-                 error
-             })
+         let formValidate=true;
+
+
+         if (header.length===0) {
+             formValidate = false;
+             Errors['header'] = "عنوان اسلایدر باید وارد شود ";
          }
          if (Number<3) {
-             validateSlider=false;
-             let {error} = this.state;
-             error['atLeast'] = "at last 3 component";
-             return(
-                 this.setState({
-                     error
-                 }))
-         }else {
-             let {error} = this.state;
-             error['atLeast'] = "";
-             this.setState({
-                 error
-             })
+             formValidate = false;
+             Errors['atLeast'] = "حداقل سه عکس باید برای اسلایدر در نظر گرفته شود ";
          }
 
-         if (validateSlider){
-             this.setState(prevState => ({
-                 showLoader:!prevState.showLoader,
-             }));
-             let Submit=true;
-             let SliderId = await AddSlider(header,Number);
-             if (SliderId ==='error') {
-                 NotificationManager.error(
-                     "error",
-                     "your Slider don't accept",
-                     3000,
-                     null,
-                     null,
-                     "error"
-                 );
-                 this.setState(prevState => ({
-                     showLoader:!prevState.showLoader,
-                 }));
-                 Submit=false;
-             }
-             console.log('SliderID',SliderId);
-             console.log(SliderId);
-             for (i = 0 ; i < Sliders.length; i++) {
-                 if (Sliders[i].Destination.length>1) {
-                     // let idax1 = await sendImg(Sliders[i].Image, 'Public');
-                     let idax1 = await GetImageId(Sliders[i].Image, 'Public');
-                     let updateCategories1 = await UpdateSliders(header, Sliders[i].Position, idax1, Sliders[i].Destination, Sliders[i].DestinationId);
-                     console.log(updateCategories1);
-                     if (idax1==='error' || updateCategories1!==200) {
-                         NotificationManager.error(
-                             "error",
-                             "your Slider don't accept",
-                             3000,
-                             null,
-                             null,
-                             "error"
-                         );
-                         this.setState(prevState => ({
-                             showLoader:false
-                         }));
-                         Submit=false;
+
+         this.setState({
+             error:Errors
+         },()=>{
+             console.log(this.state.Errors)
+         })
+         return callback(formValidate)
+     };
+
+     async HandelSubmit(){
+
+
+         this.validateForm(async (validate)=> {
+
+             if (validate) {
+                 // ***get initials***
+                 let {Sliders,header}=this.state;
+                 let Number=0,i;
+                 for (i = 0 ; i < Sliders.length; i++) {
+                     if (Sliders[i].Destination.length>1) {
+                         Number+=1
                      }
-
                  }
+
+                        // ***set loader and recignize all operation well***
+                            this.setState(prevState => ({
+                             showLoader:!prevState.showLoader,
+                             }));
+                            let Submit=true;
+
+
+
+                 // ***create slider****
+                 let SliderId = await AddSlider(header,Number);
+                 if (SliderId ==='') {
+                     this.setState(prevState => ({
+                         showLoader:!prevState.showLoader,
+                     }));
+                     Submit=false;
+                 }
+                 console.log('SliderID',SliderId);
+
+                 // ****update sliders with image and destination**
+                 for (i = 0 ; i < Sliders.length; i++) {
+                     if (Sliders[i].Destination.length>1) {
+                         // let idax1 = await sendImg(Sliders[i].Image, 'Public');
+                         let idax1 = await GetImageId(Sliders[i].Image, 'Public');
+                         let updateCategories1 = await UpdateSliders(header, Sliders[i].Position, idax1, Sliders[i].Destination, Sliders[i].DestinationId);
+                         console.log(updateCategories1);
+                         if (idax1==="" || updateCategories1!==200) {
+                             this.setState(prevState => ({
+                                 showLoader:false
+                             }));
+                             Submit=false;
+                         }
+                     }
+                 }
+
+                 // ****check all operations is well or not **
+                 if(Submit===true){
+                     success_Notification("اسلایدر مورد نظر اضافه شد ")
+                     let SlidersPrev=  await allMainSlider();
+                     this.setState(prevState => ({
+                         showLoader:false,SlidersPrev
+                     }));
+                 }
+
+              } else {
+                 console.log(this.state.Errors)
              }
-             if(Submit===true){
-                 NotificationManager.success(
-                     "congratulation",
-                     "your Slider add",
-                     3000,
-                     null,
-                     null,
-                     "success"
-                 );
-                 let SlidersPrev=  await allMainSlider();
-                 this.setState(prevState => ({
-                     showLoader:false,SlidersPrev
-                 }));
-             }
-             console.log(header)
-         }
+         })
+
      }
+
      async handelEdit(){
          this.setState(prevState => ({
              showLoader:!prevState.showLoader,
@@ -239,19 +215,10 @@ import AddSliderWithSuggest from "./Add-slider-with-suggest/AddSliderWithSuggest
          let i;
          for (i = 0 ; i < Sliders.length; i++) {
              if (Sliders[i].Image!==''){
-                 // let idax1 = await sendImg(Sliders[i].Image, 'Public');
-                 let idax1 = await GetImageId(Sliders[i].Image, 'Public');
+                  let idax1 = await GetImageId(Sliders[i].Image, 'Public');
                  let updateCategories1 = await UpdateSliders(headerPlaceHolder, i, idax1 ,Sliders[i].Destination, idax1);
 
-                 if (idax1==='error' || updateCategories1!==200) {
-                     NotificationManager.error(
-                         "error",
-                         "your Slider don't accept",
-                         3000,
-                         null,
-                         null,
-                         "error"
-                     );
+                 if (idax1==="" || updateCategories1!==200) {
                      this.setState(prevState => ({
                          showLoader:false
                      }));
@@ -262,15 +229,7 @@ import AddSliderWithSuggest from "./Add-slider-with-suggest/AddSliderWithSuggest
 
          }
          if(Submit===true){
-             NotificationManager.success(
-
-                 "congratulation",
-                 "your Slider edit",
-                 3000,
-                 null,
-                 null,
-                 "success"
-             );
+             success_Notification("اسلایدر مورد نظر به روز رسانی شد")
              let SlidersPrev=  await allMainSlider();
 
              this.setState(prevState => ({
@@ -288,89 +247,79 @@ import AddSliderWithSuggest from "./Add-slider-with-suggest/AddSliderWithSuggest
          let Slider=await GetSliderDetail(name);
          let {Items}=Slider;
 
-         let i;let files=[];let Sliders=[];
+         let i,files=[],Sliders=[];
          for (i = 0 ; i < Items.length; i++) {
              let img = {id: Items[i].Position, img: Items[i].Image};
              let images={Position:i,Image:'',Destination:'',DestinationId:''};
              Sliders.push(images);
              files.push(img);
          }
-         this.setState({
-             files, Sliders:Sliders,headerPlaceHolder:Slider.Name,Edit:true
-         }, () => {
 
-         });
          this.setState(prevState => ({
-             showLoader:!prevState.showLoader
+             showLoader:!prevState.showLoader, files, Sliders:Sliders,headerPlaceHolder:Slider.Name,Edit:true
          }));
          let goTop=document.getElementById('goTop');
          goTop.click();
-
-
      }
     render() {
           let{SlidersPrev,headerPlaceHolder,files,Edit}=this.state;
          // console.log(SlidersPrev);
         return (
             <div className='d-flex  '>
+
+
+                {/*****ADD / Edit Slider******/}
                 <div className='col-6' >
-                    {
-                        this.state.showLoader?
-                            <Loader/>
-                            :      <NewHeaderSlider DetailImages={files} GetSliderType={this.GetSliderType.bind(this)}
-                                                                      GetCategoriesName={this.GetCategoriesName.bind(this)}
-                                                                      header={headerPlaceHolder || 'انتخاب نام'} Edit={Edit} />
-                    }
-
-                    <div className='d-flex w-100 align-items-center h-7vh '>
-                        {this.state.Edit? <button className='btn btn-primary ' onClick={this.handelEdit.bind(this)}>ویرایش</button>:<button className='btn btn-primary' onClick={this.HandelSubmit.bind(this)}>ارسال</button>}
-
-                        {this.state.Edit? "":<span className='fs-24vw color-theme-2 ml-auto btn d-flex align-items-center pr-0'  onClick={this.AddExtraSlider.bind(this)}><FaPlusCircle/></span>}
-                    </div>
-
-                    <div className='d-flex flex-column'>
-                        {
-                            this.state.error['header'].length>1?<span className='alert alert-danger mt-3'>{this.state.error['header']}</span>:""
-                        }
-                        {
-                            this.state.error['atLeast'].length>1?<span className='alert alert-danger mt-3'>{this.state.error['atLeast']}</span>:""
-                        }
-                    </div>
-
-                </div>
-
-                <div className='col-6' >
-                    {
-                        SlidersPrev.length>0 && Array.isArray(SlidersPrev)  ?
-                             SlidersPrev.map((slider, index) => <PreviewMainSlider id={slider._id} key={slider._id}
-                                                                                  header={slider.Name}
-                                                                                  slider={slider}
-                                                                                  clickEdit={this.ClickEdit.bind(this)}
-                                                                                  showLoader={this.state.showLoader}
-                                                                                  EditName={this.state.EditName}
-                            />) :
-                        <Loader/>
-                     }
-                </div>
-
-                {/*</div>*/}
-                {/*<MultiFiles MultiFile={this.handelMultiFiles.bind(this)}/>*/}
-            {/*</div>*/}
-
-                <Modal
-                    isOpen={this.state.modalLarge}
-                    size="lg"
-                    toggle={this.toggleLarge}
-                >
-                    <ModalHeader toggle={this.toggleLarge}>
-                    </ModalHeader>
-                    <ModalBody>
-                        <div className='col-12 d-flex flex-column'>
-                            {/*<FormAddSlider header={`عکس(${this.state.id+1 })`} GetData={this.GetData.bind(this)}/>*/}
-                            <AddSliderWithSuggest header={`عکس(${this.state.id+1 })`} GetData={this.GetData.bind(this)}/>
+                    <IsLoaderComponent isLoader={this.state.showLoader}>
+                        <div className="w-100">
+                            <NewHeaderSlider DetailImages={files} GetSliderType={this.GetSliderType.bind(this)}
+                                             GetCategoriesName={this.GetCategoriesName.bind(this)}
+                                             header={headerPlaceHolder || 'انتخاب نام'} Edit={Edit} error={this.state.error} />
+                            {/*****Actions******/}
+                            <div className='d-flex w-100 align-items-center h-7vh '>
+                                {
+                                    this.state.Edit ?
+                                        <button className='btn btn-primary ' onClick={this.handelEdit.bind(this)}>ویرایش</button>
+                                        :
+                                        <div className='d-flex w-100 align-items-center  '>
+                                            <button className='btn btn-primary ' onClick={this.HandelSubmit.bind(this)}>ارسال</button>
+                                            <span className='fs-24vw color-theme-2 ml-auto btn d-flex align-items-center pr-0'
+                                                  onClick={this.AddExtraSlider.bind(this)}><FaPlusCircle/></span>
+                                        </div>
+                                }
+                            </div>
                         </div>
-                    </ModalBody>
-                </Modal>
+                    </IsLoaderComponent>
+
+                </div>
+
+
+
+                {/*****preview /delete Slider******/}
+                <div className='col-6' >
+                    <IsLoaderComponent isLoader={!(SlidersPrev.length>0 && Array.isArray(SlidersPrev))}>
+                        {
+                            SlidersPrev.map((slider, index) => <PreviewMainSlider id={slider._id} key={slider._id} header={slider.Name}
+                                                                                  slider={slider} clickEdit={this.ClickEdit.bind(this)}
+                                                                                  showLoader={this.state.showLoader} EditName={this.state.EditName}
+                            />)
+                        }
+                    </IsLoaderComponent>
+                </div>
+
+
+
+                {/*****Open Modal for select Imgr******/}
+                <ModalWithChild isOpen={this.state.modalLarge}  toggle={()=>{this.toggleLarge()}}>
+                    <div className='col-12 d-flex flex-column'>
+                        <AddSliderWithSuggest header={`عکس(${this.state.id+1 })`} GetData={this.GetData.bind(this)}/>
+                    </div>
+                </ModalWithChild>
+
+
+
+
+                {/*****Go top for when click on edit imag******/}
                 <Link name="first" activeClass="active" className="first" to="addSlider" spy={true} smooth={true} duration={900} offset={-130}>
                     <button className='d-none' id='goTop'>go top</button>
                 </Link>

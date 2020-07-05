@@ -91,16 +91,6 @@ export function SetDataPersian(props) {
     </div>
 
 
-
-
-
-
-
-
-
-
-
-
 }
 
 

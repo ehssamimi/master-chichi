@@ -14,12 +14,6 @@ import AutoSuggestProductCatNAmeId from "../SliderAddHomePage/AutoSuggestProduct
 import {LabelValueOption} from "../../../functions/componentHelpFunction";
 
 
-
-// const selectData = [
-//     { label: "Cake", value: "cake", key: 0 },
-//     { label: "Cupcake", value: "cupcake", key: 1 },
-//     { label: "Dessert", value: "dessert", key: 2 }
-// ];
 class Destination extends Component {
     constructor(props) {
         super(props);
@@ -122,11 +116,8 @@ class Destination extends Component {
         return (
             <div>
 
-
-
                 <Colxx xxs="12"   className="mb-3 form-group  position-relative has-float-label">
                     <label>
-                        {/*<IntlMessages id="Destination" />*/}
                         <span>مقصد</span>
                     </label>
                     <Select
@@ -144,20 +135,22 @@ class Destination extends Component {
                 <div className="col-12 ">
 
                     {
-                        selectedOption['value']!==undefined?  <FormGroup className="form-group has-float-label position-relative ">
-                            <Label>
-                                <IntlMessages id="نام نمونه مورد نظر" />
-                            </Label>
-                            {
-                                <AutoSuggestEdit
-                                    placeholder={"نام نمونه مورد نظر را وارد کنید "}
-                                    data={dataNAme}
-                                    className="react-select"
-                                    onChange={value => this.handelChange(this, value ||'n')}
+                        selectedOption['value']!==undefined?
+                            <FormGroup className="form-group has-float-label position-relative ">
+                                <Label>
+                                    <IntlMessages id="نام نمونه مورد نظر"/>
+                                </Label>
+                                {
+                                    <AutoSuggestEdit
+                                        placeholder={"نام نمونه مورد نظر را وارد کنید "}
+                                        data={dataNAme}
+                                        className="react-select"
+                                        onChange={value => this.handelChange(this, value || 'n')}
 
-                                />
-                            }
-                        </FormGroup>:''
+                                    />
+                                }
+                            </FormGroup>
+                            :''
                     }
 
 

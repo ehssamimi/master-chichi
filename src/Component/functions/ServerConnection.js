@@ -385,24 +385,18 @@ export async  function  AddSlider(Name,Number){
         'Token': Const.Token,
         'Id': Const.ID,
     };
-    var resp ="";
-     await axios.post(`${Const.HomePage}admin/slider/add`,formData, {headers: headers}).then(function (response) {
+    let resp ="";
+    await axios.post(`${Const.HomePage}admin/slider/add`,formData, {headers: headers}).then(function (response) {
         // console.log(response);
         let {ItemId} = response.data;
         resp=ItemId;
     }).catch(function (error) {
+        let{state, Description }=Error(error);
+        error_Notification(state, Description)
         console.log(error);
-        resp='error'
-    });
+     });
     return resp
-    // let { ItemId } = res.data ;
-    // let { status } = res ;
-    // // return status
-    // if (status===200) {
-    //     return ItemId
-    // }else {
-    //     return "error"
-    // }
+
 }
 export async  function  UpdateSliders(SliderName,Position,Image,Destination ,DestinationId){
     let formData = new FormData();
@@ -418,17 +412,14 @@ export async  function  UpdateSliders(SliderName,Position,Image,Destination ,Des
     var resp ="";
       await axios.put(`${Const.HomePage}admin/slider/${SliderName}/items/update`,formData, {headers: headers}).then(function (response) {
         // console.log(response);
-        let {status} = response ;
-        resp=status;
+         resp=response.status;
     }).catch(function (error) {
-        console.log(error);
-        resp='error'
+          let{state, Description }=Error(error);
+          error_Notification(state, Description)
+          console.log(error);
     });
     return resp;
-    // console.log(res);
-    // let { ItemId } = res.data ;
-    // let { status } = res ;
-    // return status
+
 }
 export async  function  allMainSlider(){
 
@@ -439,11 +430,11 @@ export async  function  allMainSlider(){
     var resp ="";
      await axios.get(`${Const.HomePage}admin/sliders`, {headers: headers}).then(function (response) {
         // console.log(response);
-        let {Items} = response.data;
-        resp=Items;
+         resp=response.data.Items;
     }).catch(function (error) {
-        console.log(error);
-        resp='error'
+         let{state, Description }=Error(error);
+         error_Notification(state, Description)
+         console.log(error);
     });
     return resp;
 
@@ -457,11 +448,24 @@ export async  function  GetSliderDetail(Name){
         'Id': Const.ID
         // 'category_name':Name,
     };
-    let res = await axios.get(`${Const.HomePage}admin/slider/${Name}`, {headers: headers});
-    let { data } = res ;
+
+    let resp ="";
+    await axios.get(`${Const.HomePage}admin/slider/${Name}`, {headers: headers}).then(function (response) {
+        // console.log(response);
+        resp=response.data;
+    }).catch(function (error) {
+        let{state, Description }=Error(error);
+        error_Notification(state, Description)
+        console.log(error);
+    });
+    return resp;
+
+    //
+    // await axios.get(`${Const.HomePage}admin/slider/${Name}`, {headers: headers});
+    // let { data } = res ;
     // console.log(res);
     // console.log(data);
-    return data;
+
 }
 export async  function  DeleteSlider(Name){
     let headers = {
@@ -473,18 +477,12 @@ export async  function  DeleteSlider(Name){
     let resp ={state:false,Description:""};
     await axios.delete(`${Const.HomePage}admin/slider/${Name}/delete`, {headers: headers}).then(function (response) {
         console.log(response);
-        let{status,data}= response ;
-        console.log(status);
-        console.log( data);
-        if (status===200 ){
-            resp ={state:status,Description:data};
-        }else {
-            resp ={state:status,Description:data};
-        }
+            resp ={state:response.status,Description:response.data};
     }).catch(function (error) {
         console.log(error);
         console.log(error.response.data.detail[0]['Name']);
-        resp ={state:false,Description:error.response.data.detail[0]['Name']};
+        let Errorss ={state:false,Description:error.response.data.detail[0]['Name']};
+        error_Notification(Errorss.state,Errorss.Description)
     });
     return resp;
 

@@ -18,6 +18,15 @@ class MultiFiles extends Component {
     }
 
 
+
+    handelMultiFiles(files){
+        console.log(typeof (files));
+        this.setState({
+            files
+        })
+    }
+
+
     onFilesChange = (files) => {
         let index; let imagFile=[]
 
@@ -52,9 +61,9 @@ class MultiFiles extends Component {
         this.setState({
             files,imagFile
         }, () => {
-            // console.log(this.state.files)
-        });
-        this.props.MultiFile(imagFile)
+         });
+        // this.props.MultiFile(imagFile)
+        this.handelMultiFiles(imagFile)
     };
 
     onFilesError = (error, file) => {
