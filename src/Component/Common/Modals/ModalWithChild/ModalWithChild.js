@@ -3,7 +3,7 @@ import {Modal, ModalBody, ModalHeader} from "reactstrap";
 
 const ModalWithChild = (props) => {
 
-    let{isOpen,toggle}=props
+    let{isOpen,toggle,Header}=props
 
     return (
         <Modal
@@ -12,6 +12,10 @@ const ModalWithChild = (props) => {
             toggle={toggle}
         >
             <ModalHeader toggle={toggle}>
+                {
+                    Header!==undefined?
+                        Header:""
+                }
             </ModalHeader>
             <ModalBody>
                 {

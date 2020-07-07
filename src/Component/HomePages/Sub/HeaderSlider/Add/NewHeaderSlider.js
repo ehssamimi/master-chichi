@@ -4,6 +4,9 @@ import "react-multi-carousel/lib/styles.css";
 import {Card, CardTitle, FormGroup, Row} from "reactstrap";
 import GlideComponent from "../../../../../components/carousel/GlideComponent";
 import {Colxx} from "../../../../../components/common/CustomBootstrap";
+import AddNewHomePageComponent from "../../../Main/Edit/AddNewHomePageComponent/AddNewHomePageComponent";
+import HeaderNameHomPage
+    from "../../../../Common/ComponentFunctional/HeaderNameHomPage/HeaderNameHomPage/HeaderNameHomPage";
 
 const NoControlCarouselItem = ({ Destination, img }) => {
 
@@ -23,17 +26,7 @@ const NoControlCarouselItem = ({ Destination, img }) => {
     );
 };
 
-// const CustomDot = ({onClick, ...rest}) => {
-//     const {onMove, index, active, carouselState: {currentSlide, deviceType}} = rest;
-//     const carouselItems = [ CarouselItem1, CaourselItem2, CarouselItem3];
-//     // onMove means if dragging or swiping in progress.
-//     // active is provided by this lib for checking if the item is active or not.
-// return (
-//                 <button className={active ? 'active' : 'inactive'} onClick={() => onClick()}>
-//                     {React.Children.toArray(carouselItems)[index]}
-//                 </button>
-// )
-// }
+
 const CustomDot = ({ onClick, active, index, carouselState }) => {
     const { currentSlide } = carouselState;
     return (
@@ -71,52 +64,14 @@ class NewHeaderSlider extends Component {
         return null;
     }
 
-
-
-    handelChangeName(e){
-        let val =e.target.value;
-
-        this.setState({
-            name:e.target.value
-        },()=>{
-            this.props.GetCategoriesName(this.state.name)
-        })
-
-    }
-
     render() {
-        let{header,error}=this.props;
+        let{header,error,Edit}=this.props;
 
         return (
             <Row id='addSlider' dir="ltr">
-                <Colxx xxs="12" className='d-flex justify-content-end' >
+                <HeaderNameHomPage header={header} error={error} Edit={Edit} handelChangeName={ (e)=>{ this.props.GetCategoriesName(e.target.value)} }/>
 
-
-                    <CardTitle className='d-flex'>
-                        {
-                            this.props.Edit ?
-
-                                       <span dir='rtl' className='ml-2 d-flex align-items-end '>
-                                     نام : {header}
-                                     </span>
-
-
-                                :
-                                <span dir='rtl' className='d-flex  align-items-center'>
-                                         <span className='ml-2'>نام:</span>
-                                         <input type='text' name="id" id="id"
-                                                onChange={this.handelChangeName.bind(this)}
-                                                className='border-0 fS1vw backgroundDefault' placeholder={header}/>
-                                    { error!==undefined && error['header']? (
-                                        <div className="invalid-feedback d-block">
-                                            { error['header']}
-                                        </div>
-                                    ) : null}
-                                    </span>
-                        }
-                    </CardTitle>
-                </Colxx>
-                <Colxx xxs="12" className="pl-0 pr-0 mb-3">
+                 <Colxx xxs="12" className="pl-0 pr-0 mb-3">
                     <div>
                         <Carousel
                             additionalTransfrom={0}

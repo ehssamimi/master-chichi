@@ -9,7 +9,7 @@ import {
     addPackage,
     GetPackageDetail,
     sendImg,
-    UpdatePackage, GetCatNameFunction, UpdateCategories, GetCategoriesAll, GetImageId
+    UpdatePackage, GetCatNameFunction,   GetCategoriesAll, GetImageId
 } from "../../../functions/ServerConnection";
 import PreviewCategories from "../CategoriesHomePage/PreviewCategories/PreviewCategories";
 import PreviewPackages from "./subPackage/PreviewPackages";

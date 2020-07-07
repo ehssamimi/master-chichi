@@ -2,19 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b2f6efcd-d39d-4ea9-b385-f557a065cd83" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Component/Common/Modals/ModalWithChild/ModalWithChild.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Component/Common/ComponentFunctional/HeaderNameHomPage/HeaderNameHomPage/HeaderNameHomPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Common/ComponentFunctional/FormFeilds.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Common/ComponentFunctional/FormFeilds.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/Common/Modals/Modal-get-image-only/ModalGetImgOnly.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/HomePages/Sub/CropImg/JustCropImg.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/HomePages/Sub/CropImg/JustCropImg.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/HomePages/Sub/Destination/Destination.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/HomePages/Sub/Destination/Destination.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/Common/Modals/ModalWithChild/ModalWithChild.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/Common/Modals/ModalWithChild/ModalWithChild.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/HomePages/Sub/CategoriesHomePage/CategoriesAddHomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/HomePages/Sub/CategoriesHomePage/CategoriesAddHomePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/HomePages/Sub/CategoriesHomePage/PreviewCategories/PreviewCategories.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/HomePages/Sub/CategoriesHomePage/PreviewCategories/PreviewCategories.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/HomePages/Sub/HeaderPreviewComponentHomePage/HeaderPreviewComponentHomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/HomePages/Sub/HeaderPreviewComponentHomePage/HeaderPreviewComponentHomePage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Component/HomePages/Sub/HeaderSlider/Add/NewHeaderSlider.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/HomePages/Sub/HeaderSlider/Add/NewHeaderSlider.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/HomePages/Sub/HeaderSlider/HeaderSliderMain.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/HomePages/Sub/HeaderSlider/HeaderSliderMain.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/HomePages/Sub/SliderAddHomePage/Add-slider-with-suggest/AddSliderWithSuggest.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/HomePages/Sub/SliderAddHomePage/Add-slider-with-suggest/AddSliderWithSuggest.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/HomePages/Sub/SliderAddHomePage/MultiFile/MultiFiles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/HomePages/Sub/SliderAddHomePage/MultiFile/MultiFiles.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Component/HomePages/Sub/SliderAddHomePage/PreviewSliderMAin/PreviewMainSlider.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/HomePages/Sub/SliderAddHomePage/PreviewSliderMAin/PreviewMainSlider.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/HomePages/Sub/ShowPreviewHomePage/Categories/CategoriesHomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/HomePages/Sub/ShowPreviewHomePage/Categories/CategoriesHomePage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Component/HomePages/Sub/SliderAddHomePage/SliderAddHomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/HomePages/Sub/SliderAddHomePage/SliderAddHomePage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Component/HomePages/Sub/WonderPackageAddHomePage/WonderPackageAddHomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/HomePages/Sub/WonderPackageAddHomePage/WonderPackageAddHomePage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Component/functions/ServerConnection.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Component/functions/ServerConnection.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/css/sass/_gogo.style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/sass/_gogo.style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/constants/menu.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +59,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="editing.templates" />
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\PhpStorm 2020.1.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
@@ -126,7 +127,9 @@
       <workItem from="1593586824369" duration="737000" />
       <workItem from="1593590271879" duration="7613000" />
       <workItem from="1593842056738" duration="22778000" />
-      <workItem from="1593928143303" duration="18478000" />
+      <workItem from="1593928143303" duration="19610000" />
+      <workItem from="1594019912703" duration="3021000" />
+      <workItem from="1594101745926" duration="15539000" />
     </task>
     <servers />
   </component>
@@ -146,36 +149,48 @@
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="775" y="0" width="815" height="824" key="#ESLint" timestamp="1593929025699">
+    <state x="775" y="0" width="815" height="824" key="#ESLint" timestamp="1594101928528">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="620" y="0" width="815" height="824" key="#ESLint/0.0.1536.824@0.0.1536.824" timestamp="1593495942096" />
-    <state x="775" y="0" key="#ESLint/0.0.1920.1040@0.0.1920.1040" timestamp="1593929025699" />
-    <state x="856" y="63" width="657" height="774" key="FileChooserDialogImpl" timestamp="1593877473554">
+    <state x="775" y="0" key="#ESLint/0.0.1920.1040@0.0.1920.1040" timestamp="1594101928528" />
+    <state x="676" y="304" key="#com.intellij.codeInsight.template.impl.EditVariableDialog" timestamp="1594102866817">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="676" y="304" key="#com.intellij.codeInsight.template.impl.EditVariableDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1594102866817" />
+    <state x="856" y="63" width="657" height="774" key="FileChooserDialogImpl" timestamp="1594046062811">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="685" y="50" width="657" height="774" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1593496463511" />
-    <state x="856" y="63" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1593877473554" />
-    <state width="1877" height="275" key="GridCell.Tab.0.bottom" timestamp="1593877475566">
+    <state x="856" y="63" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1594046062811" />
+    <state width="938" height="275" key="GridCell.Tab.0.bottom" timestamp="1594101753757">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="275" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1593877475566" />
-    <state width="1877" height="275" key="GridCell.Tab.0.center" timestamp="1593877475565">
+    <state width="938" height="275" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1594101753757" />
+    <state width="938" height="275" key="GridCell.Tab.0.center" timestamp="1594101753756">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="275" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1593877475565" />
-    <state width="1877" height="275" key="GridCell.Tab.0.left" timestamp="1593877475564">
+    <state width="938" height="275" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1594101753756" />
+    <state width="938" height="275" key="GridCell.Tab.0.left" timestamp="1594101753756">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="275" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1593877475564" />
-    <state width="1877" height="275" key="GridCell.Tab.0.right" timestamp="1593877475565">
+    <state width="938" height="275" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1594101753756" />
+    <state width="938" height="275" key="GridCell.Tab.0.right" timestamp="1594101753757">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="275" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1593877475565" />
-    <state width="556" height="446" key="SwitcherDM" timestamp="1593957453072">
+    <state width="938" height="275" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1594101753757" />
+    <state x="461" y="165" key="SettingsEditor" timestamp="1594102870367">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="556" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1593957453072" />
+    <state x="461" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1594102870367" />
+    <state width="556" height="446" key="SwitcherDM" timestamp="1594104212243">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="556" height="446" key="SwitcherDM/0.0.1920.1040@0.0.1920.1040" timestamp="1594104212243" />
+    <state x="601" y="246" width="700" height="530" key="recent.locations.popup" timestamp="1594104206554">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="601" y="246" width="700" height="530" key="recent.locations.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1594104206554" />
     <state x="616" y="173" width="670" height="676" key="search.everywhere.popup" timestamp="1593856133493">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

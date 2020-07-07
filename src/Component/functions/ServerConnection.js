@@ -96,17 +96,11 @@ export async  function  GetCatNameFunction(Name){
         let { ItemId } = response.data ;
         resp=ItemId;
     }).catch(function (error) {
-        console.log(error);
-        resp='error'
+         let{state ,Description }=Error(error);
+         error_Notification(state ,Description)
     });
     return resp;
-    // let { ItemId } = res.data ;
-    // let { status } = res ;
-    // if (status===200) {
-    //     return ItemId
-    // }else {
-    //     return "error"
-    // }
+
 }
 export async  function  UpdateCategories(CatId,Position,Image,DestinationId){
     let formData = new FormData();
@@ -125,8 +119,8 @@ export async  function  UpdateCategories(CatId,Position,Image,DestinationId){
          let { status } = response ;
          resp=status;
      }).catch(function (error) {
-         console.log(error);
-         resp='error'
+        let{state ,Description }=Error(error);
+        error_Notification(state ,Description)
      });
     return resp;
     // console.log(res);
@@ -146,26 +140,28 @@ export async  function  GetCategoriesAll(){
         'Id': Const.ID,
     };
 
-    let res = await axios.get(`${Const.HomePage}admin/categories`, {headers: headers});
-    let { Items } = res.data ;
-    return Items
+    let resp ="";
+
+    await axios.get(`${Const.HomePage}admin/categories`, {headers: headers}).then(function (response) {
+
+        resp=response.data.Items
+    }).catch(function (error) {
+        let {state,Description }=Error(error);
+        error_Notification(state,Description);
+    });
+    return resp
+    //
+    //
+    //
+    // let res = await axios.get(`${Const.HomePage}admin/categories`, {headers: headers});
+    // let { Items } = res.data ;
+    // return Items
 
 }
 export async  function  GetCategorieyDetail(Name){
-    // console.log(Name);
-    // console.log(`${Const.HomePage}admin/category/${Name}`);
 
-    let headers = {
-        'Token': Const.Token,
-        'Id': Const.ID
-        // 'category_name':Name,
-    };
+    return await SetUrl(`${Const.HomePage}admin/category/${Name}`)
 
-    let res = await axios.get(`${Const.HomePage}admin/category/${Name}`, {headers: headers});
-    let { data } = res ;
-    // console.log(res);
-    // console.log(data);
-    return data;
 }
 export async  function  DeleteCategoriey(Name){
     // console.log(Name);
@@ -1522,4 +1518,20 @@ function Error(error) {
         resp={state:error.response.status||400,Description:error.response.data.detail||error.message}
     }
     return resp;
+}
+
+async function SetUrl(url){
+    let headers = {
+        'Token': Const.Token,
+        'Id': Const.ID
+        // 'category_name':Name,
+    };
+    let resp ="";
+    await axios.get(url, {headers: headers}).then(function (response) {
+        resp=response.data
+    }).catch(function (error) {
+        let {state,Description }=Error(error);
+        error_Notification(state,Description);
+    });
+    return resp
 }

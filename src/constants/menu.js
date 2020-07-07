@@ -248,19 +248,19 @@ const data = [
                 to: "/home-page/categories",
             },
             {
-                icon: "iconsminds-smartphone-4",
+                icon: "iconsminds-project",
                 id: "wonder-package-home-page",
                 label: "پکیج های شگفت انگیز",
                 to: "/home-page/wonder-package",
             },
             {
-                icon: "iconsminds-smartphone-4",
+                icon: "iconsminds-project",
                 id: "wonder-package-home-page",
                 label: "اسلایدر",
                 to: "/home-page/slider",
             },
             {
-                icon: "iconsminds-smartphone-4",
+                icon: "iconsminds-project",
                 id: "banner-home-page",
                 label: "بنر",
                 to: "/home-page/banner",

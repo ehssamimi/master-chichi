@@ -1,29 +1,11 @@
 import React, {Component} from 'react';
-import SliderOnePage from "../ShowPreviewHomePage/SliderOnePage/SliderOnePage";
-import {detailImages} from "../../../../data/carouselItems";
-import MultiFiles from "./MultiFile/MultiFiles";
 import { FaPlusCircle } from "react-icons/fa";
-import FormAddSlider from "./FormAddSlider/FormAddSlider";
-import {Modal, ModalBody, ModalHeader} from "reactstrap";
-import  ax  from './../../../../assets/img/4th.jpg'
-import CropImgCropper from "../CropImg/CropImgCropper";
-import loader from '../../../../assets/img/loader.svg'
-import {
-    AddSlider,
-    sendImg,
-    UpdateSliders,
-    allMainSlider,
-    GetSliderDetail,
-    AddHeaderSlider, UpdateHeaderSliders, GetImageId
+ import  ax  from './../../../../assets/img/4th.jpg'
+ import {    AddSlider, UpdateSliders,    allMainSlider, GetSliderDetail, GetImageId
 } from "../../../functions/ServerConnection";
-import PreViewBanner from "../Banner/PreViewBanner/PreViewBanner";
-// import {animateScroll as scroll, Events, Link} from "react-scroll/modules";
 import PreviewMainSlider from "./PreviewSliderMAin/PreviewMainSlider";
 import NewHeaderSlider from "../HeaderSlider/Add/NewHeaderSlider";
 import {Link} from "react-scroll/modules";
-import Loader from "../Loader/Loader";
-import NotificationManager from "../../../../components/common/react-notifications/NotificationManager";
-import {TweenMax} from "gsap/TweenMax";
 import AddSliderWithSuggest from "./Add-slider-with-suggest/AddSliderWithSuggest";
 import ModalWithChild from "../../../Common/Modals/ModalWithChild/ModalWithChild";
 import IsLoaderComponent from "../../../Common/Loader/IsLoader/IsLoaderComponent";
@@ -32,10 +14,22 @@ import {success_Notification} from "../../../functions/componentHelpFunction";
     constructor(props) {
         super(props);
         this.state={
-            files:[{id: 0, img:ax}, {id: 1, img:ax},{id: 2, img:ax}],id:'', modalLarge:false,header:'',Edit:false,Sliders:[{Position:0,Image:'',Destination:'',DestinationId:''},{Position:1,Image:'',Destination:'',DestinationId:''},{Position:2,Image:'',Destination:'',DestinationId:''}
-            // ,{Position:2,Image:'',Destination:''}
-
-            ],SlidersPrev:[],headerPlaceHolder:'',error:{header:"",atLeast:""},showLoader:false,EditName:""
+            files: [{id: 0, img: ax}, {id: 1, img: ax}, {id: 2, img: ax}],
+            id: '',
+            modalLarge: false,
+            header: '',
+            Edit: false,
+            Sliders: [{Position: 0, Image: '', Destination: '', DestinationId: ''}, {
+                Position: 1,
+                Image: '',
+                Destination: '',
+                DestinationId: ''
+            }, {Position: 2, Image: '', Destination: '', DestinationId: ''}],
+            SlidersPrev: [],
+            headerPlaceHolder: '',
+            error: {header: "", atLeast: ""},
+            showLoader: false,
+            EditName: ""
         }
     }
     async componentDidMount(){

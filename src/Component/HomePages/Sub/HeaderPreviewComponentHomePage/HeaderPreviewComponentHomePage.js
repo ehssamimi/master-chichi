@@ -8,9 +8,6 @@ class HeaderPreviewComponentHomePage extends Component {
         this.props.handelEdit(header)
     }
 
-    delete() {
-        this.props.handelclickDelete()
-    }
     render() {
         return (
 
@@ -25,7 +22,7 @@ class HeaderPreviewComponentHomePage extends Component {
                         </TooltipeCompoent>
                     }
                     {this.props.select?<div className=' d-flex fs-15vw color-theme-1 m-2    BtnHeaderComponent  iconsminds-cursor-click-2' onClick={this.Edit.bind(this, this.props.Name,this.props.select)}> </div>:
-                        <TooltipeCompoent className="d-flex  fs-15vw  color-theme-1 m-2   BtnHeaderComponent" text="حذف" id="delete" HandelClick={() => this.delete.bind(this)}><MdDeleteForever/></TooltipeCompoent>
+                        <TooltipeCompoent className="d-flex  fs-15vw  color-theme-1 m-2   BtnHeaderComponent" text="حذف" id="delete" HandelClick={() => this.props.handelclickDelete }><MdDeleteForever/></TooltipeCompoent>
                        }
 
                 </div>
